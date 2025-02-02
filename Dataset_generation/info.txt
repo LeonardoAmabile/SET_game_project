@@ -1,0 +1,43 @@
+The main task of this section in to create the dataset for the NN in the case of n cards (see Read.me).
+ 
+### Table.h file ###
+
+The purpose of the table.h section is to define a class named Table that can describe a match of SET. To make this we want to create a matrix of num_cards x num_attributes with all different rows.
+
+To modelize the 3 variants of the attributes we will select the values -1, 0, 1. So for example: if an attribute is the color we'll identify as blue=-1, red=0 and green=1.
+
+In this way we can say that a winner SET is a combination of three cards where the sum of each "attribute" is 3, 0 or -3.
+
+Example:
+    
+Cards have 3 attributes: color, shape and fill.
+
+    color: blue=-1, red=0 and green=1
+    shape: diamond=-1, heart=0 and spade=1
+    fill: full=-1, dotted=0 and empty=1
+
+The card with a green dotted diamond will be modelized as a row in the Table with values (1, -1, 0). A winning hand is a combination of three cards where the sum of all
+the attributes is 3, 0 or -3. In fact the three cards:
+    green dotted diamond= (1, -1, 0)
+    red dotted heart = (0, -1, 1)
+    blue dotted empty = (-1, -1, -1)
+
+    if summed, the vector sum has all values like 3, 0, -3. 
+
+In order to avoid the duplication of cards we'll use a hash function and the unordered maps, in this way all the lookups in the matrix will be in O(1).
+
+
+### Winning_hand.h file ###
+
+
+After the definition of the table in the table.h file, it's time to find all the SETs (winning tris of cards) from that table in the Winning_hand.h file.
+
+In first place we decided to consider only the first column of the Table, in this way we'll reduce the possible combinations of winning cards to
+a few.
+
+To find a possible winning tris of cards it is necessary that the sum of the three values of the first column is 3, 0 or -3.
+
+With the function find_possible_SETs we do exactly this: with an algorithm of sorting + binary search O(n^2) we verify if the sum of the three values is 3, 0 or -3
+(with the function find_possible_SETs), then if the combination is valid we'll check if also the other columns verify the condition for that combination of cards (with the function find_SETs).
+
+If so, we have a winning SET.
