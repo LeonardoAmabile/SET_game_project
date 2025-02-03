@@ -27,11 +27,11 @@ estimate of the minimum value of cards needed to have at least one combination w
 This whole process will then be repeated by changing the number of at tributes in order to compare our results with those found in the literature:
 
 #attributes    #min_cards
-1               2
-2               4
-3               9
-4               20
-5               45
-6               112-114
-7               unknown
+- 1               2
+- 2               4
+- 3               9
+- 4               20
+- 5               45
+- 6               112-114
+- 7               unknown
     

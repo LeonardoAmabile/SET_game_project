@@ -37,7 +37,6 @@ a few.
 
 To find a possible winning tris of cards it is necessary that the sum of the three values of the first column is 3, 0 or -3.
 
-With the function find_possible_SETs we do exactly this: with an algorithm of sorting + binary search O(n^2) we verify if the sum of the three values is 3, 0 or -3
-(with the function find_possible_SETs), then if the combination is valid we'll check if also the other columns verify the condition for that combination of cards (with the function find_SETs).
+With the function find_possible_SETs we do exactly this: with an algorithm of sorting + binary search O(n^2) we verify if the sum of the three values is 3, 0 or -3, then if the combination is valid we'll check if also the other columns verify the condition for that combination of cards (with the function find_SETs).
 
 If so, we have a winning SET.
