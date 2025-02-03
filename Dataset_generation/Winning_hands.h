@@ -4,19 +4,7 @@
 #include "Table.h"
 #include <vector>
 #include <algorithm>
-/*
-    After the definition of the table in the table.h file, it's time to find all the SETs (winning tris of cards) from that table.
 
-    In first place we decided to consider only the first column of the Table, in this way we'll reduce the possible combinations of winning cards to
-    a few.
-
-    To find a possible winning tris of cards it is necessary that the sum of the three values of the first column is 3, 0 or -3.
-
-    With the function find_possible_SETs we do exactly this: with an algorithm of sorting + binary search we verify if the sum of the three values is 3, 0 or -3, 
-    then if the combination is valid we'll check if also the other columns verify the condition for taht combination of cards (with the function find_SETs).
-
-    If so, we have a winning SET.
-*/
 // Function to find all possible valid combinations of sets (based on the sum of only the first elements)
 std::vector<std::vector<int>> find_possible_SETs(Table table, bool print = false) {
     std::vector<int> firstColumn = table.getColumn(0);  // Get the first column of the table

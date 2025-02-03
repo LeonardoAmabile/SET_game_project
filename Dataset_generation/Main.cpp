@@ -12,7 +12,7 @@ int main() {
         auto start = std::chrono::high_resolution_clock::now(); // Start timing
 
         // Create a 'Table' object
-        Table table(10000, 4); 
+        Table table(115, 7); 
 
         //search for possible winning hands
         //find_possible_SETs(table,true);
