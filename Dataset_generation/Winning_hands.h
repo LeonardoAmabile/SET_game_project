@@ -1,79 +1,90 @@
-#ifndef IS_WINNING_H
-#define IS_WINNING_H
+#ifndef WINNING_HANDS_H
+#define WINNING_HANDS_H
 
 #include "Table.h"
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
-// Function to find all possible valid combinations of sets (based on the sum of only the first elements)
+// Function to efficiently sort an array of -1, 0, and 1 in O(n) time
+std::vector<int> efficient_sort(const std::vector<int>& input) {
+    int countMinusOne = 0, countZero = 0, countOne = 0;
+
+    for (int num : input) {
+        if (num == -1) ++countMinusOne;
+        else if (num == 0) ++countZero;
+        else if (num == 1) ++countOne;
+    }
+
+    std::vector<int> sortedArray;
+    sortedArray.reserve(input.size());
+
+    sortedArray.insert(sortedArray.end(), countMinusOne, -1);
+    sortedArray.insert(sortedArray.end(), countZero, 0);
+    sortedArray.insert(sortedArray.end(), countOne, 1);
+
+    return sortedArray;
+}
+
+// Function to find all possible valid SET combinations (based on the fact that the sum of the first column has to be 3, 0 -3 for each SET)
 std::vector<std::vector<int>> find_possible_SETs(Table table, bool print = false) {
-    std::vector<int> firstColumn = table.getColumn(0);  // Get the first column of the table
-    std::vector<std::pair<int, int>> indexedColumn;  // Vector to store (value, index) pairs for sorting
-    int numRows = firstColumn.size();  // Total number of rows
+    std::vector<int> firstColumn = table.getColumn(0);  
+    std::vector<std::pair<int, int>> indexedColumn;  
+    int numRows = firstColumn.size();  
 
-    // Create pairs of (value, index) to maintain original index mapping
+    // Create pairs (value, index) to maintain the original mapping
     for (int i = 0; i < numRows; ++i) {
         indexedColumn.push_back({firstColumn[i], i});
     }
 
-    // Sort based on values in the first column while maintaining original indices
-    std::sort(indexedColumn.begin(), indexedColumn.end());
+    // Sort `indexedColumn` based on values using counting sort
+    std::vector<int> sortedValues = efficient_sort(firstColumn);
+    
+    // Reconstruct indexedColumn with the same indices but sorted values
+    for (int i = 0; i < numRows; ++i) {
+        indexedColumn[i].first = sortedValues[i];
+    }
 
-    std::vector<std::vector<int>> validCombinations;  // Vector to store valid row combinations
+    std::vector<std::vector<int>> validCombinations;
 
-    // Find all valid triplets (i, j, k) where the sum of the values is -3, 0, or 3
+    // Search for valid combinations
     for (int i = 0; i < numRows - 2; ++i) {
-        int j = i + 1;
-        int k = numRows - 1;
+        int j = i + 1, k = numRows - 1;
 
         while (j < k) {
             int sum = indexedColumn[i].first + indexedColumn[j].first + indexedColumn[k].first;
 
-            // If the sum is -3, 0, or 3, store the row indices (i, j, k)
             if (sum == -3 || sum == 0 || sum == 3) {
-                validCombinations.push_back({indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second});  // Store the combination
+                validCombinations.push_back({indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second});
 
-                // If print is true, print the combination and its corresponding values
                 if (print) {
-                    std::cout << "Combination of row indices: ";
-                    std::cout << indexedColumn[i].second << " " << indexedColumn[j].second << " " << indexedColumn[k].second << std::endl;
-                    std::cout << "Values: ";
-                    std::cout << indexedColumn[i].first << " " << indexedColumn[j].first << " " << indexedColumn[k].first << std::endl;
+                    std::cout << "Combination of row indices: " << indexedColumn[i].second << " " 
+                              << indexedColumn[j].second << " " << indexedColumn[k].second << std::endl;
                 }
-
-                // Move the pointers
                 ++j;
                 --k;
             } 
-            // If the sum is too small, move the j pointer
-            else if (sum < -3) {
-                ++j;
-            } 
-            // If the sum is too large, move the k pointer
-            else {
-                --k;
-            }
+            else if (sum < -3) ++j;
+            else --k;
         }
     }
 
-    return validCombinations;  // Return the valid combinations of row indices
+    return validCombinations;
 }
 
-// Function to filter valid SETS based on the sum condition for each column
+// Function to filter valid SETs based on the sum condition for each column
 std::vector<std::vector<int>> find_SETs(Table table, bool print = false) {
-    std::vector<std::vector<int>> possibleSets = find_possible_SETs(table, false);  // Get all possible valid sets
-    std::vector<std::vector<int>> validSets;  // Vector to store the valid sets after checking column sum conditions
+    std::vector<std::vector<int>> possibleSets = find_possible_SETs(table, false);
+    std::vector<std::vector<int>> validSets;  
 
-    // Check each combination for validity
     for (const auto& combination : possibleSets) {
-        // Initialize columnSums as a vector of zeros, with the same size as the number of columns in the table
         std::vector<int> columnSums(table.getRow(0).size(), 0);
-    
+
         // Sum the values of the rows in the combination
-        for (int rowIdx = 0; rowIdx < combination.size(); ++rowIdx) {
-            std::vector<int> row = table.getRow(combination[rowIdx]);  // Get the row by its index
+        for (int rowIdx : combination) {
+            std::vector<int> row = table.getRow(rowIdx);
             for (int colIdx = 0; colIdx < row.size(); ++colIdx) {
-                columnSums[colIdx] += row[colIdx];  // Add each column's value to the corresponding sum
+                columnSums[colIdx] += row[colIdx];
             }
         }
 
@@ -81,7 +92,7 @@ std::vector<std::vector<int>> find_SETs(Table table, bool print = false) {
         bool isValid = true;
         for (int sum : columnSums) {
             if (sum != 3 && sum != 0 && sum != -3) {
-                isValid = false;  // Mark the combination as invalid if the sum does not meet the condition
+                isValid = false;
                 break;
             }
         }
@@ -89,24 +100,22 @@ std::vector<std::vector<int>> find_SETs(Table table, bool print = false) {
         // If the combination is valid, add it to validSets
         if (isValid) {
             validSets.push_back(combination);
-
-            // If print is true, print the valid set and the corresponding row indices
             if (print) {
-                std::cout << "Valid Set: "<<"\n";
-                for (const int& rowIdx : combination) {
-                    std::cout << "Card "<<rowIdx << ":\n";  // Print the row index
+                std::cout << "Valid Set:\n";
+                for (int rowIdx : combination) {
+                    std::cout << "Card " << rowIdx << ":\n";
                     table.print_row(rowIdx);
                 }
-                std::cout << "\nSum of columns: ";
+                std::cout << "Column sums: ";
                 for (int sum : columnSums) {
-                    std::cout << sum << " ";  // Print the sum of each column
+                    std::cout << sum << " ";
                 }
                 std::cout << "\n\n";
             }
         }
     }
 
-    return validSets;  // Return the valid sets (as row indices)
+    return validSets;
 }
 
-#endif // IS_WINNING_H
+#endif // WINNING_HANDS_H
