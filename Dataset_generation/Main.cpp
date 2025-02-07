@@ -1,5 +1,5 @@
 #include "Table.h"
-#include "Winning_hands.h"
+#include "Find_SETs.h"
 #include "Write_txt.h"
 
 #include <iostream>
@@ -7,6 +7,8 @@
 #include <unordered_set>
 #include <random>
 #include <chrono>
+
+using namespace std;
 
 int main() {
 
@@ -23,22 +25,22 @@ int main() {
 
 */ 
 
-    auto start = std::chrono::high_resolution_clock::now(); // Start timing
+    auto start = chrono::high_resolution_clock::now(); // Start timing
 
         //Definition of the number of cards, attributes and tables
-        int n_cards = 200;
-        int n_att = 7;
-        int N_tables = 1000;
+        int n_cards = 100;
+        int n_att = 5;
+        int N_tables = 100;
         //Save results in a txt file
-        save_results_to_file("Results.txt", N_tables, n_cards, n_att);
+        write_data("Data.txt", N_tables, n_cards, n_att);
 
-        auto end = std::chrono::high_resolution_clock::now(); // End timing
+        auto end = chrono::high_resolution_clock::now(); // End timing
         
     // Calculate the duration (time taken to create the Hand object)
-    std::chrono::duration<double> elapsed = end - start; 
+    chrono::duration<double> elapsed = end - start; 
 
     // Output the elapsed time to the console
-    std::cout << "Execution time: " << elapsed.count() << " seconds\n";
+    cout << "Execution time: " << elapsed.count() << " seconds\n";
 
 
     return 0; // Return 0 to indicate successful execution

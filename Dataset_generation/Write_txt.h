@@ -2,34 +2,36 @@
 #define WRITE_TXT_H
 
 #include "Table.h"
-#include "Winning_hands.h"
+#include "Find_SETs.h"
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 
+using namespace std;
+
 //Generates N_tables Tables of dimensionality n_cards X n_att and writes in a txt file the number of winning SETs for each Table and the Table considered
-void save_results_to_file(const std::string& filename, int N_tables, int n_cards, int n_att) {
-    std::ofstream file(filename);
+void write_data(const string& filename, int N_tables, int n_cards, int n_att) {
+    ofstream file(filename);
 
     if (!file) {
-        std::cerr << "Error opening file " << filename << "!" << std::endl;
+        cerr << "Error opening file " << filename << "!" << endl;
         return;
     }
 
-    std::vector<int> validSetsCounts;  // Store the number of winning sets for each matrix
-    std::vector<std::vector<std::vector<int>>> matrices; // Store the matrices
+    vector<int> validSetsCounts;  // Store the number of winning sets for each matrix
+    vector<vector<vector<int>>> matrices; // Store the matrices
 
     // Generate and analyze matrices
     for (int t = 0; t < N_tables; ++t) {
         Table table(n_cards, n_att);  // Create a random table with n_cards x n_att
 
         // Find valid sets
-        std::vector<std::vector<int>> validSets = find_SETs(table, false);
+        vector<vector<int>> validSets = find_SETs(table);
         validSetsCounts.push_back(validSets.size()); // Store the number of valid sets
 
         // Store the matrix for later writing
-        std::vector<std::vector<int>> matrix;
+        vector<vector<int>> matrix;
         for (int i = 0; i < n_cards; ++i) {
             matrix.push_back(table.getRow(i));
         }
@@ -59,7 +61,7 @@ void save_results_to_file(const std::string& filename, int N_tables, int n_cards
     }
 
     file.close();
-    std::cout << "Results saved to " << filename << std::endl;
+    cout << "Results saved to " << filename << endl;
 }
 
 #endif
