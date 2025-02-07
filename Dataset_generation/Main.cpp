@@ -12,18 +12,6 @@ using namespace std;
 
 int main() {
 
-//First attempts with "Table.h" file and "Winning_hands.h" file 
-/*
-        // Create a 'Table' object
-        Table table(50, 4); 
-
-        //search for possible winning hands (only the sum of the first attribute is -3, 0, 3)
-        find_possible_SETs(table,true);
-
-        //search winning hands
-        find_SETs(table, true);
-
-*/ 
 
     auto start = chrono::high_resolution_clock::now(); // Start timing
 
