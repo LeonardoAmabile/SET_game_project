@@ -4,6 +4,7 @@
 #include "Table.h"
 #include "Find_SETs.h"
 
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -27,7 +28,7 @@ void write_data(const string& filename, int N_tables, int n_cards, int n_att) {
         Table table(n_cards, n_att);  // Create a random table with n_cards x n_att
 
         // Find valid sets
-        vector<vector<int>> validSets = find_SETs(table);
+        vector<vector<int>> validSets = find_SETs(table, true);
         validSetsCounts.push_back(validSets.size()); // Store the number of valid sets
 
         // Store the matrix for later writing

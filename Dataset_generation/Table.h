@@ -56,8 +56,7 @@ public:
         unordered_set<vector<int>, VectorHash> uniqueRows; // Set to store unique rows
 
         // Random number generator setup
-        random_device randomDevice;
-        mt19937 generator(randomDevice());
+        mt19937 generator(31);
         uniform_int_distribution<int> distribution(-1, 1); // Random values between -1 and 1
         
         // Keep generating unique rows until we have the required number of rows
