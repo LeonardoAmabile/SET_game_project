@@ -12,7 +12,7 @@
 using namespace std;
 
 //Generates N_tables Tables of dimensionality n_cards X n_att and writes in a txt file the number of winning SETs for each Table and the Table considered
-void write_data(const string& filename, int N_tables, int n_cards, int n_att) {
+void write_data(const string& filename, int N_tables, int n_cards, int n_att, bool print=false) {
     ofstream file(filename);
 
     if (!file) {
@@ -28,7 +28,7 @@ void write_data(const string& filename, int N_tables, int n_cards, int n_att) {
         Table table(n_cards, n_att);  // Create a random table with n_cards x n_att
 
         // Find valid sets
-        vector<vector<int>> validSets = find_SETs(table, true);
+        vector<vector<int>> validSets = find_SETs(table, print);
         validSetsCounts.push_back(validSets.size()); // Store the number of valid sets
 
         // Store the matrix for later writing

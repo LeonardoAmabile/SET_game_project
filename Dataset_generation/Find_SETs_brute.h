@@ -28,7 +28,7 @@ vector<vector<int>> brute_force_find_SETs(Table table, bool print = false) {
                 vector<int> row3 = table.getRow(k);
 
                 // Check if they form a SET
-                if (check_combination(row1, row2, row3)) {
+                if (is_valid_set(row1, row2, row3)) {
                     validSets.push_back({i, j, k});
                     validSetCount++;  // Increment the valid sets counter
                     
