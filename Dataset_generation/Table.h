@@ -55,9 +55,10 @@ public:
 
         unordered_set<vector<int>, VectorHash> uniqueRows; // Set to store unique rows
 
-        // Random number generator setup
-        mt19937 generator(31);
-        uniform_int_distribution<int> distribution(-1, 1); // Random values between -1 and 1
+      // Random number generator setup
+      std::random_device randomDevice;
+      std::mt19937 generator(randomDevice());
+      std::uniform_int_distribution<int> distribution(-1, 1); // Random values between -1 and 1
         
         // Keep generating unique rows until we have the required number of rows
         while (uniqueRows.size() < numRows) {
@@ -92,6 +93,10 @@ public:
             }
             cout << "\n"; // Move to the next line after printing a row
         }
+    }
+    
+    vector<vector<int>> getMatrix() const {
+        return tableData;
     }
     
     // Method to print a row 
