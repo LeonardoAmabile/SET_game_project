@@ -3,6 +3,7 @@
 #include "Write_txt.h"
 #include "Find_SETs_brute.h"
 
+
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -73,10 +74,11 @@ chrono::duration<double> run_brute_force_process(vector<Table> Matrices) {
     return end - start;  // Return the duration of the execution
 }
 
+
 // Function to print the execution times for both processes
-void print_execution_times(const chrono::duration<double>& elapsed_opt, const chrono::duration<double>& elapsed_brute) {
-    cout << "Execution time optimized: " << elapsed_opt.count() << " seconds\n";
-    cout << "Execution time brute: " << elapsed_brute.count() << " seconds\n";
+void print_execution_times(const chrono::duration<double>& execution_time) {
+    cout << "Execution time: " << execution_time.count() << " seconds\n";
+
 }
 
 int main() {
@@ -95,7 +97,8 @@ int main() {
     auto elapsed_brute = run_brute_force_process(Matrices);
 
     // Print the execution times
-    print_execution_times(elapsed_opt, elapsed_brute);
+    print_execution_times(elapsed_opt);
+    print_execution_times(elapsed_brute);
 
     return 0;  // Return 0 to indicate successful execution
 }

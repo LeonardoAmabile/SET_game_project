@@ -1,15 +1,13 @@
 #ifndef FIND_SETS_H
 #define FIND_SETS_H
-// This is a header guard. It prevents multiple inclusions of this file 
-// by ensuring that if this file has already been included, it won't be 
-// included again during compilation.
 
-#include "Table.h"  // Includes the "Table.h" header file, which presumably defines a Table class.
-#include <vector>    // Includes the C++ Standard Library vector container, which is a dynamic array.
-#include <algorithm> // Includes standard algorithms like sort, reverse, etc.
-#include <iostream>  // Includes standard input/output stream functionality, used for printing to console.
 
-using namespace std; // Brings all symbols from the standard namespace into the current scope, simplifying code.
+#include "Table.h"  
+#include <vector>    
+#include <algorithm> 
+#include <iostream>  
+
+using namespace std; 
 
 
 // Function to count the occurrences of -1, 0, and 1 in a vector
@@ -123,6 +121,13 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
                 k_start = j + 1;                  // Any value could work for `k`
                 k_end = numCounts[0] + numCounts[1]; // `k` can range over all `-1` and `0`
             }
+
+            else if (pair_sum == 1) {
+                i++;  // skips to the next row
+                j = i; // Ensures that the cycle starts correctly
+                continue; // Avoid to run the code for useless part
+            }
+
     
             // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
