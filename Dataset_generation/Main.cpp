@@ -9,6 +9,8 @@
 #include <unordered_set>
 #include <random>
 #include <chrono>
+#include <thread>
+
 
 using namespace std;
 
@@ -24,15 +26,32 @@ void get_input(int& n_cards, int& n_att, int& N_tables) {
     cin >> N_tables;
 }
 
+// Function to print a progress bar
+void printProgressBar(int current, int total) {
+    int barWidth = 50;  // Width of the progress bar
+    float progress = (float)current / total;
+    int pos = barWidth * progress;  // Number of '#' symbols
+
+    cout << "[";
+    for (int i = 0; i < barWidth; ++i) {
+        if (i < pos) cout << "#";  // Completed part
+        else cout << "=";  // Remaining part
+    }
+    cout << "] " << int(progress * 100.0) << " %\r";  // \r to overwrite
+    cout.flush();
+}
+
 // Function to generate tables (N_tables tables with n_cards and n_att attributes)
 vector<Table> generate_Tables(int N_tables, int n_cards, int n_att) {
     vector<Table> Tables;
     Tables.reserve(N_tables);  // Preallocate space for N_tables tables
-
+    cout << "Generating tables...\n";
     for (int i = 0; i < N_tables; ++i) {
         Tables.emplace_back(n_cards, n_att);  // Create a Table object with the given parameters
+        printProgressBar(i, N_tables); // Print a progress bar for the table generation
     }
-
+    cout << "\n";
+    cout << "Tables generated!" << "\n\n";  // Indicate that the tables are generated
     return Tables;
 }
 
@@ -41,13 +60,17 @@ chrono::duration<double> run_optimized_process(vector<Table> Matrices) {
     auto start = chrono::high_resolution_clock::now();
 
     vector<int> SETs_count;
+    int total = Matrices.size();
 
     // Loop through each table and find the SETs
-    for (Table table : Matrices) {
+    cout << "Finding SETs...\n";
+    for (int i=0; i < total; ++i) {
+        Table table = Matrices[i];  // Get the current table
         vector<vector<int>> SET = find_SETs(table, true);  // Find the SETs using the optimized method
         SETs_count.push_back(SET.size());  // Store the number of SETs found
+        printProgressBar(i, total); // Print a progress bar for the SET evalutation
     }
-
+    cout << "\n";
     // Save results in a text file with the user-provided values
     write_data("Data.txt", SETs_count, Matrices);
 
@@ -92,6 +115,8 @@ int main() {
 
     // Run the optimized process and measure the time
     auto elapsed_opt = run_optimized_process(Matrices);
+
+    cout << std::endl << "Done!" << std::endl; // Indicate that the process is complete
 
     // Run the brute-force process and measure the time
     //auto elapsed_brute = run_brute_force_process(Matrices);

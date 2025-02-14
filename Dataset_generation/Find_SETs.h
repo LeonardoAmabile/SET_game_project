@@ -132,7 +132,7 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
             // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
                 vector<int> combination = {indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second};
-                add_valid_set(table, combination, validSets, print); // Add valid set if it forms one
+                add_valid_set(table, combination, validSets, print = false); // Add valid set if it forms one
             }
         }
     }

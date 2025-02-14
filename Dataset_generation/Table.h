@@ -44,11 +44,12 @@ public:
         numColumns=numAttributes;
 
         // Check if numCards is within valid bounds (for the hash table)
-        if (numCards > pow(3, numAttributes)) {
+        int Max_cards = pow(3, numAttributes);
+        if (numCards > Max_cards) {
             throw invalid_argument(
                 "Number of cards exceeds the maximum possible unique combinations "
                 "for the hashing algorithm. (3^(n_attributes)) = " 
-                + to_string(pow(3, numAttributes))
+                + to_string(Max_cards)
                 );
 }
 
