@@ -94,11 +94,11 @@ int main() {
     auto elapsed_opt = run_optimized_process(Matrices);
 
     // Run the brute-force process and measure the time
-    auto elapsed_brute = run_brute_force_process(Matrices);
+    //auto elapsed_brute = run_brute_force_process(Matrices);
 
     // Print the execution times
     print_execution_times(elapsed_opt);
-    print_execution_times(elapsed_brute);
+    //print_execution_times(elapsed_brute);
 
     return 0;  // Return 0 to indicate successful execution
 }
