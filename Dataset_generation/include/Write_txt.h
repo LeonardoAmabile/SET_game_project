@@ -1,6 +1,10 @@
 #ifndef WRITE_TXT_H
 #define WRITE_TXT_H
 
+#include "Table.h"  // Aggiungi questa riga!
+#include <string>
+#include <vector>
+
 using namespace std;
 
 //Function to write properly data in a file txt

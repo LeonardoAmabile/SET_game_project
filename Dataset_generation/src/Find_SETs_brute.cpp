@@ -8,7 +8,7 @@
 using namespace std;
 
 // Brute force function to find all combinations of 3 rows that satisfy the SET condition.
-vector<vector<int>> brute_force_find_SETs(Table table, bool print = false) {
+vector<vector<int>> brute_force_find_SETs(Table table, bool print)  {
     vector<int> firstColumn = table.getColumn(0);
     int numRows = firstColumn.size();
     vector<vector<int>> validSets;
