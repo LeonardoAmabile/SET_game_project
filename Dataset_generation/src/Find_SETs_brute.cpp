@@ -1,6 +1,4 @@
-#ifndef FIND_BRUTE_SETS_H
-#define FIND_BRUTE_SETS_H
-
+#include "Find_SETs_brute.h"
 #include "Table.h"
 #include "Find_SETs.h"
 
@@ -52,4 +50,3 @@ vector<vector<int>> brute_force_find_SETs(Table table, bool print = false) {
     return validSets;
 }
 
-#endif

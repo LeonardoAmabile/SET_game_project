@@ -1,6 +1,4 @@
-#ifndef WRITE_TXT_H
-#define WRITE_TXT_H
-
+#include "Write_txt.h"
 #include "Table.h"
 #include "Find_SETs.h"
 
@@ -62,4 +60,3 @@ double average_SETs = SETs_count.empty() ? 0 : sum / SETs_count.size();
     cout << "Results saved to " << filename << endl;
 }
 
-#endif // WRITE_TXT_H

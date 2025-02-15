@@ -1,14 +1,9 @@
-#ifndef FIND_SETS_H
-#define FIND_SETS_H
-
-
 #include "Table.h"  
 #include <vector>    
 #include <algorithm> 
-#include <iostream>  
+#include <iostream> 
 
 using namespace std; 
-
 
 // Function to count the occurrences of -1, 0, and 1 in a vector
 vector<int> count_elements(const vector<int>& input) {
@@ -132,7 +127,7 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
             // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
                 vector<int> combination = {indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second};
-                add_valid_set(table, combination, validSets, print = false); // Add valid set if it forms one
+                add_valid_set(table, combination, validSets,false); // Add valid set if it forms one
             }
         }
     }
@@ -144,5 +139,3 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
 }
 
 
-
-#endif // FIND_SETS_H
