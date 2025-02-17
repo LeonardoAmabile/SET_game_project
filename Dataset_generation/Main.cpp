@@ -95,7 +95,7 @@ chrono::duration<double> run_brute_force_process(vector<Table> Matrices) {
     }
     cout << "\n";
     // Save results in a text file with the user-provided values
-    write_data("Data.txt", SETs_count, Matrices);
+    write_data("Data_brute_force.txt", SETs_count, Matrices);
 
     auto end = chrono::high_resolution_clock::now();
     return end - start;  // Return the duration of the execution
