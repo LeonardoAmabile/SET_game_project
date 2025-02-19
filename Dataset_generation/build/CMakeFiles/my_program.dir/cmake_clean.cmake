@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe"
-  "C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe.manifest"
-  "C:/Users/lenni/SET_game_project/Dataset_generation/my_program.pdb"
+  "C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe"
+  "C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe.manifest"
+  "C:/Users/jacop/SET_game_project/Dataset_generation/my_program.pdb"
   "CMakeFiles/my_program.dir/Main.cpp.obj"
   "CMakeFiles/my_program.dir/Main.cpp.obj.d"
   "CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj"

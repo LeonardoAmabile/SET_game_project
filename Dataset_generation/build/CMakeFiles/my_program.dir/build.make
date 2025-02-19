@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\lenni\SET_game_project\Dataset_generation
+CMAKE_SOURCE_DIR = C:\Users\jacop\SET_game_project\Dataset_generation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\lenni\SET_game_project\Dataset_generation\build
+CMAKE_BINARY_DIR = C:\Users\jacop\SET_game_project\Dataset_generation\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/my_program.dir/depend.make
@@ -73,78 +73,78 @@ CMakeFiles/my_program.dir/codegen:
 
 CMakeFiles/my_program.dir/Main.cpp.obj: CMakeFiles/my_program.dir/flags.make
 CMakeFiles/my_program.dir/Main.cpp.obj: CMakeFiles/my_program.dir/includes_CXX.rsp
-CMakeFiles/my_program.dir/Main.cpp.obj: C:/Users/lenni/SET_game_project/Dataset_generation/Main.cpp
+CMakeFiles/my_program.dir/Main.cpp.obj: C:/Users/jacop/SET_game_project/Dataset_generation/Main.cpp
 CMakeFiles/my_program.dir/Main.cpp.obj: CMakeFiles/my_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/my_program.dir/Main.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/Main.cpp.obj -MF CMakeFiles\my_program.dir\Main.cpp.obj.d -o CMakeFiles\my_program.dir\Main.cpp.obj -c C:\Users\lenni\SET_game_project\Dataset_generation\Main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/my_program.dir/Main.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/Main.cpp.obj -MF CMakeFiles\my_program.dir\Main.cpp.obj.d -o CMakeFiles\my_program.dir\Main.cpp.obj -c C:\Users\jacop\SET_game_project\Dataset_generation\Main.cpp
 
 CMakeFiles/my_program.dir/Main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_program.dir/Main.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lenni\SET_game_project\Dataset_generation\Main.cpp > CMakeFiles\my_program.dir\Main.cpp.i
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jacop\SET_game_project\Dataset_generation\Main.cpp > CMakeFiles\my_program.dir\Main.cpp.i
 
 CMakeFiles/my_program.dir/Main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_program.dir/Main.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lenni\SET_game_project\Dataset_generation\Main.cpp -o CMakeFiles\my_program.dir\Main.cpp.s
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jacop\SET_game_project\Dataset_generation\Main.cpp -o CMakeFiles\my_program.dir\Main.cpp.s
 
 CMakeFiles/my_program.dir/src/Table.cpp.obj: CMakeFiles/my_program.dir/flags.make
 CMakeFiles/my_program.dir/src/Table.cpp.obj: CMakeFiles/my_program.dir/includes_CXX.rsp
-CMakeFiles/my_program.dir/src/Table.cpp.obj: C:/Users/lenni/SET_game_project/Dataset_generation/src/Table.cpp
+CMakeFiles/my_program.dir/src/Table.cpp.obj: C:/Users/jacop/SET_game_project/Dataset_generation/src/Table.cpp
 CMakeFiles/my_program.dir/src/Table.cpp.obj: CMakeFiles/my_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_program.dir/src/Table.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Table.cpp.obj -MF CMakeFiles\my_program.dir\src\Table.cpp.obj.d -o CMakeFiles\my_program.dir\src\Table.cpp.obj -c C:\Users\lenni\SET_game_project\Dataset_generation\src\Table.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/my_program.dir/src/Table.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Table.cpp.obj -MF CMakeFiles\my_program.dir\src\Table.cpp.obj.d -o CMakeFiles\my_program.dir\src\Table.cpp.obj -c C:\Users\jacop\SET_game_project\Dataset_generation\src\Table.cpp
 
 CMakeFiles/my_program.dir/src/Table.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_program.dir/src/Table.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lenni\SET_game_project\Dataset_generation\src\Table.cpp > CMakeFiles\my_program.dir\src\Table.cpp.i
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jacop\SET_game_project\Dataset_generation\src\Table.cpp > CMakeFiles\my_program.dir\src\Table.cpp.i
 
 CMakeFiles/my_program.dir/src/Table.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_program.dir/src/Table.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lenni\SET_game_project\Dataset_generation\src\Table.cpp -o CMakeFiles\my_program.dir\src\Table.cpp.s
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jacop\SET_game_project\Dataset_generation\src\Table.cpp -o CMakeFiles\my_program.dir\src\Table.cpp.s
 
 CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj: CMakeFiles/my_program.dir/flags.make
 CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj: CMakeFiles/my_program.dir/includes_CXX.rsp
-CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj: C:/Users/lenni/SET_game_project/Dataset_generation/src/Find_SETs.cpp
+CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj: C:/Users/jacop/SET_game_project/Dataset_generation/src/Find_SETs.cpp
 CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj: CMakeFiles/my_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj -MF CMakeFiles\my_program.dir\src\Find_SETs.cpp.obj.d -o CMakeFiles\my_program.dir\src\Find_SETs.cpp.obj -c C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj -MF CMakeFiles\my_program.dir\src\Find_SETs.cpp.obj.d -o CMakeFiles\my_program.dir\src\Find_SETs.cpp.obj -c C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs.cpp
 
 CMakeFiles/my_program.dir/src/Find_SETs.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_program.dir/src/Find_SETs.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs.cpp > CMakeFiles\my_program.dir\src\Find_SETs.cpp.i
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs.cpp > CMakeFiles\my_program.dir\src\Find_SETs.cpp.i
 
 CMakeFiles/my_program.dir/src/Find_SETs.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_program.dir/src/Find_SETs.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs.cpp -o CMakeFiles\my_program.dir\src\Find_SETs.cpp.s
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs.cpp -o CMakeFiles\my_program.dir\src\Find_SETs.cpp.s
 
 CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj: CMakeFiles/my_program.dir/flags.make
 CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj: CMakeFiles/my_program.dir/includes_CXX.rsp
-CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj: C:/Users/lenni/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp
+CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj: C:/Users/jacop/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp
 CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj: CMakeFiles/my_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj -MF CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.obj.d -o CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.obj -c C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj -MF CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.obj.d -o CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.obj -c C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp
 
 CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp > CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.i
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp > CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.i
 
 CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lenni\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp -o CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.s
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jacop\SET_game_project\Dataset_generation\src\Find_SETs_brute.cpp -o CMakeFiles\my_program.dir\src\Find_SETs_brute.cpp.s
 
 CMakeFiles/my_program.dir/src/Write_txt.cpp.obj: CMakeFiles/my_program.dir/flags.make
 CMakeFiles/my_program.dir/src/Write_txt.cpp.obj: CMakeFiles/my_program.dir/includes_CXX.rsp
-CMakeFiles/my_program.dir/src/Write_txt.cpp.obj: C:/Users/lenni/SET_game_project/Dataset_generation/src/Write_txt.cpp
+CMakeFiles/my_program.dir/src/Write_txt.cpp.obj: C:/Users/jacop/SET_game_project/Dataset_generation/src/Write_txt.cpp
 CMakeFiles/my_program.dir/src/Write_txt.cpp.obj: CMakeFiles/my_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_program.dir/src/Write_txt.cpp.obj"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Write_txt.cpp.obj -MF CMakeFiles\my_program.dir\src\Write_txt.cpp.obj.d -o CMakeFiles\my_program.dir\src\Write_txt.cpp.obj -c C:\Users\lenni\SET_game_project\Dataset_generation\src\Write_txt.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/my_program.dir/src/Write_txt.cpp.obj"
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/my_program.dir/src/Write_txt.cpp.obj -MF CMakeFiles\my_program.dir\src\Write_txt.cpp.obj.d -o CMakeFiles\my_program.dir\src\Write_txt.cpp.obj -c C:\Users\jacop\SET_game_project\Dataset_generation\src\Write_txt.cpp
 
 CMakeFiles/my_program.dir/src/Write_txt.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/my_program.dir/src/Write_txt.cpp.i"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\lenni\SET_game_project\Dataset_generation\src\Write_txt.cpp > CMakeFiles\my_program.dir\src\Write_txt.cpp.i
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\jacop\SET_game_project\Dataset_generation\src\Write_txt.cpp > CMakeFiles\my_program.dir\src\Write_txt.cpp.i
 
 CMakeFiles/my_program.dir/src/Write_txt.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/my_program.dir/src/Write_txt.cpp.s"
-	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\lenni\SET_game_project\Dataset_generation\src\Write_txt.cpp -o CMakeFiles\my_program.dir\src\Write_txt.cpp.s
+	C:\msys64\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\jacop\SET_game_project\Dataset_generation\src\Write_txt.cpp -o CMakeFiles\my_program.dir\src\Write_txt.cpp.s
 
 # Object files for target my_program
 my_program_OBJECTS = \
@@ -157,20 +157,20 @@ my_program_OBJECTS = \
 # External object files for target my_program
 my_program_EXTERNAL_OBJECTS =
 
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/Main.cpp.obj
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Table.cpp.obj
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Write_txt.cpp.obj
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/build.make
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/linkLibs.rsp
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/objects1.rsp
-C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable C:\Users\lenni\SET_game_project\Dataset_generation\my_program.exe"
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/Main.cpp.obj
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Table.cpp.obj
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/src/Write_txt.cpp.obj
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/build.make
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/linkLibs.rsp
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/objects1.rsp
+C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe: CMakeFiles/my_program.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable C:\Users\jacop\SET_game_project\Dataset_generation\my_program.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\my_program.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/my_program.dir/build: C:/Users/lenni/SET_game_project/Dataset_generation/my_program.exe
+CMakeFiles/my_program.dir/build: C:/Users/jacop/SET_game_project/Dataset_generation/my_program.exe
 .PHONY : CMakeFiles/my_program.dir/build
 
 CMakeFiles/my_program.dir/clean:
@@ -178,6 +178,6 @@ CMakeFiles/my_program.dir/clean:
 .PHONY : CMakeFiles/my_program.dir/clean
 
 CMakeFiles/my_program.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\lenni\SET_game_project\Dataset_generation C:\Users\lenni\SET_game_project\Dataset_generation C:\Users\lenni\SET_game_project\Dataset_generation\build C:\Users\lenni\SET_game_project\Dataset_generation\build C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles\my_program.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\jacop\SET_game_project\Dataset_generation C:\Users\jacop\SET_game_project\Dataset_generation C:\Users\jacop\SET_game_project\Dataset_generation\build C:\Users\jacop\SET_game_project\Dataset_generation\build C:\Users\jacop\SET_game_project\Dataset_generation\build\CMakeFiles\my_program.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/my_program.dir/depend
 

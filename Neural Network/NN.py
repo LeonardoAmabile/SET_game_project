@@ -3,8 +3,9 @@ import numpy as np
 import random
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from keras.layers import Input,Dense,Dropout
+from keras.layers import Input,Dense,Dropout,Flatten
 from keras.models import Model
+from tensorflow.keras.callbacks import EarlyStopping,ReduceLROnPlateau
 import argparse
 from math import *
 import logging
@@ -71,16 +72,19 @@ def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
     
     # Define a deeper network with more neurons and dropout for regularization
     inputs = Input(shape=(num_cards, num_attributes))
-    hidden = Dense(32, activation='relu')(inputs)
-    hidden = Dropout(0.1)(hidden) #Turn off some neurons for less overfitting
-    hidden = Dense(16, activation='relu')(hidden)
-    hidden = Dropout(0.1)(hidden)
-
+    hidden = Dense(25, activation='relu')(inputs)
+    hidden = Dropout(0.3)(hidden)  # 30% of neurons randomly disabled
+    hidden = Dense(25, activation='relu')(hidden)
+    hidden = Dropout(0.3)(hidden)
     outputs = Dense(1)(hidden)
     
     deepmodel = Model(inputs=inputs, outputs=outputs)
     deepmodel.compile(loss='MSE', optimizer='adam')
     deepmodel.summary()
+    
+    # Define callbacks, to potentially minimize overfitting
+    #reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-6)
+    #early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
     
     deephistory = deepmodel.fit(tables, num_sets, validation_split=0.2, epochs=100, batch_size=512, verbose=2)
     
