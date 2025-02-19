@@ -1,10 +1,9 @@
 import os
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 import numpy as np
 import random
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
-from keras.layers import Input,Dense,Dropout,Flatten,LeakyReLU
+from keras.layers import Input,Dense,Dropout
 from keras.models import Model
 import argparse
 from math import *
@@ -34,8 +33,7 @@ def process(file_path):
     # Extract number of SETs in each table, starting at the correct line and looping from there
     num_sets = np.zeros(num_tables, dtype=int)
     num_sets_start = data.index("# Number of SETs in each Table\n") + 2
-    for i in range(num_tables):
-        num_sets[i] = int(data[num_sets_start][2*i])  # Convert to integer and store
+    num_sets = np.array(list(map(int, data[num_sets_start].strip().split())))
 
     # Check that the number of SETs in each table matches the number of tables
     if num_sets.shape[0] != num_tables:
@@ -68,47 +66,42 @@ def process(file_path):
     logging.info('Shape of the tables: %s', tables.shape)
     return tables,num_sets,num_cards,num_attributes, num_tables
 
-def train_nn(tables,num_sets,num_cards,num_attributes, num_tables):
-    """Train a neural network to predict the number of SETs in a table.
-    """
-    # Now we can start processing the data
-    inputs=Input(shape=(num_cards,num_attributes))
-    hidden=Dense(25, activation='relu')(inputs)
-    hidden=Dense(25, activation='relu')(hidden)
-    hidden=Dense(25, activation='relu')(hidden)
-    hidden=Dense(25, activation='relu')(hidden)
-    hidden=Dense(25, activation='relu')(hidden)
+def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
+    """Train a neural network to predict the number of SETs in a table."""
+    
+    # Define a deeper network with more neurons and dropout for regularization
+    inputs = Input(shape=(num_cards, num_attributes))
+    hidden = Dense(32, activation='relu')(inputs)
+    hidden = Dropout(0.1)(hidden) #Turn off some neurons for less overfitting
+    hidden = Dense(16, activation='relu')(hidden)
+    hidden = Dropout(0.1)(hidden)
 
-    hidden=Dense(25, activation='relu')(hidden)
     outputs = Dense(1)(hidden)
+    
     deepmodel = Model(inputs=inputs, outputs=outputs)
     deepmodel.compile(loss='MSE', optimizer='adam')
     deepmodel.summary()
-    deephistory=deepmodel.fit(tables,num_sets,validation_split=0.5,epochs=150,verbose=0)
-    print(deephistory.history.keys())
+    
+    deephistory = deepmodel.fit(tables, num_sets, validation_split=0.2, epochs=100, batch_size=512, verbose=2)
+    
     plt.plot(deephistory.history["val_loss"])
     plt.plot(deephistory.history["loss"])
-    plt.legend(["val_loss","loss"])
+    plt.legend(["val_loss", "loss"])
     plt.show()
-
-    random_table = random.randint(0, num_tables)
-    test_table = tables[random_table] #Take a random table as a test
-    test_table = np.expand_dims(test_table, axis=0)   # Shape becomes (1, num_cards, num_attributes)
-
+    
+    random_table = random.randint(0, num_tables - 1)
+    test_table = tables[random_table]  # Take a random table as a test
+    test_table = np.expand_dims(test_table, axis=0)  # Shape becomes (1, num_cards, num_attributes)
+    
     # Get prediction
     predicted_sets = deepmodel.predict(test_table)
     real_sets = num_sets[random_table]
-
-    # Since the output is an array, extract the single value
+    
     logging.info("Estimated number of sets: %f", predicted_sets[0][0])
     logging.info("Real number of sets: %f", real_sets)
 
+
 _description = 'Neural Network tests'
-
-
-
-
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)
@@ -116,4 +109,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
     train_nn(tables, num_sets, num_cards, num_attributes, num_tables)
+
+
 
