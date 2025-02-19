@@ -10,13 +10,19 @@
 using namespace std;
 
 // Function to write data in a txt file
-void write_data(const string& filename, const vector<int>& SETs_count, const vector<Table>& matrices) {
+void write_data(const string& filename, const vector<int>& SETs_count, const vector<Table>& matrices, int n_cards, int n_att, int N_tables) {
     ofstream file(filename);
 
     if (!file) {
         cerr << "Error opening file " << filename << "!" << endl;
         return;
     }
+
+    // Write the parameters
+    file << "# Parameters:" << "\n";
+    file << "Number of cards: " << n_cards << "\n";
+    file << "Number of attributes: " << n_att << "\n";
+    file << "Number of tables: " << N_tables << "\n\n";
 
     // Write description of the first row
     file << "# Number of SETs in each Table" << "\n\n";
