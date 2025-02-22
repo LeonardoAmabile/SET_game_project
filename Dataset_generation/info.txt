@@ -27,17 +27,18 @@ the attributes is 3, 0 or -3. In fact the three cards:
 In order to avoid the duplication of cards we'll use a hash function and the unordered maps, in this way all the lookups in the matrix will be in O(1).
 
 
-### Winning_hand.h file ###
+### Find_SETs.h file ###
 
 
-After the definition of the table in the table.h file, it's time to find all the SETs (winning tris of cards) from that table in the Winning_hand.h file.
+The find_SETs_combined function performs two main operations: it finds all combinations of rows that satisfy the condition of the sum of the first column (i.e.,  the sum of three values from three rows must be -3, 0, or 3) and checks that, for each of these combinations, the sums of all columns are also -3, 0, or 3.
 
-In first place we decided to consider only the first column of the Table, in this way we'll reduce the possible combinations of winning cards to
-a few.
+1.Finding valid combinations: The function starts by examining the first column of the table, and using a sorting algorithm, it finds all possible combinations  of three rows that satisfy the condition for the sum of the first column to be -3, 0, or 3.
 
-To find a possible winning tris of cards it is necessary that the sum of the three values of the first column is 3, 0 or -3.
+2.Validating combinations: For each combination found, the function calculates the sum of the rows in the other columns and checks if the sum of each column  satisfies the required condition (-3, 0, or 3). If all conditions are met, the combination is considered valid.
 
-With the function find_possible_SETs we do exactly this: with an algorithm of sorting + binary search O(n^2) we verify if the sum of the three values is 3, 0 or -3
-(with the function find_possible_SETs), then if the combination is valid we'll check if also the other columns verify the condition for that combination of cards (with the function find_SETs).
+3.Returning and printing: The function returns a list of valid combinations (composed of row indices), and if the print parameter is enabled,  it prints the details of each valid combination, including the rows involved and the column sums.
 
-If so, we have a winning SET.
+To chek on all the possible combinations of three cards, the function uses a searching algorithm that operates on O(n^2), optimized for arrays with values of -1, 0 and 1. Combined with the O(n) sorting algorithm the overall complexity of the function is O(n^2). 
+
+### Write_txt.h ###
+Includes a function called write_data that creates a .txt file with a personalized name in the directory of the code. The function generates N_tables istances of  Table and finds the number of all the SETs with the previous find_SETs function. Done this in the .txt file it prints the number of SETs found in a determined Table and the analyzed Tables, separated by an empty line.
