@@ -1,3 +1,6 @@
-C:/Users/jacop/SET_game_project/Dataset_generation/build/CMakeFiles/my_program.dir
-C:/Users/jacop/SET_game_project/Dataset_generation/build/CMakeFiles/edit_cache.dir
-C:/Users/jacop/SET_game_project/Dataset_generation/build/CMakeFiles/rebuild_cache.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/test_program.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/my_program.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/run_tests.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/test.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/edit_cache.dir
+/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles/rebuild_cache.dir

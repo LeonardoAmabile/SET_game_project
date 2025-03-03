@@ -43,7 +43,7 @@ void write_data(const string& filename, const vector<int>& SETs_count, const vec
             sum += count;
         }
         
-double average_SETs = SETs_count.empty() ? 0 : sum / SETs_count.size();
+    double average_SETs = SETs_count.empty() ? 0 : sum / SETs_count.size();
 
     file << "# Number of Tables with 0 SETs: " << Zeros_count.size() << "/" << SETs_count.size() << "\n\n";
     file << "# Probability of no SETs: " << (double)100 * Zeros_count.size() / SETs_count.size() << "% \n\n";

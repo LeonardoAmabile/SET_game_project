@@ -1,0 +1,28 @@
+Start testing: Mar 03 12:12 CET
+----------------------------------------------------------
+1/1 Testing: RunTests
+1/1 Test: RunTests
+Command: "/home/Leonardo/SET_game_project/Dataset_generation/build/test_program"
+Directory: /home/Leonardo/SET_game_project/Dataset_generation/build
+"RunTests" start time: Mar 03 12:12 CET
+Output:
+----------------------------------------------------------
+===== Testing getValue() Method =====
+✅ getValue() passed all tests
+
+===== Testing getRow() and getColumn() =====
+✅ getRow() and getColumn() passed all tests
+
+===== Testing setRow() Method =====
+✅ setRow() passed all tests
+
+✅ All tests completed successfully!
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"RunTests" end time: Mar 03 12:12 CET
+"RunTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 03 12:12 CET

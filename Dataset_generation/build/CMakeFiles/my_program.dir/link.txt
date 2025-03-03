@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\my_program.dir/objects.a
-C:\msys64\mingw64\bin\ar.exe qc CMakeFiles\my_program.dir/objects.a @CMakeFiles\my_program.dir\objects1.rsp
-C:\msys64\mingw64\bin\c++.exe -Wl,--whole-archive CMakeFiles\my_program.dir/objects.a -Wl,--no-whole-archive -o C:\Users\jacop\SET_game_project\Dataset_generation\my_program.exe -Wl,--out-implib,libmy_program.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\my_program.dir\linkLibs.rsp
+/usr/bin/c++ CMakeFiles/my_program.dir/Main.cpp.o CMakeFiles/my_program.dir/src/Table.cpp.o CMakeFiles/my_program.dir/src/Find_SETs.cpp.o CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.o CMakeFiles/my_program.dir/src/Write_txt.cpp.o -o ../my_program 
