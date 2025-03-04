@@ -69,19 +69,19 @@ include CMakeFiles/test_program.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test_program.dir/flags.make
 
-CMakeFiles/test_program.dir/tests/Table_test.cpp.o: CMakeFiles/test_program.dir/flags.make
-CMakeFiles/test_program.dir/tests/Table_test.cpp.o: ../tests/Table_test.cpp
-CMakeFiles/test_program.dir/tests/Table_test.cpp.o: CMakeFiles/test_program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_program.dir/tests/Table_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_program.dir/tests/Table_test.cpp.o -MF CMakeFiles/test_program.dir/tests/Table_test.cpp.o.d -o CMakeFiles/test_program.dir/tests/Table_test.cpp.o -c /home/Leonardo/SET_game_project/Dataset_generation/tests/Table_test.cpp
+CMakeFiles/test_program.dir/tests/test.cpp.o: CMakeFiles/test_program.dir/flags.make
+CMakeFiles/test_program.dir/tests/test.cpp.o: ../tests/test.cpp
+CMakeFiles/test_program.dir/tests/test.cpp.o: CMakeFiles/test_program.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test_program.dir/tests/test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_program.dir/tests/test.cpp.o -MF CMakeFiles/test_program.dir/tests/test.cpp.o.d -o CMakeFiles/test_program.dir/tests/test.cpp.o -c /home/Leonardo/SET_game_project/Dataset_generation/tests/test.cpp
 
-CMakeFiles/test_program.dir/tests/Table_test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_program.dir/tests/Table_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Leonardo/SET_game_project/Dataset_generation/tests/Table_test.cpp > CMakeFiles/test_program.dir/tests/Table_test.cpp.i
+CMakeFiles/test_program.dir/tests/test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_program.dir/tests/test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Leonardo/SET_game_project/Dataset_generation/tests/test.cpp > CMakeFiles/test_program.dir/tests/test.cpp.i
 
-CMakeFiles/test_program.dir/tests/Table_test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_program.dir/tests/Table_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Leonardo/SET_game_project/Dataset_generation/tests/Table_test.cpp -o CMakeFiles/test_program.dir/tests/Table_test.cpp.s
+CMakeFiles/test_program.dir/tests/test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_program.dir/tests/test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Leonardo/SET_game_project/Dataset_generation/tests/test.cpp -o CMakeFiles/test_program.dir/tests/test.cpp.s
 
 CMakeFiles/test_program.dir/src/Table.cpp.o: CMakeFiles/test_program.dir/flags.make
 CMakeFiles/test_program.dir/src/Table.cpp.o: ../src/Table.cpp
@@ -97,19 +97,51 @@ CMakeFiles/test_program.dir/src/Table.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_program.dir/src/Table.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Leonardo/SET_game_project/Dataset_generation/src/Table.cpp -o CMakeFiles/test_program.dir/src/Table.cpp.s
 
+CMakeFiles/test_program.dir/src/Find_SETs.cpp.o: CMakeFiles/test_program.dir/flags.make
+CMakeFiles/test_program.dir/src/Find_SETs.cpp.o: ../src/Find_SETs.cpp
+CMakeFiles/test_program.dir/src/Find_SETs.cpp.o: CMakeFiles/test_program.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test_program.dir/src/Find_SETs.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_program.dir/src/Find_SETs.cpp.o -MF CMakeFiles/test_program.dir/src/Find_SETs.cpp.o.d -o CMakeFiles/test_program.dir/src/Find_SETs.cpp.o -c /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs.cpp
+
+CMakeFiles/test_program.dir/src/Find_SETs.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_program.dir/src/Find_SETs.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs.cpp > CMakeFiles/test_program.dir/src/Find_SETs.cpp.i
+
+CMakeFiles/test_program.dir/src/Find_SETs.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_program.dir/src/Find_SETs.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs.cpp -o CMakeFiles/test_program.dir/src/Find_SETs.cpp.s
+
+CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o: CMakeFiles/test_program.dir/flags.make
+CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o: ../src/Find_SETs_brute.cpp
+CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o: CMakeFiles/test_program.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o -MF CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o.d -o CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o -c /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp
+
+CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp > CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.i
+
+CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp -o CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.s
+
 # Object files for target test_program
 test_program_OBJECTS = \
-"CMakeFiles/test_program.dir/tests/Table_test.cpp.o" \
-"CMakeFiles/test_program.dir/src/Table.cpp.o"
+"CMakeFiles/test_program.dir/tests/test.cpp.o" \
+"CMakeFiles/test_program.dir/src/Table.cpp.o" \
+"CMakeFiles/test_program.dir/src/Find_SETs.cpp.o" \
+"CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o"
 
 # External object files for target test_program
 test_program_EXTERNAL_OBJECTS =
 
-test_program: CMakeFiles/test_program.dir/tests/Table_test.cpp.o
+test_program: CMakeFiles/test_program.dir/tests/test.cpp.o
 test_program: CMakeFiles/test_program.dir/src/Table.cpp.o
+test_program: CMakeFiles/test_program.dir/src/Find_SETs.cpp.o
+test_program: CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o
 test_program: CMakeFiles/test_program.dir/build.make
 test_program: CMakeFiles/test_program.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test_program"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable test_program"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_program.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

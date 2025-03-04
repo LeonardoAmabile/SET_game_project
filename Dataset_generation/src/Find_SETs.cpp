@@ -5,17 +5,6 @@
 
 using namespace std; 
 
-// Function to check if three rows form a valid SET (according to specific conditions)
-bool is_valid_set(const vector<int>& row1, const vector<int>& row2, const vector<int>& row3) {
-    // Iterate through each element of the rows
-    for (size_t i = 0; i < row1.size(); ++i) {
-        int sum = row1[i] + row2[i] + row3[i]; // Sum the corresponding elements from all three rows
-        // Check if the sum is neither 0, 3, nor -3. If it's any other value, return false.
-        if (sum != 0 && sum != 3 && sum != -3) return false;
-    }
-    return true; // If all conditions pass, the set is valid
-}
-
 // Function to count the occurrences of -1, 0, and 1 in a vector
 vector<int> count_elements(const vector<int>& input) {
     vector<int> counts(3, 0);  // Create a vector `counts` initialized to [0, 0, 0]. 
@@ -31,48 +20,89 @@ vector<int> count_elements(const vector<int>& input) {
     return counts; // Return the counts of -1, 0, and 1 in a vector
 }
 
-//Sorts the rows of a table by the first element of each row
-void sort_table_by_first_element(Table& table) {
-    int numRows = table.getColumn(0).size();  // Numero di righe nella tabella
-    vector<vector<int>> sortedTable(numRows); // Nuova matrice per memorizzare le righe ordinate
-    
-    vector<int> counts = count_elements(table.getColumn(0));
+// Function to check if three rows form a valid SET (according to specific conditions)
+bool is_valid_set(const vector<int>& row1, const vector<int>& row2, const vector<int>& row3) {
+    // Iterate through each element of the rows
+    for (size_t i = 0; i < row1.size(); ++i) {
+        int sum = row1[i] + row2[i] + row3[i]; // Sum the corresponding elements from all three rows
+        // Check if the sum is neither 0, 3, nor -3. If it's any other value, return false.
+        if (sum != 0 && sum != 3 && sum != -3) return false;
+    }
+    return true; // If all conditions pass, the set is valid
+}
 
-    // Determiniamo gli indici di inserimento per -1, 0 e 1
-    int indexNeg = 0;
-    int indexZero = counts[0];
-    int indexPos = counts[0] + counts[1];
+// Function to add a valid SET combination to the list and optionally print it
+void add_valid_set(Table& table, const vector<int>& combination, vector<vector<int>>& validSets, bool print) {
 
-    // Riordiniamo le righe nella nuova matrice
-    for (int i = 0; i < numRows; ++i) {
-        int firstElement = table.getRow(i)[0];
-        if (firstElement == -1) sortedTable[indexNeg++] = table.getRow(i);
-        else if (firstElement == 0) sortedTable[indexZero++] = table.getRow(i);
-        else sortedTable[indexPos++] = table.getRow(i);
+    validSets.push_back(combination); // Add the combination to the list of valid sets
+
+    // If print flag is true, print the valid set
+    if (print) {
+        cout << "\nValid Set:\n";
+        for (int rowIdx : combination) { // Loop through each row index in the combination
+            cout << "Card " << rowIdx << ":\n"; 
+            table.print_row(rowIdx); // Print the corresponding row of the table
+        }
     }
 
-    // Copiamo il contenuto della matrice ordinata nella tabella originale
-    for (int i = 0; i < numRows; ++i) {
-        table.setRow(i, sortedTable[i]);
-    }
 }
 
 
-vector<vector<int>> find_SETs(Table& table, bool print = false) {
-    // Ordina la tabella basandosi solo sui primi elementi delle righe
-    sort_table_by_first_element(table); 
+vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn) {
+    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Vettore per memorizzare il risultato
     
-    vector<vector<int>> validSets; // Vector per memorizzare i SET validi
-    int numRows = table.getMatrix().size(); // Numero di righe nella tabella
-    vector<int> numCounts = count_elements(table.getColumn(0));
+    // Estrarre solo i valori della prima colonna
+    vector<int> columnValues;
+    for (const auto& p : indexedColumn) {
+        columnValues.push_back(p.first);
+    }
+    
+    // Contare i -1, 0, 1
+    vector<int> counts = count_elements(columnValues);
+
+    int countMinusOnes = 0; // Indice di inserimento per -1
+    int countZeros = counts[0]; // Indice di inserimento per 0 (dopo -1)
+    int countOnes = counts[0] + counts[1]; // Indice di inserimento per 1 (dopo 0)
+
+    // Ordinare gli elementi in base ai loro valori (-1, 0, 1)
+    for (const auto& p : indexedColumn) {
+        if (p.first == -1) {
+            sortedColumn[countMinusOnes++] = p;
+        } else if (p.first == 0) {
+            sortedColumn[countZeros++] = p;
+        } else { // p.first == 1
+            sortedColumn[countOnes++] = p;
+        }
+    }
+
+    return sortedColumn;
+}
+
+
+// Function to find all valid SETs in a table
+vector<vector<int>> find_SETs(Table& table, bool print = false) {
+    vector<int> firstColumn = table.getColumn(0);  // Get the first column of the table
+    vector<int> numCounts = count_elements(firstColumn); // Count occurrences of -1, 0, and 1 in the first column
+    int numRows = firstColumn.size(); // Get the number of rows in the table
+
+    // Create a vector of pairs, where each pair holds an element of the first column and its index
+    vector<pair<int, int>> indexedColumn;
+    for (int i = 0; i < numRows; ++i) {
+        indexedColumn.emplace_back(firstColumn[i], i); // Store the value and its original index
+    }
+
+    // Sort the indexedColumn using counting sort, which organizes the elements as -1, 0, and 1
+    indexedColumn = counting_sort(indexedColumn);
+
+    vector<vector<int>> validSets; // Vector to store valid SET combinations
+    int validSetCount = 0; // Counter for the number of valid sets found
 
     // Nested loops to find all valid SETs
     for (int i = 0; i < numRows - 2; ++i) {
         for (int j = i + 1; j < numRows - 1; ++j) {
-            int pair_sum = table.getColumn(0)[i] + table.getColumn(0)[j]; // Sum of the values of row i and row j
-            int k_start;
-            int k_end; // Default range for the third element (row k)
-            
+            int pair_sum = indexedColumn[i].first + indexedColumn[j].first; // Sum of the values of row i and row j
+            int k_start = j + 1, k_end = numRows; // Default range for the third element (row k)
+    
             // Determine the range for k based on the sum of row i and row j
             if (pair_sum == -2) { 
                 k_start = j + 1;                  // Searching for another `-1`
@@ -87,13 +117,9 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
                 k_end = numRows; // All `0`s end at numRows
             } 
             else if (pair_sum == 0) {
-                // Special case: avoid combinations where i = -1 and j = 1
-                if (table.getColumn(0)[i] == -1 && table.getColumn(0)[j] == 1) {
-                    continue;
-                }
-
+                
                 k_start = j + 1;                  // Any value could work for `k`
-                k_end = numRows; // `k` can range over all `-1` and `0`
+                k_end = numCounts[0] + numCounts[1]; // `k` can range over all `-1` and `0`
             }
 
             else if (pair_sum == 1) {
@@ -101,34 +127,22 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
                 j = i; // Ensures that the cycle starts correctly
                 continue; // Avoid to run the code for useless part
             }
-            
-            
-            // Trova combinazioni valide
+
+    
+            // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
-                if (is_valid_set(table.getRow(i), table.getRow(j), table.getRow(k))){
-
-                    vector<int> combination = {
-                        VectorHash()(table.getRow(i)), // Usa l'hash della riga invece del numero di riga
-                        VectorHash()(table.getRow(j)),
-                        VectorHash()(table.getRow(k))
-                    };
-
-                    validSets.push_back(combination);
-
-                    // If print flag is true, print the valid set
-                    if (print) {
-                        cout << "\nValid Set:\n";
-                        for (int card : combination) { // Loop through each row index in the combination
-                            cout << "Card " << card << ":\n";
-                        }
-                    }
+                vector<int> combination = {indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second};
+                
+                if (is_valid_set(table.getRow(combination[0]), table.getRow(combination[1]), table.getRow(combination[2]))) {
+                    add_valid_set(table, combination, validSets,false); // Add valid set if it forms one
                 }
             }
         }
     }
     
+    // Optionally print the total number of valid sets found
     if (print) cout << "Total Valid Sets Found: " << validSets.size() << endl;
 
-    return validSets;
+    return validSets; // Return the list of valid sets
 }
 

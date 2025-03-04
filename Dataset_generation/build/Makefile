@@ -194,6 +194,7 @@ src/Find_SETs.o: src/Find_SETs.cpp.o
 
 # target to build an object file
 src/Find_SETs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.o
 .PHONY : src/Find_SETs.cpp.o
 
@@ -202,6 +203,7 @@ src/Find_SETs.i: src/Find_SETs.cpp.i
 
 # target to preprocess a source file
 src/Find_SETs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.i
 .PHONY : src/Find_SETs.cpp.i
 
@@ -210,6 +212,7 @@ src/Find_SETs.s: src/Find_SETs.cpp.s
 
 # target to generate assembly for a file
 src/Find_SETs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.s
 .PHONY : src/Find_SETs.cpp.s
 
@@ -218,6 +221,7 @@ src/Find_SETs_brute.o: src/Find_SETs_brute.cpp.o
 
 # target to build an object file
 src/Find_SETs_brute.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.o
 .PHONY : src/Find_SETs_brute.cpp.o
 
@@ -226,6 +230,7 @@ src/Find_SETs_brute.i: src/Find_SETs_brute.cpp.i
 
 # target to preprocess a source file
 src/Find_SETs_brute.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.i
 .PHONY : src/Find_SETs_brute.cpp.i
 
@@ -234,6 +239,7 @@ src/Find_SETs_brute.s: src/Find_SETs_brute.cpp.s
 
 # target to generate assembly for a file
 src/Find_SETs_brute.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.s
 .PHONY : src/Find_SETs_brute.cpp.s
 
@@ -288,29 +294,29 @@ src/Write_txt.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/src/Write_txt.cpp.s
 .PHONY : src/Write_txt.cpp.s
 
-tests/Table_test.o: tests/Table_test.cpp.o
-.PHONY : tests/Table_test.o
+tests/test.o: tests/test.cpp.o
+.PHONY : tests/test.o
 
 # target to build an object file
-tests/Table_test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/Table_test.cpp.o
-.PHONY : tests/Table_test.cpp.o
+tests/test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/test.cpp.o
+.PHONY : tests/test.cpp.o
 
-tests/Table_test.i: tests/Table_test.cpp.i
-.PHONY : tests/Table_test.i
+tests/test.i: tests/test.cpp.i
+.PHONY : tests/test.i
 
 # target to preprocess a source file
-tests/Table_test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/Table_test.cpp.i
-.PHONY : tests/Table_test.cpp.i
+tests/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/test.cpp.i
+.PHONY : tests/test.cpp.i
 
-tests/Table_test.s: tests/Table_test.cpp.s
-.PHONY : tests/Table_test.s
+tests/test.s: tests/test.cpp.s
+.PHONY : tests/test.s
 
 # target to generate assembly for a file
-tests/Table_test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/Table_test.cpp.s
-.PHONY : tests/Table_test.cpp.s
+tests/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/tests/test.cpp.s
+.PHONY : tests/test.cpp.s
 
 # Help Target
 help:
@@ -339,9 +345,9 @@ help:
 	@echo "... src/Write_txt.o"
 	@echo "... src/Write_txt.i"
 	@echo "... src/Write_txt.s"
-	@echo "... tests/Table_test.o"
-	@echo "... tests/Table_test.i"
-	@echo "... tests/Table_test.s"
+	@echo "... tests/test.o"
+	@echo "... tests/test.i"
+	@echo "... tests/test.s"
 .PHONY : help
 
 

@@ -1,10 +1,10 @@
-Start testing: Mar 03 12:12 CET
+Start testing: Mar 04 09:05 CET
 ----------------------------------------------------------
 1/1 Testing: RunTests
 1/1 Test: RunTests
 Command: "/home/Leonardo/SET_game_project/Dataset_generation/build/test_program"
 Directory: /home/Leonardo/SET_game_project/Dataset_generation/build
-"RunTests" start time: Mar 03 12:12 CET
+"RunTests" start time: Mar 04 09:05 CET
 Output:
 ----------------------------------------------------------
 ===== Testing getValue() Method =====
@@ -16,13 +16,21 @@ Output:
 ===== Testing setRow() Method =====
 ✅ setRow() passed all tests
 
-✅ All tests completed successfully!
+===== Testing is_valid_set() =====
+✅ is_valid_set() tests passed
+===== Testing count_elements() =====
+✅ count_elements() tests passed
+Tutti i test sono stati superati con successo!
+===== Testing find_SETs() =====
+✅ find_SETs() tests passed
+===== Testing brute_force_find_SETs() =====
+✅ brute_force_find_SETs() tests passed
 <end of output>
-Test time =   0.01 sec
+Test time =   0.00 sec
 ----------------------------------------------------------
 Test Passed.
-"RunTests" end time: Mar 03 12:12 CET
+"RunTests" end time: Mar 04 09:05 CET
 "RunTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Mar 03 12:12 CET
+End testing: Mar 04 09:05 CET

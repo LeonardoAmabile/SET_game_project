@@ -115,6 +115,7 @@ def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
     logging.info("Estimated number of sets: %f", predicted_sets[0][0])
     logging.info("Real number of sets: %f", real_sets)
 
+_description = "CNN"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)

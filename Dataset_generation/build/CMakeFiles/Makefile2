@@ -84,12 +84,12 @@ clean: CMakeFiles/run_tests.dir/clean
 CMakeFiles/test_program.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_program.dir/build.make CMakeFiles/test_program.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=7,8,9 "Built target test_program"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=7,8,9,10,11 "Built target test_program"
 .PHONY : CMakeFiles/test_program.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_program.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_program.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_program.dir/rule
@@ -107,8 +107,8 @@ CMakeFiles/test_program.dir/clean:
 # Target rules for target CMakeFiles/my_program.dir
 
 # All Build rule for target.
-CMakeFiles/my_program.dir/all: CMakeFiles/run_tests.dir/all
 CMakeFiles/my_program.dir/all: CMakeFiles/test_program.dir/all
+CMakeFiles/my_program.dir/all: CMakeFiles/run_tests.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_program.dir/build.make CMakeFiles/my_program.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target my_program"
@@ -116,7 +116,7 @@ CMakeFiles/my_program.dir/all: CMakeFiles/test_program.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/my_program.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_program.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 0
 .PHONY : CMakeFiles/my_program.dir/rule
@@ -142,7 +142,7 @@ CMakeFiles/run_tests.dir/all: CMakeFiles/test_program.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/run_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/Leonardo/SET_game_project/Dataset_generation/build/CMakeFiles 0
 .PHONY : CMakeFiles/run_tests.dir/rule

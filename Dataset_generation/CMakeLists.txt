@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 enable_testing()  # Enable testing framework
 
 # Add the test executable
-add_executable(test_program tests/Table_test.cpp src/Table.cpp)
+add_executable(test_program tests/test.cpp src/Table.cpp src/Find_SETs.cpp src/Find_SETs_brute)
 target_include_directories(test_program PRIVATE include)
 
 # Register test

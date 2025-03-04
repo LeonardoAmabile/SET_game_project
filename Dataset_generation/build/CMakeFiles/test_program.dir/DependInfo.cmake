@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs.cpp" "CMakeFiles/test_program.dir/src/Find_SETs.cpp.o" "gcc" "CMakeFiles/test_program.dir/src/Find_SETs.cpp.o.d"
+  "/home/Leonardo/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp" "CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o" "gcc" "CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o.d"
   "/home/Leonardo/SET_game_project/Dataset_generation/src/Table.cpp" "CMakeFiles/test_program.dir/src/Table.cpp.o" "gcc" "CMakeFiles/test_program.dir/src/Table.cpp.o.d"
-  "/home/Leonardo/SET_game_project/Dataset_generation/tests/Table_test.cpp" "CMakeFiles/test_program.dir/tests/Table_test.cpp.o" "gcc" "CMakeFiles/test_program.dir/tests/Table_test.cpp.o.d"
+  "/home/Leonardo/SET_game_project/Dataset_generation/tests/test.cpp" "CMakeFiles/test_program.dir/tests/test.cpp.o" "gcc" "CMakeFiles/test_program.dir/tests/test.cpp.o.d"
   )
 
 # Targets to which this target links.

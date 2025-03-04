@@ -1,8 +1,12 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/test_program.dir/src/Find_SETs.cpp.o"
+  "CMakeFiles/test_program.dir/src/Find_SETs.cpp.o.d"
+  "CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o"
+  "CMakeFiles/test_program.dir/src/Find_SETs_brute.cpp.o.d"
   "CMakeFiles/test_program.dir/src/Table.cpp.o"
   "CMakeFiles/test_program.dir/src/Table.cpp.o.d"
-  "CMakeFiles/test_program.dir/tests/Table_test.cpp.o"
-  "CMakeFiles/test_program.dir/tests/Table_test.cpp.o.d"
+  "CMakeFiles/test_program.dir/tests/test.cpp.o"
+  "CMakeFiles/test_program.dir/tests/test.cpp.o.d"
   "test_program"
   "test_program.pdb"
 )
