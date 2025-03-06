@@ -1,51 +1,38 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-#include <vector>
 #include <iostream>
-#include <stdexcept>
+#include <vector>
 #include <unordered_set>
+#include <random>
+#include <chrono>
+#include <stdexcept>  // Include per invalid_argument
+#include <cstddef>
 
 using namespace std;
 
-// Custom hash function for a vector of integers
+// Dichiarazione della struttura VectorHash
 struct VectorHash {
-    int operator()(const vector<int>& vec) const;
+    size_t operator()(const vector<int>& vec) const;
 };
 
+// Dichiarazione della classe Table
 class Table {
 private:
-    int numRows;
-    int numColumns;
-    vector<vector<int>> tableData;
+    vector<vector<int>> tableData; // Table data (2D matrix)
+    int numRows, numColumns; // Number of rows (cards) and columns (attributes)
 
 public:
-    // Constructor I: Initialize with number of rows and columns
+    // Costruttore
     Table(int numCards, int numAttributes);
 
-    // Constructor II: Initialize with a vector of vectors
-    Table(const vector<vector<int>>& inputTableData);
-
-    // Method to get a specific value from the table
+    // Metodi
     int getValue(int row, int column) const;
-
-    // Method to print the entire table
     void printTable() const;
-
-    // Method to return the table as a matrix
     vector<vector<int>> getMatrix() const;
-
-    // Method to print a specific row
     void print_row(int rowidx) const;
-
-    // Method to get a specific column
     vector<int> getColumn(int columnIdx) const;
-
-    // Method to get a specific row
     vector<int> getRow(int rowIdx) const;
-
-    // Method to set a specified row
-    void setRow(int rowIdx, const vector<int>& newRow);
 };
 
-#endif // TABLE_H
+#endif

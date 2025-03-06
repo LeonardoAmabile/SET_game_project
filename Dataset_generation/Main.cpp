@@ -122,11 +122,11 @@ int main() {
     cout << std::endl << "Done!" << std::endl; // Indicate that the process is complete
 
     // Run the brute-force process and measure the time
-    auto elapsed_brute = run_brute_force_process(Matrices, N_tables, n_cards, n_att);
+    //auto elapsed_brute = run_brute_force_process(Matrices, N_tables, n_cards, n_att);
 
     // Print the execution times
     print_execution_times(elapsed_opt);
-    print_execution_times(elapsed_brute);
+    //print_execution_times(elapsed_brute);
 
     return 0;  // Return 0 to indicate successful execution
 }

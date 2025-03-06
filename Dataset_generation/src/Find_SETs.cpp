@@ -33,51 +33,42 @@ bool is_valid_set(const vector<int>& row1, const vector<int>& row2, const vector
 
 // Function to add a valid SET combination to the list and optionally print it
 void add_valid_set(Table& table, const vector<int>& combination, vector<vector<int>>& validSets, bool print) {
+    // Check if the combination of rows forms a valid SET
+    if (is_valid_set(table.getRow(combination[0]), table.getRow(combination[1]), table.getRow(combination[2]))) {
+        validSets.push_back(combination); // Add the combination to the list of valid sets
 
-    validSets.push_back(combination); // Add the combination to the list of valid sets
-
-    // If print flag is true, print the valid set
-    if (print) {
-        cout << "\nValid Set:\n";
-        for (int rowIdx : combination) { // Loop through each row index in the combination
-            cout << "Card " << rowIdx << ":\n"; 
-            table.print_row(rowIdx); // Print the corresponding row of the table
+        // If print flag is true, print the valid set
+        if (print) {
+            cout << "\nValid Set:\n";
+            for (int rowIdx : combination) { // Loop through each row index in the combination
+                cout << "Card " << rowIdx << ":\n"; 
+                table.print_row(rowIdx); // Print the corresponding row of the table
+            }
         }
     }
-
 }
 
+// Function to perform counting sort on the indexed column based on the counts of -1, 0, and 1
+vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn, const vector<int>& counts) {
+    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Create a vector to store the sorted pairs
 
-vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn) {
-    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Vettore per memorizzare il risultato
-    
-    // Estrarre solo i valori della prima colonna
-    vector<int> columnValues;
-    for (const auto& p : indexedColumn) {
-        columnValues.push_back(p.first);
-    }
-    
-    // Contare i -1, 0, 1
-    vector<int> counts = count_elements(columnValues);
+    int countMinusOnes = 0; // Counter for -1
+    int countZeros = counts[0]; // Counter for 0, starts after all -1s
+    int countOnes = counts[0] + counts[1]; // Counter for 1, starts after all 0s
 
-    int countMinusOnes = 0; // Indice di inserimento per -1
-    int countZeros = counts[0]; // Indice di inserimento per 0 (dopo -1)
-    int countOnes = counts[0] + counts[1]; // Indice di inserimento per 1 (dopo 0)
-
-    // Ordinare gli elementi in base ai loro valori (-1, 0, 1)
+    // Fill the sortedColumn by placing elements based on their values (-1, 0, or 1)
     for (const auto& p : indexedColumn) {
         if (p.first == -1) {
-            sortedColumn[countMinusOnes++] = p;
+            sortedColumn[countMinusOnes++] = p; // Place -1s at the beginning
         } else if (p.first == 0) {
-            sortedColumn[countZeros++] = p;
+            sortedColumn[countZeros++] = p; // Place 0s after all -1s
         } else { // p.first == 1
-            sortedColumn[countOnes++] = p;
+            sortedColumn[countOnes++] = p; // Place 1s after all 0s
         }
     }
 
-    return sortedColumn;
+    return sortedColumn; // Return the sorted column based on the counting sort technique
 }
-
 
 // Function to find all valid SETs in a table
 vector<vector<int>> find_SETs(Table& table, bool print = false) {
@@ -92,7 +83,7 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
     }
 
     // Sort the indexedColumn using counting sort, which organizes the elements as -1, 0, and 1
-    indexedColumn = counting_sort(indexedColumn);
+    indexedColumn = counting_sort(indexedColumn, numCounts);
 
     vector<vector<int>> validSets; // Vector to store valid SET combinations
     int validSetCount = 0; // Counter for the number of valid sets found
@@ -117,7 +108,11 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
                 k_end = numRows; // All `0`s end at numRows
             } 
             else if (pair_sum == 0) {
-                
+                // Special case: avoid combinations where i = -1 and j = 1
+                if (indexedColumn[i].first == -1 && indexedColumn[j].first == 1) {
+                    continue;
+                }
+
                 k_start = j + 1;                  // Any value could work for `k`
                 k_end = numCounts[0] + numCounts[1]; // `k` can range over all `-1` and `0`
             }
@@ -132,10 +127,7 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
             // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
                 vector<int> combination = {indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second};
-                
-                if (is_valid_set(table.getRow(combination[0]), table.getRow(combination[1]), table.getRow(combination[2]))) {
-                    add_valid_set(table, combination, validSets,false); // Add valid set if it forms one
-                }
+                add_valid_set(table, combination, validSets,false); // Add valid set if it forms one
             }
         }
     }
@@ -145,4 +137,5 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
 
     return validSets; // Return the list of valid sets
 }
+
 

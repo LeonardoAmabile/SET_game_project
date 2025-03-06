@@ -1,3 +1,4 @@
+#We probably don't need half of these, let's clean it up later
 import os
 import numpy as np
 import random
@@ -10,17 +11,20 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.losses import Huber
 from tensorflow.keras.optimizers import Adam
+from itertools import combinations, permutations
+from keras.utils import to_categorical
 
 logging.basicConfig(level=logging.INFO)
+
 
 def process(file_path):
     """Processes input file to extract tables and number of SETs."""
     assert file_path.endswith('.txt') and os.path.isfile(file_path)
     
-    logging.info('Opening input file "%s"', file_path)
+    print('Opening input file "%s"' % file_path)
     with open(file_path) as data:
         data = data.readlines()
-    logging.info('Done opening file.')
+    print('Done opening file.')
     
     num_cards = int(data[1].split(":")[1].strip())
     num_attributes = int(data[2].split(":")[1].strip())
@@ -43,85 +47,84 @@ def process(file_path):
     if tables.shape != (num_tables, num_cards, num_attributes):
         raise ValueError("Table dimensions do not match expected values")
     
-    logging.info('Found %d tables of %d cards with %d attributes', num_tables, num_cards, num_attributes)
-    logging.info('Shape of the tables: %s', tables.shape)
+    filtered_tables = []
+    filtered_num_sets = []
+    zero_count = 0
     
-    return tables, num_sets, num_cards, num_attributes, num_tables
+    for i in range(num_tables):
+        if num_sets[i] == 0:
+            if zero_count % 10 == 0:
+                filtered_tables.append(tables[i])
+                filtered_num_sets.append(num_sets[i])
+            zero_count += 1
+        elif num_sets[i] == 1:
+            card_permutations = list(np.array(list(permutations(tables[i]))))
+            filtered_tables.extend(card_permutations)
+            filtered_num_sets.extend([1] * len(card_permutations))
+        else:
+            filtered_tables.append(tables[i])
+            filtered_num_sets.append(num_sets[i])
+    
+    filtered_tables = np.array(filtered_tables)
+    filtered_num_sets = np.array(filtered_num_sets)
+    
+    print('Processed %d tables of %d cards with %d attributes' % (len(filtered_tables), num_cards, num_attributes))
+    
+    return filtered_tables, filtered_num_sets, num_cards, num_attributes, len(filtered_tables)
 
-def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
-    """Train a CNN-based neural network to estimate the number of SETs."""
-    
-    # Add channel dimension for CNN
-    tables = np.expand_dims(tables, axis=-1)
 
-    inputs = Input(shape=(num_cards, num_attributes, 1))
+def train_cnn(X, y, num_attributes):
+    """Trains a CNN to predict whether a triplet of cards forms a SET."""
+    inputs = Input(shape=(3, num_attributes, 1))
     
-    # Convolutional Block 1
-    x = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(inputs)
+    x = Conv2D(32, (2, 2), activation='relu', padding='same')(inputs)
     x = BatchNormalization()(x)
-    x = Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(x)
+    x = Conv2D(64, (2, 2), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
-    x = MaxPooling2D(pool_size=(2, 2))(x)
+    x = MaxPooling2D(pool_size=(2, 2), padding='same')(x)
     
-    # Convolutional Block 2
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(x)
-    x = BatchNormalization()(x)
-    x = MaxPooling2D(pool_size=(2, 2))(x)
-    
-    # Convolutional Block 3 (Residual Connection)
-    shortcut = Conv2D(128, (1, 1), padding='same', kernel_regularizer=l2(1e-4))(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(x)
-    x = BatchNormalization()(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_regularizer=l2(1e-4))(x)
-    x = BatchNormalization()(x)
-    x = Add()([x, shortcut])  # Residual connection
-    x = GlobalAveragePooling2D()(x)  # Avoids dimension issues    
     x = Flatten()(x)
-    
-    # Fully Connected Layers
-    x = Dense(256, activation='relu', kernel_regularizer=l2(1e-4))(x)
-    x = Dropout(0.5)(x)
-    x = Dense(128, activation='relu', kernel_regularizer=l2(1e-4))(x)
+    x = Dense(128, activation='relu')(x)
+    x = Dropout(0.3)(x)
+    x = Dense(64, activation='relu')(x)
     x = Dropout(0.3)(x)
     
-    outputs = Dense(1)(x)  # Regression output
-
+    outputs = Dense(1, activation='sigmoid')(x)  # Binary classification
+    
     model = Model(inputs=inputs, outputs=outputs)
-    model.compile(loss=Huber(delta=1.0), optimizer=Adam(learning_rate=1e-3))
-
+    model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=1e-3))
+    
     model.summary()
-
-    # Learning rate scheduler and early stopping
+    
+    # Train model
     callbacks = [
-        ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-6),
-        EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+        ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=10, min_lr=1e-6),
+        EarlyStopping(monitor='val_loss', patience=30, restore_best_weights=True)
     ]
-
-    history = model.fit(tables, num_sets, validation_split=0.2, epochs=100, batch_size=512, verbose=2, callbacks=callbacks)
-
-    # Plot loss curves
-    plt.plot(history.history["val_loss"])
-    plt.plot(history.history["loss"])
-    plt.legend(["val_loss", "loss"])
+    
+    history = model.fit(X, y, validation_split=0.2, epochs=50, batch_size=512, verbose=2, callbacks=callbacks)
+    
+    # Plot loss and accuracy curves
+    plt.plot(history.history["val_loss"], label="val_loss")
+    plt.plot(history.history["loss"], label="loss")
+    plt.legend()
     plt.show()
+
 
     # Test on a random table
     random_table = random.randint(0, num_tables - 1)
     test_table = np.expand_dims(tables[random_table], axis=0)
     predicted_sets = model.predict(test_table)
     real_sets = num_sets[random_table]
-    logging.info("Estimated number of sets: %f", predicted_sets[0][0])
-    logging.info("Real number of sets: %f", real_sets)
+    print("Predicted SETs:", predicted_sets[0][0])
+    print("Real SETs:", real_sets)
 
-_description = "CNN"
+
+_description = 'Neural Network tests'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)
     parser.add_argument('infile', help='path to the input file')
     args = parser.parse_args()
     tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
-    train_nn(tables, num_sets, num_cards, num_attributes, num_tables)
-
-
+    model = train_cnn(tables, num_sets,num_attributes,)
