@@ -9,18 +9,17 @@
 
 using namespace std;
 
-// Definition of the VectorHash structure
-size_t VectorHash::operator()(const vector<int>& vec) const {
+size_t VectorHash::operator()(const std::vector<int>& vec) const {
     size_t hash = 0;
-    
-    // Loop through each element in the vector and transform it if it's -1
+
     for (size_t i = 0; i < vec.size(); ++i) {
-        int transformedValue = (vec[i] == -1) ? 2 : vec[i];  // Transform -1 to 2
-        hash = hash * 31 + transformedValue;  // Hashing logic
+        int ternaryDigit = (vec[i] == -1) ? 0 : (vec[i] == 0 ? 1 : 2);
+        hash = hash * 3 + ternaryDigit;  // Calcolo in base 3
     }
-    
+
     return hash;
 }
+
 
 // Definition of the Table class constructor
 Table::Table(int numCards, int numAttributes) {

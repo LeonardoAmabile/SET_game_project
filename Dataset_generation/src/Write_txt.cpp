@@ -30,9 +30,12 @@ void write_data(const string& filename, const vector<int>& SETs_count, const vec
     // Write the number of SETs for each matrix in the first row from SETs_count
     vector<int> Zeros_count;
     for (const auto& count : SETs_count) {
-        file << count << " ";  // Each count corresponds to a table
         if (count == 0) {
+            file << count << " ";  // Each count corresponds to a table
             Zeros_count.push_back(count);
+        }
+        else{
+            file << 1 << " ";
         }
     }
     file << "\n\n";  // New line after the number of SETs

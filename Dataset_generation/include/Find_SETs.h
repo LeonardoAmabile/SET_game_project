@@ -18,7 +18,7 @@ bool is_valid_set(const vector<int>& row1, const vector<int>& row2, const vector
 void add_valid_set(Table& table, const vector<int>& combination, vector<vector<int>>& validSets, bool print);
 
 // Function to perform counting sort on the indexed column based on the counts of -1, 0, and 1
-vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn, const vector<int>& counts);
+vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn);
 
 // Function to find all valid SETs in a table
 vector<vector<int>> find_SETs(Table& table, bool print = false);

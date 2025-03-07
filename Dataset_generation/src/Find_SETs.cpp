@@ -48,27 +48,35 @@ void add_valid_set(Table& table, const vector<int>& combination, vector<vector<i
     }
 }
 
-// Function to perform counting sort on the indexed column based on the counts of -1, 0, and 1
-vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn, const vector<int>& counts) {
-    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Create a vector to store the sorted pairs
+vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn) {
+    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Vettore per il risultato
 
-    int countMinusOnes = 0; // Counter for -1
-    int countZeros = counts[0]; // Counter for 0, starts after all -1s
-    int countOnes = counts[0] + counts[1]; // Counter for 1, starts after all 0s
+    // definition of the vector of -1, 0 and 1s in indexed column
+    vector<int> values;
+    for (const auto& p : indexedColumn) {
+        values.push_back(p.first);
+    }
+    vector<int> counts = count_elements(values);
 
-    // Fill the sortedColumn by placing elements based on their values (-1, 0, or 1)
+    // Start indices
+    int countMinusOnes = 0;             // -1 from position 0
+    int countZeros = counts[0];         // 0 after the 1s
+    int countOnes = counts[0] + counts[1]; // 1 after the 0s
+
+    // Sort elements in the correct order
     for (const auto& p : indexedColumn) {
         if (p.first == -1) {
-            sortedColumn[countMinusOnes++] = p; // Place -1s at the beginning
+            sortedColumn[countMinusOnes++] = p;
         } else if (p.first == 0) {
-            sortedColumn[countZeros++] = p; // Place 0s after all -1s
+            sortedColumn[countZeros++] = p;
         } else { // p.first == 1
-            sortedColumn[countOnes++] = p; // Place 1s after all 0s
+            sortedColumn[countOnes++] = p;
         }
     }
 
-    return sortedColumn; // Return the sorted column based on the counting sort technique
+    return sortedColumn;
 }
+
 
 // Function to find all valid SETs in a table
 vector<vector<int>> find_SETs(Table& table, bool print = false) {
@@ -83,7 +91,7 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
     }
 
     // Sort the indexedColumn using counting sort, which organizes the elements as -1, 0, and 1
-    indexedColumn = counting_sort(indexedColumn, numCounts);
+    indexedColumn = counting_sort(indexedColumn);
 
     vector<vector<int>> validSets; // Vector to store valid SET combinations
     int validSetCount = 0; // Counter for the number of valid sets found
