@@ -29,13 +29,15 @@ void write_data(const string& filename, const vector<int>& SETs_count, const vec
 
     // Write the number of SETs for each matrix in the first row from SETs_count
     vector<int> Zeros_count;
+    int binary = 0;  // Change to 0 if you want to write the number of SETs instead
     for (const auto& count : SETs_count) {
-        if (count == 0) {
-            file << count << " ";  // Each count corresponds to a table
-            Zeros_count.push_back(count);
+        if (binary == 1) {
+            file << (count == 0 ? 0 : 1) << " ";  // Write 0 if no SETs, 1 if there are SETs
+        } else {
+            file << count << " ";  // Write the actual number of SETs
         }
-        else{
-            file << 1 << " ";
+        if (count == 0) {
+            Zeros_count.push_back(count);
         }
     }
     file << "\n\n";  // New line after the number of SETs
