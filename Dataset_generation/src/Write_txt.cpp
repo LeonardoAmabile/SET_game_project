@@ -12,8 +12,7 @@ using namespace std;
 // Function to write data in a txt file
 void write_data(const string& filename, 
     const vector<int>& SETs_count, 
-    const vector<Table>& matrices, 
-    bool print_boolean) {
+    const vector<Table>& matrices) {
     
         ofstream file(filename);
 
@@ -43,7 +42,7 @@ void write_data(const string& filename,
 
     file << "# Number of SETs in each Table\n\n";
     for (const auto& count : SETs_count) {
-        file << (print_boolean ? (count > 0 ? 1 : 0) : count) << " ";
+        file <<  count << " ";
     }
     
     file << "\n\n";

@@ -128,6 +128,19 @@ my_program/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/build
 .PHONY : my_program/fast
 
+#=============================================================================
+# Target rules for targets named run_tests
+
+# Build rule for target.
+run_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 run_tests
+.PHONY : run_tests
+
+# fast build rule for target.
+run_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/build
+.PHONY : run_tests/fast
+
 Main.obj: Main.cpp.obj
 .PHONY : Main.obj
 
@@ -158,6 +171,7 @@ src/Find_SETs.obj: src/Find_SETs.cpp.obj
 # target to build an object file
 src/Find_SETs.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs.cpp.obj
 .PHONY : src/Find_SETs.cpp.obj
 
 src/Find_SETs.i: src/Find_SETs.cpp.i
@@ -166,6 +180,7 @@ src/Find_SETs.i: src/Find_SETs.cpp.i
 # target to preprocess a source file
 src/Find_SETs.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs.cpp.i
 .PHONY : src/Find_SETs.cpp.i
 
 src/Find_SETs.s: src/Find_SETs.cpp.s
@@ -174,6 +189,7 @@ src/Find_SETs.s: src/Find_SETs.cpp.s
 # target to generate assembly for a file
 src/Find_SETs.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs.cpp.s
 .PHONY : src/Find_SETs.cpp.s
 
 src/Find_SETs_brute.obj: src/Find_SETs_brute.cpp.obj
@@ -182,6 +198,7 @@ src/Find_SETs_brute.obj: src/Find_SETs_brute.cpp.obj
 # target to build an object file
 src/Find_SETs_brute.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.obj
 .PHONY : src/Find_SETs_brute.cpp.obj
 
 src/Find_SETs_brute.i: src/Find_SETs_brute.cpp.i
@@ -190,6 +207,7 @@ src/Find_SETs_brute.i: src/Find_SETs_brute.cpp.i
 # target to preprocess a source file
 src/Find_SETs_brute.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.i
 .PHONY : src/Find_SETs_brute.cpp.i
 
 src/Find_SETs_brute.s: src/Find_SETs_brute.cpp.s
@@ -198,6 +216,7 @@ src/Find_SETs_brute.s: src/Find_SETs_brute.cpp.s
 # target to generate assembly for a file
 src/Find_SETs_brute.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.s
 .PHONY : src/Find_SETs_brute.cpp.s
 
 src/Table.obj: src/Table.cpp.obj
@@ -206,6 +225,7 @@ src/Table.obj: src/Table.cpp.obj
 # target to build an object file
 src/Table.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Table.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Table.cpp.obj
 .PHONY : src/Table.cpp.obj
 
 src/Table.i: src/Table.cpp.i
@@ -214,6 +234,7 @@ src/Table.i: src/Table.cpp.i
 # target to preprocess a source file
 src/Table.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Table.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Table.cpp.i
 .PHONY : src/Table.cpp.i
 
 src/Table.s: src/Table.cpp.s
@@ -222,6 +243,7 @@ src/Table.s: src/Table.cpp.s
 # target to generate assembly for a file
 src/Table.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Table.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Table.cpp.s
 .PHONY : src/Table.cpp.s
 
 src/Write_txt.obj: src/Write_txt.cpp.obj
@@ -230,6 +252,7 @@ src/Write_txt.obj: src/Write_txt.cpp.obj
 # target to build an object file
 src/Write_txt.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Write_txt.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Write_txt.cpp.obj
 .PHONY : src/Write_txt.cpp.obj
 
 src/Write_txt.i: src/Write_txt.cpp.i
@@ -238,6 +261,7 @@ src/Write_txt.i: src/Write_txt.cpp.i
 # target to preprocess a source file
 src/Write_txt.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Write_txt.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Write_txt.cpp.i
 .PHONY : src/Write_txt.cpp.i
 
 src/Write_txt.s: src/Write_txt.cpp.s
@@ -246,7 +270,32 @@ src/Write_txt.s: src/Write_txt.cpp.s
 # target to generate assembly for a file
 src/Write_txt.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/src/Write_txt.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/src/Write_txt.cpp.s
 .PHONY : src/Write_txt.cpp.s
+
+tests/test.obj: tests/test.cpp.obj
+.PHONY : tests/test.obj
+
+# target to build an object file
+tests/test.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/tests/test.cpp.obj
+.PHONY : tests/test.cpp.obj
+
+tests/test.i: tests/test.cpp.i
+.PHONY : tests/test.i
+
+# target to preprocess a source file
+tests/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/tests/test.cpp.i
+.PHONY : tests/test.cpp.i
+
+tests/test.s: tests/test.cpp.s
+.PHONY : tests/test.s
+
+# target to generate assembly for a file
+tests/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/tests/test.cpp.s
+.PHONY : tests/test.cpp.s
 
 # Help Target
 help:
@@ -257,6 +306,7 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... my_program
+	@echo ... run_tests
 	@echo ... Main.obj
 	@echo ... Main.i
 	@echo ... Main.s
@@ -272,6 +322,9 @@ help:
 	@echo ... src/Write_txt.obj
 	@echo ... src/Write_txt.i
 	@echo ... src/Write_txt.s
+	@echo ... tests/test.obj
+	@echo ... tests/test.i
+	@echo ... tests/test.s
 .PHONY : help
 
 

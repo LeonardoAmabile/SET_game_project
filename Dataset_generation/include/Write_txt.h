@@ -8,7 +8,6 @@
 // Function to write data in a txt file
 void write_data(const std::string& filename, 
                 const std::vector<int>& SETs_count, 
-                const std::vector<Table>& matrices, 
-                bool print_boolean = false);
+                const std::vector<Table>& matrices);
 
 #endif // WRITE_TXT_H

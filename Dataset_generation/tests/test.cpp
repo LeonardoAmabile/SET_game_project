@@ -30,7 +30,7 @@ void testGetValue() {
         // Exception correctly caught, test passes
     }
 
-    cout << "✅ getValue() passed all tests\n" << endl;
+    cout << "getValue() passed all tests\n" << endl;
 }
 
 void testGetRowAndColumn() {
@@ -48,7 +48,7 @@ void testGetRowAndColumn() {
     assert(table.getRow(1) == row1);
     assert(table.getColumn(0) == col1);
 
-    cout << "✅ getRow() and getColumn() passed all tests\n" << endl;
+    cout << "getRow() and getColumn() passed all tests\n" << endl;
 }
 
 void testSetRow() {
@@ -82,7 +82,7 @@ void testSetRow() {
         // Exception correctly caught, test passes
     }
 
-    cout << "✅ setRow() passed all tests\n" << endl;
+    cout << "setRow() passed all tests\n" << endl;
 }
 
 
@@ -100,7 +100,7 @@ void testIsValidSet() {
     vector<int> row4 = {1, 1, 1};
     assert(!is_valid_set(row1, row2, row4) && "Test failed: Invalid set should return false");
 
-    cout << "✅ is_valid_set() tests passed" << endl;
+    cout << "is_valid_set() tests passed" << endl;
 }
 
 // Function to test the COuntElements function
@@ -115,7 +115,7 @@ void testCountElements() {
     assert(counts[1] == 2 && "Test failed: Count of 0 should be 2");
     assert(counts[2] == 2 && "Test failed: Count of 1 should be 2");
 
-    cout << "✅ count_elements() tests passed" << endl;
+    cout << "count_elements() tests passed" << endl;
 }
 
 void test_counting_sort() {
@@ -144,7 +144,6 @@ void test_counting_sort() {
     vector<pair<int, int>> expected5 = {{-1, 1}, {-1, 5}, {0, 2}, {0, 4}, {1, 0}, {1, 3}};
     assert(counting_sort(input5) == expected5);
 
-    cout << "Tutti i test sono stati superati con successo!" << endl;
 }
 
 
@@ -168,7 +167,7 @@ void testFindSETs() {
     // Ensure we found exactly one valid SET
     assert(validSets.size() == 1 && "Test failed: Expected exactly 1 valid SET");
 
-    cout << "✅ find_SETs() tests passed" << endl;
+    cout << "find_SETs() tests passed" << endl;
 }
 
 
@@ -190,20 +189,31 @@ void testFindSETsBrute() {
     // Ensure we found exactly one valid SET
     assert(validSets.size() == 1 && "Test failed: Expected exactly 1 valid SET");
 
-    cout << "✅ brute_force_find_SETs() tests passed" << endl;
+    cout << "brute_force_find_SETs() tests passed" << endl;
 }
 
 int main() {
     //Table tests
     testGetValue();
+    cout<<endl;
     testGetRowAndColumn();
+    cout<<endl;
     testSetRow();
     
+    cout<<endl;
+    cout<<endl;
+
     //Find_SETs tests
     testIsValidSet();
+    cout<<endl;
     testCountElements();
+    cout<<endl;
     test_counting_sort();
+    cout<<endl;
     testFindSETs();
+    
+    cout<<endl;
+    cout<<endl;
 
     //FInd_SETs_brute tests
     testFindSETsBrute();

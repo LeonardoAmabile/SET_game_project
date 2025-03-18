@@ -9,36 +9,59 @@ The SET game consists of identifying in a set of 12 cards a set of three winners
 A winning set (a SET) consists of three cards whose characteristics must meet certain requirements. For each of the 4 characteristics, the 3 cards
 must have the same value (e.g., all 3 red) or different value (e.g., the three different shapes).
 
-The purpose of the exercise is to estimate the minimum number of cards that guarantees the tates the existence of at least one SET as a function of the number of attributes.
-In the literature such a value is known up to n_attributes = 5, and we are interested inconfirm the results already obtained and estimate a solution for n_att greater
+The purpose of the exercise is to find an optimized method to detect if a combination of three cards is a SET or not. 
 
-First we will generate a table using the vector library in C++, we will create a match with a small number of cards n, and determine whether
+First we will generate a table using the vector library in C++, we will create a match with a  number of cards n, and determine whether
 a SET (a winning combination) is present analytically. Applying the algorithm on several randomly generated tables we will create a dataset with which to
-train a DNN that can take as input n cards and return an estimate of the probability that this table of n cards contains a SET.
- 
-After that, N > n cards will be generated, and n will be chosen (randomly) for the DNN to analyze, giving in output a probability of the presence of a SET in those n cards.
-WWe'll apply this algorythm multiple times in way to take all the possible informations on the N cards.
+train a NN that can take as input n cards and return an estimate of the probability that this table of n cards contains a SET.
 
-The application of the algorithm for multiple matches of N cards, will go on to estimate the probability of finding a SET in a table of N cards.
+Here’s the translated text in English:  
 
-Applying the same procedure for different values of N we will be able to create a graph with the probability of having at least one SET in a hand, thus giving an
-estimate of the minimum value of cards needed to have at least one combination winner.
+---
 
-This whole process will then be repeated by changing the number of at tributes in order to compare our results with those found in the literature:
+The algorithm can find all possible SETs within the given *n* cards in a more optimized way than simple brute-force. However, given the computational power available to us, we can only apply the neural network (NN) to 3 cards at a time and check whether they form a SET or not. Future implementations could involve applying the NN to a larger number of cards and detecting the presence of SETs.  
 
-#attributes    #min_cards
+## **How to Use**  
 
-- 1               2
+First, you need to generate the dataset. After cloning the repository, run the following commands:  
 
-- 2               4
+```bash
+cd SET_game_project
+cd Dataset_generation
+cmake -B build
+cmake --build build
+./my_program
+```
 
-- 3               9
+You will be asked for 3 inputs:  
+- The number of cards  
+- The number of attributes  
+- The number of tables to generate  
+- Boolean version (Y/n)  
 
-- 4               20
+For applying the dataset to the NNs in the *Neural_network* directory, it is recommended to use **3 cards**, a **small number of attributes (3 or 4)**, a **large number of tables (more than 10,000)**, and set **Boolean version = Y**.  
 
-- 5               45
+The "Boolean version" refers to the type of output you want to obtain: either a series of 0s and 1s indicating whether at least one SET is present, or the raw number of SETs present in each table.  
 
-- 6               112-114
+A file named `Data.txt` will be generated or overwritten, containing all the dataset information and details about the presence of SETs.  
 
-- 7               unknown
-    
+The tables are represented as vectors consisting exclusively of -1, 0, and 1. Each value corresponds to one of the possible attributes (e.g., *green, red, blue*; or *diamond, S, ellipse*).
+
+After that, to use this data in a neural network, you need to switch to the **Neural_network** directory, where two different neural networks are available:  
+
+- **NN.py** is a deep neural network (DNN) with densely connected layers.  
+- **CNN.py** is a convolutional neural network (CNN) that leverages the invariance of the result under row permutations to optimize the learning process.
+
+```bash
+cd SET_game_project
+cd Neural_Network
+python3 CNN.py ../Dataset_generation/Data.txt
+```
+
+oppure se si vuole usare la CNN:
+
+```bash
+cd SET_game_project
+cd Neural_Network
+python3 CNN.py ../Dataset_generation/Data.txt
+```

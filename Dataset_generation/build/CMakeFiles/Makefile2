@@ -63,10 +63,12 @@ CMAKE_BINARY_DIR = C:\Users\lenni\SET_game_project\Dataset_generation\build
 
 # The main recursive "all" target.
 all: CMakeFiles/my_program.dir/all
+all: CMakeFiles/run_tests.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/my_program.dir/codegen
+codegen: CMakeFiles/run_tests.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,13 +77,14 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/my_program.dir/clean
+clean: CMakeFiles/run_tests.dir/clean
 .PHONY : clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/my_program.dir
 
 # All Build rule for target.
-CMakeFiles/my_program.dir/all:
+CMakeFiles/my_program.dir/all: CMakeFiles/run_tests.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target my_program"
@@ -89,7 +92,7 @@ CMakeFiles/my_program.dir/all:
 
 # Build rule for subdir invocation for target.
 CMakeFiles/my_program.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/my_program.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles 0
 .PHONY : CMakeFiles/my_program.dir/rule
@@ -99,7 +102,7 @@ my_program: CMakeFiles/my_program.dir/rule
 .PHONY : my_program
 
 # codegen rule for target.
-CMakeFiles/my_program.dir/codegen:
+CMakeFiles/my_program.dir/codegen: CMakeFiles/run_tests.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/codegen
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target my_program"
 .PHONY : CMakeFiles/my_program.dir/codegen
@@ -108,6 +111,38 @@ CMakeFiles/my_program.dir/codegen:
 CMakeFiles/my_program.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\my_program.dir\build.make CMakeFiles/my_program.dir/clean
 .PHONY : CMakeFiles/my_program.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/run_tests.dir
+
+# All Build rule for target.
+CMakeFiles/run_tests.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Built target run_tests"
+.PHONY : CMakeFiles/run_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/run_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/run_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles 0
+.PHONY : CMakeFiles/run_tests.dir/rule
+
+# Convenience name for target.
+run_tests: CMakeFiles/run_tests.dir/rule
+.PHONY : run_tests
+
+# codegen rule for target.
+CMakeFiles/run_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\lenni\SET_game_project\Dataset_generation\build\CMakeFiles --progress-num=7,8,9,10,11,12 "Finished codegen for target run_tests"
+.PHONY : CMakeFiles/run_tests.dir/codegen
+
+# clean rule for target.
+CMakeFiles/run_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/clean
+.PHONY : CMakeFiles/run_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

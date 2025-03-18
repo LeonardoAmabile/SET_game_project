@@ -79,7 +79,8 @@ vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn
 
 
 // Function to find all valid SETs in a table
-vector<vector<int>> find_SETs(Table& table, bool print = false) {
+vector<vector<int>> find_SETs(Table& table, bool print, bool bool_version) {
+
     vector<int> firstColumn = table.getColumn(0);  // Get the first column of the table
     vector<int> numCounts = count_elements(firstColumn); // Count occurrences of -1, 0, and 1 in the first column
     int numRows = firstColumn.size(); // Get the number of rows in the table
@@ -94,7 +95,6 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
     indexedColumn = counting_sort(indexedColumn);
 
     vector<vector<int>> validSets; // Vector to store valid SET combinations
-    int validSetCount = 0; // Counter for the number of valid sets found
 
     // Nested loops to find all valid SETs
     for (int i = 0; i < numRows - 2; ++i) {
@@ -120,22 +120,24 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
                 if (indexedColumn[i].first == -1 && indexedColumn[j].first == 1) {
                     continue;
                 }
-
                 k_start = j + 1;                  // Any value could work for `k`
                 k_end = numCounts[0] + numCounts[1]; // `k` can range over all `-1` and `0`
             }
-
             else if (pair_sum == 1) {
                 i++;  // skips to the next row
                 j = i; // Ensures that the cycle starts correctly
                 continue; // Avoid to run the code for useless part
             }
-
     
             // Iterate over the valid range for `k` and check for valid sets
             for (int k = k_start; k < k_end; ++k) {
                 vector<int> combination = {indexedColumn[i].second, indexedColumn[j].second, indexedColumn[k].second};
-                add_valid_set(table, combination, validSets,false); // Add valid set if it forms one
+                add_valid_set(table, combination, validSets, false); // Add valid set if it forms one
+
+                // Stop immediately if bool_version is true and we found a valid set
+                if (bool_version && !validSets.empty()) {
+                    return validSets;
+                }
             }
         }
     }
@@ -145,5 +147,4 @@ vector<vector<int>> find_SETs(Table& table, bool print = false) {
 
     return validSets; // Return the list of valid sets
 }
-
 

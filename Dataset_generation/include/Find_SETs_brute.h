@@ -10,7 +10,8 @@
 
 using namespace std;
 
-vector<vector<int>> brute_force_find_SETs(Table table, bool print = false);
+vector<vector<int>> brute_force_find_SETs(Table table, bool print = false, bool bool_version = false);
+
 
 
 #endif

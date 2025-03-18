@@ -13,7 +13,9 @@
 using namespace std;
 
 // Function to collect data from the user
-void get_input(int& n_cards, int& n_att, int& N_tables) {
+void get_input(int& n_cards, int& n_att, int& N_tables, bool& bool_version) {
+    char choice;
+
     cout << "Enter the number of cards: ";
     cin >> n_cards;
 
@@ -22,6 +24,12 @@ void get_input(int& n_cards, int& n_att, int& N_tables) {
 
     cout << "Enter the number of tables: ";
     cin >> N_tables;
+
+    cout << "Boolean version (Y/n): ";
+    cin >> choice;
+
+    // Convert answer in a boolean
+    bool_version = (choice == 'Y' || choice == 'y');
 }
 
 // Function to print a progress bar
@@ -54,7 +62,7 @@ vector<Table> generate_Tables(int N_tables, int n_cards, int n_att) {
 }
 
 // Function to run the optimized process
-void run_optimized_process(vector<Table> Matrices, bool print_bool) {
+void run_optimized_process(vector<Table> Matrices, bool bool_version) {
     vector<int> SETs_count;
     int total = Matrices.size();
 
@@ -66,17 +74,17 @@ void run_optimized_process(vector<Table> Matrices, bool print_bool) {
     cout << "Finding SETs...\n";
     for (int i = 0; i < total; ++i) {
         Table table = Matrices[i];  // Get the current table
-        vector<vector<int>> SET = find_SETs(table, false);  // Find the SETs using the optimized method
+        vector<vector<int>> SET = find_SETs(table, false, bool_version);  // Find the SETs using the optimized method
         SETs_count.push_back(SET.size());  // Store the number of SETs found
         printProgressBar(i, total); // Print a progress bar for the SET evaluation
     }
     cout << "\n";
     // Save results in a text file with the user-provided values
-    write_data("Data.txt", SETs_count, Matrices, print_bool);
+    write_data("Data.txt", SETs_count, Matrices);
 }
 
 // Function to run the brute-force process
-void run_brute_force_process(vector<Table> Matrices, bool print_bool) {
+void run_brute_force_process(vector<Table> Matrices, bool bool_version) {
     vector<int> SETs_count;
     int total = Matrices.size();
 
@@ -88,13 +96,13 @@ void run_brute_force_process(vector<Table> Matrices, bool print_bool) {
     cout << "Finding SETs in brute force...\n";
     for (int i = 0; i < total; ++i) {
         Table table = Matrices[i];  // Get the current table
-        vector<vector<int>> SET = brute_force_find_SETs(table, false);  // Find the SETs using the brute-force method
+        vector<vector<int>> SET = brute_force_find_SETs(table, false, bool_version);  // Find the SETs using the brute-force method
         SETs_count.push_back(SET.size());  // Store the number of SETs found
         printProgressBar(i, total); // Print a progress bar for the SET evaluation
     }
     cout << "\n";
     // Save results in a text file with the user-provided values
-    write_data("Data_brute_force.txt", SETs_count, Matrices, print_bool);
+    write_data("Data_brute_force.txt", SETs_count, Matrices);
 }
 
 // Function to print the execution time for both processes
@@ -104,30 +112,31 @@ void print_execution_times(chrono::duration<double>& execution_time, const strin
 
 int main() {
     int n_cards, n_att, N_tables;
+    bool bool_version;
 
     // Collect data from the user
-    get_input(n_cards, n_att, N_tables);
+    get_input(n_cards, n_att, N_tables, bool_version);
 
     // Generate the tables (N_tables tables with n_cards and n_att attributes)
     vector<Table> Matrices = generate_Tables(N_tables, n_cards, n_att);
 
     // Measure time for the optimized process
     auto start_opt = chrono::high_resolution_clock::now();
-    run_optimized_process(Matrices, true);
+        run_optimized_process(Matrices, bool_version);
     auto end_opt = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed_opt = end_opt - start_opt;
+    
     print_execution_times(elapsed_opt, "Optimized");
 
     cout << endl << "Done!" << endl; // Indicate that the process is complete
 
     // Measure time for the brute-force process
-    //auto start_brute = chrono::high_resolution_clock::now();
-    //run_brute_force_process(Matrices, true);
-    //auto end_brute = chrono::high_resolution_clock::now();
-    //chrono::duration<double> elapsed_brute = end_brute - start_brute;
-    
+    auto start_brute = chrono::high_resolution_clock::now();
+    run_brute_force_process(Matrices, bool_version);
+    auto end_brute = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed_brute = end_brute - start_brute;
 
-    //print_execution_times(elapsed_brute, "Brute-force");
+    print_execution_times(elapsed_brute, "Brute-force");
 
     return 0;  // Return 0 to indicate successful execution
 }

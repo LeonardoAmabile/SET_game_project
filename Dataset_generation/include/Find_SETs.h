@@ -21,6 +21,6 @@ void add_valid_set(Table& table, const vector<int>& combination, vector<vector<i
 vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn);
 
 // Function to find all valid SETs in a table
-vector<vector<int>> find_SETs(Table& table, bool print = false);
+vector<vector<int>> find_SETs(Table& table, bool print = false, bool bool_version = false);
 
 #endif // SETFUNCTIONS_H
