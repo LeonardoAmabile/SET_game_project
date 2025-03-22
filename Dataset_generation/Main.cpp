@@ -1,3 +1,8 @@
+#define byte win_byte_override
+#include <windows.h>
+#undef byte
+
+
 #include "Table.h"
 #include "Find_SETs.h"
 #include "Write_txt.h"
@@ -18,6 +23,8 @@
 #endif
 
 using namespace std;
+
+
 
 void print_help() {
     cout << "Usage: program_name [options]\n"

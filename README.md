@@ -25,10 +25,24 @@ The algorithm can find all possible SETs within the given *n* cards in a more op
 
 First, you need to generate the dataset. After cloning the repository, run the following commands:  
 
+- In linux:
+
 ```bash
 cd SET_game_project
 cd Dataset_generation
 cmake -B build
+cmake --build build
+./my_program -o
+```
+
+- In Windows:
+
+```bash
+cd SET_game_project
+cd Dataset_generation
+rmdir /s /q build
+mkdir build
+cmake -G "MinGW Makefiles" -B build
 cmake --build build
 ./my_program -o
 ```
