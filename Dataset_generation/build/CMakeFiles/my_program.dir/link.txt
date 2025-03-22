@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/my_program.dir/Main.cpp.o CMakeFiles/my_program.dir/src/Table.cpp.o CMakeFiles/my_program.dir/src/Find_SETs.cpp.o CMakeFiles/my_program.dir/src/Find_SETs_brute.cpp.o CMakeFiles/my_program.dir/src/Write_txt.cpp.o -o ../my_program 

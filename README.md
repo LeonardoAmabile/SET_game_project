@@ -1,4 +1,4 @@
-# SET_game_project
+### SET_game_project
 A programming project about the card game SET.
 
 The SET game consists of identifying in a set of 12 cards a set of three winners. Each card has four attributes that distinguish it from the others:
@@ -30,7 +30,7 @@ cd SET_game_project
 cd Dataset_generation
 cmake -B build
 cmake --build build
-./my_program
+./my_program -o
 ```
 
 You will be asked for 3 inputs:  
@@ -55,7 +55,7 @@ After that, to use this data in a neural network, you need to switch to the **Ne
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 CNN.py ../Dataset_generation/Data.txt
+python3 NN.py ../Dataset_generation/Data.txt
 ```
 
 oppure se si vuole usare la CNN:
@@ -65,3 +65,7 @@ cd SET_game_project
 cd Neural_Network
 python3 CNN.py ../Dataset_generation/Data.txt
 ```
+
+## Requirements
+- compiler g++ 11.4.0
+- cmake version 3.22.1
