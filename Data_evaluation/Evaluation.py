@@ -1,11 +1,11 @@
 import subprocess
 import numpy as np
-import numpy as np
+from math import comb
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import time
-from scipy.stats import binom
+from scipy.stats import binom, chi2
 
 # Configuration
 num_cards = input("Enter the number of cards: ")
@@ -15,7 +15,8 @@ cpp_executable = input("Enter the path to your compiled C++ program: ")
 
 
 def run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable, output_file="data.txt"):
-    """Runs the C++ executable with the required inputs."""
+    """Runs the C++ executable with the required inputs
+    """
     
     input_str = f"{num_cards}\n{num_attributes}\n{num_tables}\nn\n"
     
@@ -59,7 +60,7 @@ def parse_data_file(file_path):
 # Dictionary to store results
 results = {}
 
-for num_cards in range(1, int(num_cards)):  # Loop from 1 to the end
+for num_cards in range(1, int(num_cards)+1):  # Loop from 1 to the end
     print(f"Running for {num_cards} cards...")
     set_counts, prob_no_sets, avg_sets = run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable)
     results[num_cards] = {
@@ -79,60 +80,85 @@ with open("set_results.json", "r") as f:
     results = json.load(f)
 
 
-def plot_histogram(num_cards):
-    """Plots a histogram of the number of sets for a given number of cards
+def plot_histogram(num_cards, num_attributes, num_tables):
+    """Plots a histogram of the number of SETs for a given number of cards,
+    with an overlaid Binomial fit.
     """
     if str(num_cards) not in results:
         print(f"No data found for {num_cards} cards.")
         return
 
     set_counts = results[str(num_cards)]["set_counts"]
-    max_sets = max(set_counts)  # Maximum observed number of sets
+    max_sets = max(set_counts)
 
-    # Plot histogram
+    # Binomial setup
+    n_combinations = comb(num_cards, 3)  # Will act as the "n"
+    mean_sets = np.mean(set_counts)
+    p_est = mean_sets / n_combinations # Estimate of the probability of a SET
+    x_vals = np.arange(0, max_sets + 1)
+    binomial_probs = binom.pmf(x_vals, n_combinations, p_est)
+
+    # Plot the histogram of your data, overlaying the binomial fit
     plt.figure(figsize=(8, 5))
-    plt.hist(set_counts, bins=range(max_sets + 2), align='left', edgecolor="black", alpha=0.7, label="Observed Data")
-    plt.xlabel("Number of Sets")
-    plt.ylabel("Frequency")
-    plt.title(f"Histogram of sets for {num_cards} cards")
+    plt.hist(set_counts, bins=range(max_sets + 1), align='left', edgecolor="black", alpha=0.7, density=True, label="Data")
+    plt.plot(x_vals, binomial_probs, 'ro-', label=f'Binomial Fit (n={n_combinations}, p={p_est:.4f})')
+
+    plt.xlabel("Number of SETs")
+    plt.ylabel("Probability")
+    plt.title(f"Histogram of SETs for {num_cards} cards, with {num_attributes} attributes, {num_tables} tables")
     plt.xticks(range(max_sets + 1))
-    plt.legend()
     plt.grid(axis="y", linestyle="--", alpha=0.7)
+    plt.legend()
+    plt.savefig(f"histogram{num_cards}cards.png")
     plt.show()
 
-def plot_avg_sets():
-    """Plots the average number of SETs vs. the number of cards.
+    # -- Chi-Square Goodness-of-Fit Test --
+    observed_counts, _ = np.histogram(set_counts, bins=range(max_sets + 2))
+    expected_counts = binomial_probs * num_tables
+    chi2_stat = 0.0
+    for k in range(len(observed_counts)):
+        if expected_counts[k] > 0:
+            chi2_stat += (observed_counts[k] - expected_counts[k])**2 / expected_counts[k]
+    dof = (max_sets + 1) - 1 - 1  # = max_sets - 1
+    p_value = 1 - chi2.cdf(chi2_stat, dof)
+
+    print("=== Chi-Square Goodness-of-Fit Test ===")
+    print(f"Chi-square statistic: {chi2_stat:.4f}")
+    print(f"Degrees of freedom:  {dof}")
+    print(f"p-value:            {p_value:.4g}")
+    print("========================================")
+
+def plot_avg_sets(num_attributes, num_tables):
+    """Plots the average number of SETs vs. the number of cards
     """
     num_cards = sorted(int(k) for k in results.keys())
     avg_sets = [results[str(n)]["avg_sets"] for n in num_cards]
 
     plt.figure(figsize=(8, 5))
-    plt.plot(num_cards, avg_sets, marker="o", linestyle="-", color="b")
+    plt.scatter(num_cards, avg_sets, marker="o", linestyle="-", color="b")
     plt.xlabel("Number of cards")
     plt.ylabel("Average number of SETs")
-    plt.title("Average number of SETs vs. number of cards")
+    plt.title(f"Average number of SETs vs. number of cards, with {num_attributes} attributes, {num_tables} tables")
     plt.grid(True, linestyle="--", alpha=0.7)
+    plt.savefig("avg_sets.png")
     plt.show()
 
-def plot_prob_set():
-    """Plots the probability of at least one SET vs. the number of cards.
+def plot_prob_set(num_attributes, num_tables):
+    """Plots the probability of at least one SET vs. the number of cards
     """
     num_cards = sorted(int(k) for k in results.keys())
-    prob_set = [1- results[str(n)]["prob_no_sets"] for n in num_cards]
+    prob_set = [100 - results[str(n)]["prob_no_sets"] for n in num_cards]
 
     plt.figure(figsize=(8, 5))
-    plt.plot(num_cards, prob_set, marker="s", linestyle="-", color="r")
+    plt.scatter(num_cards, prob_set, marker="o", linestyle="-", color="r")
     plt.xlabel("Number of cards")
     plt.ylabel("Probability of at least one SET (%)")
-    plt.title("Probability of at least one SET vs. number of nards")
+    plt.title(f"Probability of at least one SET vs. number of cards, with {num_attributes} attributes, {num_tables} tables")
     plt.grid(True, linestyle="--", alpha=0.7)
+    plt.savefig("prob_set.png")
     plt.show()
 
-# Plot histograms for different numbers of cards
-plot_histogram(num_cards)
-
-# Plot average number of sets vs. number of cards
-plot_avg_sets()
-
-# Plot probability of no sets vs. number of cards
-plot_prob_set()
+# Plot the three graphs:
+plot_histogram(num_cards, num_attributes, num_tables)
+plot_avg_sets(num_attributes, num_tables)
+plot_prob_set(num_attributes, num_tables)
