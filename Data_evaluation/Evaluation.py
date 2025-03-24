@@ -2,6 +2,7 @@ import subprocess
 import matplotlib.pyplot as plt
 import json
 import time
+import numpy as np
 
 # Configuration
 num_cards = input("Enter the number of cards: ")
@@ -87,7 +88,7 @@ def plot_histogram(num_cards, num_attributes, num_tables):
     max_sets = max(set_counts)
 
     plt.figure(figsize=(8, 5))
-    plt.hist(set_counts, bins=range(max_sets + 2), align='left', edgecolor="black", alpha=0.7, density=True)
+    counts, bins= np.histogram(set_counts, bins=range(max_sets + 2), density=True)
 
 
     plt.xlabel("Number of SETs")
@@ -95,7 +96,9 @@ def plot_histogram(num_cards, num_attributes, num_tables):
     plt.title(f"Histogram of SETs for {num_cards} cards, with {num_attributes} attributes, {num_tables} tables")
     plt.xticks(range(max_sets + 2))
     plt.grid(axis="y", linestyle="--", alpha=0.7)
+    plt.scatter(bins[:-1], counts, marker="o", linestyle="-", color="g")
     plt.savefig(f"histogram{num_cards}cards.png")
+    print(bins,counts)
     plt.show()
 
 def plot_avg_sets(num_attributes, num_tables):
