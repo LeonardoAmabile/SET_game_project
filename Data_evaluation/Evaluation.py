@@ -1,11 +1,7 @@
 import subprocess
-import numpy as np
-from math import comb
 import matplotlib.pyplot as plt
 import json
 import time
-from scipy.stats import binom, chi2
-from scipy.optimize import curve_fit
 
 # Configuration
 num_cards = input("Enter the number of cards: ")
@@ -81,8 +77,7 @@ with open("set_results.json", "r") as f:
 
 
 def plot_histogram(num_cards, num_attributes, num_tables):
-    """Plots a histogram of the number of SETs for a given number of cards,
-    with an overlaid Binomial fit.
+    """Plots a histogram of the number of SETs for a given number of cards
     """
     if str(num_cards) not in results:
         print(f"No data found for {num_cards} cards.")
@@ -92,33 +87,17 @@ def plot_histogram(num_cards, num_attributes, num_tables):
     max_sets = max(set_counts)
 
     plt.figure(figsize=(8, 5))
-    hist_values, bin_edges, _ = plt.hist(set_counts, bins=range(max_sets + 2), align='left', edgecolor="black", alpha=0.7, density=True, label="Data")
+    plt.hist(set_counts, bins=range(max_sets + 2), align='left', edgecolor="black", alpha=0.7, density=True)
 
-    def gaussian(x, A, mu, sigma):
-        return A * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2))
-    
-    bin_centers = 0.5 * (bin_edges[:-1] + bin_edges[1:])  # midpoint of each bin
-    p0 = [max(hist_values), np.mean(set_counts), np.std(set_counts)]
-    popt, _ = curve_fit(gaussian, bin_centers, hist_values, p0=p0)
-    A_opt, mu_opt, sigma_opt = popt
 
-    x_fit = np.linspace(bin_edges[0], bin_edges[-1], 200)
-    plt.plot( x_fit, gaussian(x_fit, A_opt, mu_opt, sigma_opt), 'r-', label=f'Gaussian Fit (A={A_opt:.2f}, μ={mu_opt:.2f}, σ={sigma_opt:.2f})')
     plt.xlabel("Number of SETs")
     plt.ylabel("Probability")
     plt.title(f"Histogram of SETs for {num_cards} cards, with {num_attributes} attributes, {num_tables} tables")
     plt.xticks(range(max_sets + 2))
     plt.grid(axis="y", linestyle="--", alpha=0.7)
-    plt.legend()
     plt.savefig(f"histogram{num_cards}cards.png")
     plt.show()
 
-    print("=== Gaussian Fit Results ===")
-    print(f"Amplitude (A):  {A_opt:.4f}")
-    print(f"Mean (μ):       {mu_opt:.4f}")
-    print(f"Std Dev (σ):    {sigma_opt:.4f}")
-    print("============================")
-    print(bin_centers, bin_edges)
 def plot_avg_sets(num_attributes, num_tables):
     """Plots the average number of SETs vs. the number of cards
     """
