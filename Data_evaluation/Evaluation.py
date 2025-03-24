@@ -2,10 +2,10 @@ import subprocess
 import numpy as np
 from math import comb
 import matplotlib.pyplot as plt
-import seaborn as sns
 import json
 import time
 from scipy.stats import binom, chi2
+from scipy.optimize import curve_fit
 
 # Configuration
 num_cards = input("Enter the number of cards: ")
@@ -91,43 +91,34 @@ def plot_histogram(num_cards, num_attributes, num_tables):
     set_counts = results[str(num_cards)]["set_counts"]
     max_sets = max(set_counts)
 
-    # Binomial setup
-    n_combinations = comb(num_cards, 3)  # Will act as the "n"
-    mean_sets = np.mean(set_counts)
-    p_est = mean_sets / n_combinations # Estimate of the probability of a SET
-    x_vals = np.arange(0, max_sets + 1)
-    binomial_probs = binom.pmf(x_vals, n_combinations, p_est)
-
-    # Plot the histogram of your data, overlaying the binomial fit
     plt.figure(figsize=(8, 5))
-    plt.hist(set_counts, bins=range(max_sets + 1), align='left', edgecolor="black", alpha=0.7, density=True, label="Data")
-    plt.plot(x_vals, binomial_probs, 'ro-', label=f'Binomial Fit (n={n_combinations}, p={p_est:.4f})')
+    hist_values, bin_edges, _ = plt.hist(set_counts, bins=range(max_sets + 2), align='left', edgecolor="black", alpha=0.7, density=True, label="Data")
 
+    def gaussian(x, A, mu, sigma):
+        return A * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2))
+    
+    bin_centers = 0.5 * (bin_edges[:-1] + bin_edges[1:])  # midpoint of each bin
+    p0 = [max(hist_values), np.mean(set_counts), np.std(set_counts)]
+    popt, _ = curve_fit(gaussian, bin_centers, hist_values, p0=p0)
+    A_opt, mu_opt, sigma_opt = popt
+
+    x_fit = np.linspace(bin_edges[0], bin_edges[-1], 200)
+    plt.plot( x_fit, gaussian(x_fit, A_opt, mu_opt, sigma_opt), 'r-', label=f'Gaussian Fit (A={A_opt:.2f}, μ={mu_opt:.2f}, σ={sigma_opt:.2f})')
     plt.xlabel("Number of SETs")
     plt.ylabel("Probability")
     plt.title(f"Histogram of SETs for {num_cards} cards, with {num_attributes} attributes, {num_tables} tables")
-    plt.xticks(range(max_sets + 1))
+    plt.xticks(range(max_sets + 2))
     plt.grid(axis="y", linestyle="--", alpha=0.7)
     plt.legend()
     plt.savefig(f"histogram{num_cards}cards.png")
     plt.show()
 
-    # -- Chi-Square Goodness-of-Fit Test --
-    observed_counts, _ = np.histogram(set_counts, bins=range(max_sets + 2))
-    expected_counts = binomial_probs * num_tables
-    chi2_stat = 0.0
-    for k in range(len(observed_counts)):
-        if expected_counts[k] > 0:
-            chi2_stat += (observed_counts[k] - expected_counts[k])**2 / expected_counts[k]
-    dof = (max_sets + 1) - 1 - 1  # = max_sets - 1
-    p_value = 1 - chi2.cdf(chi2_stat, dof)
-
-    print("=== Chi-Square Goodness-of-Fit Test ===")
-    print(f"Chi-square statistic: {chi2_stat:.4f}")
-    print(f"Degrees of freedom:  {dof}")
-    print(f"p-value:            {p_value:.4g}")
-    print("========================================")
-
+    print("=== Gaussian Fit Results ===")
+    print(f"Amplitude (A):  {A_opt:.4f}")
+    print(f"Mean (μ):       {mu_opt:.4f}")
+    print(f"Std Dev (σ):    {sigma_opt:.4f}")
+    print("============================")
+    print(bin_centers, bin_edges)
 def plot_avg_sets(num_attributes, num_tables):
     """Plots the average number of SETs vs. the number of cards
     """
