@@ -1,9 +1,3 @@
-#define byte win_byte_override  // Define a macro to override 'byte' with 'win_byte_override'
-#include <windows.h>  // Include the Windows API headers (for Windows-specific functionality)
-#undef byte  // Undefine the 'byte' macro to avoid conflicts after including windows.h
-
-
-
 #include "Table.h"
 #include "Find_SETs.h"
 #include "Write_txt.h"
@@ -18,7 +12,9 @@
 #include <fstream>
 
 #ifdef _WIN32  // If compiled on Windows platform
-#include <windows.h>  // Include Windows-specific header
+#define byte win_byte_override  // Define a macro to override 'byte' with 'win_byte_override'
+#include <windows.h>  // Include the Windows API headers (for Windows-specific functionality)
+#undef byte  // Undefine the 'byte' macro to avoid conflicts after including windows.h
 #else  // For non-Windows platforms (e.g., Linux/macOS)
 #include <getopt.h>  // Include getopt for argument parsing on Linux/macOS
 #endif
