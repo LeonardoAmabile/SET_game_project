@@ -13,68 +13,68 @@ num_tables = input("Enter the number of tables: ")
 cpp_executable = input("Enter the path to your compiled C++ program: ")
 
 
-# def run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable, output_file="data.txt"):
-#     """Runs the C++ executable with the required inputs
-#     """
+def run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable, output_file="data.txt"):
+    """Runs the C++ executable with the required inputs
+    """
     
-#     input_str = f"{num_cards}\n{num_attributes}\n{num_tables}\nn\n"
+    input_str = f"{num_cards}\n{num_attributes}\n{num_tables}\nn\n"
     
-#     result = subprocess.run(
-#         [cpp_executable],
-#         input=input_str,
-#         text=True,
-#         capture_output=True
-#     )
+    result = subprocess.run(
+        [cpp_executable],
+        input=input_str,
+        text=True,
+        capture_output=True
+    )
     
-#     if result.returncode != 0:
-#         raise RuntimeError(f"Error running C++ program: {result.stderr}")
+    if result.returncode != 0:
+        raise RuntimeError(f"Error running C++ program: {result.stderr}")
 
 #     # Wait a bit to ensure the file is written
-#     time.sleep(0.5)
+    time.sleep(0.5)
 
-#     return parse_data_file(output_file)
+    return parse_data_file(output_file)
 
-# def parse_data_file(file_path):
-#     """Reads the output file and extracts the number of SETs from each table."""
-#     with open(file_path, "r") as file:
-#         lines = file.readlines()
+def parse_data_file(file_path):
+    """Reads the output file and extracts the number of SETs from each table."""
+    with open(file_path, "r") as file:
+       lines = file.readlines()
 
-#     set_counts = []
-#     prob_no_sets = None
-#     avg_sets = None
+    set_counts = []
+    prob_no_sets = None
+    avg_sets = None
 
-#     set_counts_start = lines.index("# Number of SETs in each Table\n") + 2
-#     set_counts = list(map(int, lines[set_counts_start].strip().split()))
+    set_counts_start = lines.index("# Number of SETs in each Table\n") + 2
+    set_counts = list(map(int, lines[set_counts_start].strip().split()))
 
 
-#     for i, line in enumerate(lines):
-#         if line.startswith("# Probability of no SETs:"):
-#             prob_no_sets = float(line.split(":")[1].strip().replace("%", ""))
-#         elif line.startswith("# Average number of SETs:"):
-#             avg_sets = float(line.split(":")[1].strip())
+    for i, line in enumerate(lines):
+        if line.startswith("# Probability of no SETs:"):
+           prob_no_sets = float(line.split(":")[1].strip().replace("%", ""))
+        elif line.startswith("# Average number of SETs:"):
+            avg_sets = float(line.split(":")[1].strip())
 
-#     return set_counts, prob_no_sets, avg_sets
+    return set_counts, prob_no_sets, avg_sets
 
 
 # Dictionary to store results
-# results = {}
+results = {}
 
-# for num_cards in range(1, int(num_cards)+1):  # Loop from 1 to the end
-#     print(f"Running for {num_cards} cards...")
-#     set_counts, prob_no_sets, avg_sets = run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable)
-#     results[num_cards] = {
-#         "set_counts": set_counts,
-#         "prob_no_sets": prob_no_sets,
-#         "avg_sets": avg_sets
-#     }
+for num_cards in range(1, int(num_cards)+1):  # Loop from 1 to the end
+    print(f"Running for {num_cards} cards...")
+    set_counts, prob_no_sets, avg_sets = run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable)
+    results[num_cards] = {
+        "set_counts": set_counts,
+        "prob_no_sets": prob_no_sets,
+        "avg_sets": avg_sets
+    }
 
 # Optional: Save results to a JSON file
-# with open("set_results.json", "w") as f:
-#     json.dump(results, f, indent=4)
+with open("set_results.json", "w") as f:
+    json.dump(results, f, indent=4)
 
-# print("All simulations completed!")
+print("All simulations completed!")
 
-# # Load the saved JSON data
+# Load the saved JSON data
 with open("set_results.json", "r") as f:
     results = json.load(f)
 
@@ -142,25 +142,45 @@ def p(N):
     else:
         return (p(3)*comb(N-1,2)*(1-p(N-1))) + p(N-1)
 
-
 def plot_prob_set(num_attributes, num_tables):
     """Plots the probability of at least one SET vs. the number of cards
     """
     num_cards = sorted(int(k) for k in results.keys())
-    prob_set = np.array([100- results[str(n)]["prob_no_sets"] for n in num_cards])
-
+    prob_set = 0.01 * np.array([100 - results[str(n)]["prob_no_sets"] for n in num_cards])
+    
+    # Errors on the simulated probabilities, assuming binomial distribution
+    var_prob = prob_set * (1 - prob_set) / int(num_tables)
+    std_prob = np.sqrt(var_prob)
+    
+    # Expected probabilities from recursive function p(n)
     expected_prob = np.zeros(len(num_cards))
     for n in num_cards:
-        expected_prob[n-1] = p(n)
+        expected_prob[n - 1] = p(n)
+    
+    # Plots
+    fig, (ax_main, ax_res) = plt.subplots(2, 1, sharex=True, figsize=(8, 6), gridspec_kw={'height_ratios': [4, 1]})
+    ax_main.scatter(num_cards, expected_prob, color='b', marker='.', label='Expected')
+    ax_main.errorbar(num_cards, prob_set, std_prob,color='r', marker='.', linestyle='none', label='Simulated')
 
-    plt.figure(figsize=(8, 5))
-    plt.scatter(num_cards, expected_prob, marker=".", linestyle="-", color="b", label="Expected")
-    plt.scatter(num_cards, 0.01*prob_set, marker=".", linestyle="-", color="r", label="Simulated")
-    plt.legend()
-    plt.xlabel("Number of cards")
-    plt.ylabel("Probability of at least one SET")
-    plt.title(f"Probability of at least one SET vs. number of cards, with {num_attributes} attributes, {num_tables} tables")
-    plt.grid(True, linestyle="--", alpha=0.7)
+    ax_main.set_ylabel("Probability of at least one SET")
+    ax_main.set_title(f"Probability of at least one SET vs. number of cards,\n"f"with {num_attributes} attributes, {num_tables} tables")
+    ax_main.grid(True, linestyle="--", alpha=0.7)
+    ax_main.legend(loc='best')
+
+    # Residuals
+    residuals = prob_set - expected_prob
+    ax_res.errorbar(num_cards, residuals, std_prob, color='black', marker='.', linestyle='none', label='Residuals')
+    ax_res.axhline(0, color='gray', linestyle='--')
+    ax_res.set_ylabel("Residuals")
+    ax_res.set_xlabel("Number of cards")
+    ax_res.grid(True, linestyle="--", alpha=0.7)
+
+    chi2 = np.sum((residuals / std_prob) ** 2)
+    dof = len(num_cards) - 1
+    p_value = 1 - chi2.cdf(chi2, dof)
+    print(f"Chi-squared: {chi2:.2f}, p-value: {p_value:.2f}")
+    
+    plt.subplots_adjust(hspace=0)
     plt.savefig("prob_set.png")
     plt.show()
 
