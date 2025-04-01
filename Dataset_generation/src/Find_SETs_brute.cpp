@@ -8,13 +8,10 @@
 using namespace std;
 
 // Brute force function to find all combinations of 3 rows that satisfy the SET condition.
-vector<vector<int>> brute_force_find_SETs(Table table, bool print)  {
+vector<vector<int>> brute_force_find_SETs(Table table, bool print, bool bool_version) {
     vector<int> firstColumn = table.getColumn(0);
     int numRows = firstColumn.size();
     vector<vector<int>> validSets;
-
-    // Counter for the number of valid combinations
-    int validSetCount = 0;
 
     // Loop through all combinations of three rows
     for (int i = 0; i < numRows - 2; ++i) {
@@ -28,7 +25,6 @@ vector<vector<int>> brute_force_find_SETs(Table table, bool print)  {
                 // Check if they form a SET
                 if (is_valid_set(row1, row2, row3)) {
                     validSets.push_back({i, j, k});
-                    validSetCount++;  // Increment the valid sets counter
                     
                     if (print) {
                         cout << "Brute Valid Set:\n";
@@ -37,6 +33,11 @@ vector<vector<int>> brute_force_find_SETs(Table table, bool print)  {
                         cout << "Card " << k << ": "; table.print_row(k);
                         cout << endl;
                     }
+
+                    // Stop immediately if bool_version is true and we found a valid set
+                    if (bool_version) {
+                        return validSets;
+                    }
                 }
             }
         }
@@ -44,9 +45,10 @@ vector<vector<int>> brute_force_find_SETs(Table table, bool print)  {
 
     // If print is true, print the total number of valid sets found
     if (print) {
-        cout << "Total Valid Sets Found with brute force: " << validSetCount << endl;
+        cout << "Total Valid Sets Found with brute force: " << validSets.size() << endl;
     }
 
     return validSets;
 }
+
 

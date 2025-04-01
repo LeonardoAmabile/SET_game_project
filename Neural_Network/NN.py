@@ -6,6 +6,8 @@ from matplotlib.colors import ListedColormap
 from keras.layers import Input,Dense,Dropout,Flatten
 from keras.models import Model
 from tensorflow.keras.callbacks import EarlyStopping,ReduceLROnPlateau
+from tensorflow.keras.optimizers import Adam
+
 import argparse
 from math import *
 import logging
@@ -67,42 +69,77 @@ def process(file_path):
     logging.info('Shape of the tables: %s', tables.shape)
     return tables,num_sets,num_cards,num_attributes, num_tables
 
+def augment_data(tables, num_sets, max_permutations=5):
+    """Generates augmented data by permuting the tables."""
+    augmented_tables, augmented_num_sets = [], []
+    
+    for i in range(len(tables)):
+        table = tables[i]
+        sets_count = num_sets[i]
+        
+        # Generate a limited number of permutations to avoid redundancy
+        generated = 0
+        stored_permutations = []
+        while generated < max_permutations:
+            permuted_table = np.random.permutation(table)
+            if not any(np.array_equal(permuted_table, p) for p in stored_permutations):
+                stored_permutations.append(permuted_table)
+                augmented_tables.append(permuted_table)
+                augmented_num_sets.append(sets_count)
+                generated += 1
+    
+    return np.array(augmented_tables), np.array(augmented_num_sets)
+
 def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
     """Train a neural network to predict the number of SETs in a table."""
     
-    # Define a deeper network with more neurons and dropout for regularization
-    inputs = Input(shape=(num_cards, num_attributes))
-    hidden = Dense(25, activation='relu')(inputs)
-    hidden = Dropout(0.3)(hidden)  # 30% of neurons randomly disabled
-    hidden = Dense(25, activation='relu')(hidden)
+    inputs = Input(shape=(num_cards, num_attributes))   
+    hidden = Dense(512, activation='relu')(inputs)
     hidden = Dropout(0.3)(hidden)
+    hidden = Dense(256, activation='relu')(hidden)
+    hidden = Dropout(0.3)(hidden)
+    hidden = Dense(128, activation='relu')(hidden)
+    hidden = Dropout(0.3)(hidden)
+    hidden = Dense(56, activation='relu')(hidden)
     outputs = Dense(1)(hidden)
+
     
-    deepmodel = Model(inputs=inputs, outputs=outputs)
-    deepmodel.compile(loss='MSE', optimizer='adam')
-    deepmodel.summary()
+    model = Model(inputs=inputs, outputs=outputs)
+    model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=1e-3))
+    model.summary()
     
-    # Define callbacks, to potentially minimize overfitting
-    #reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-6)
-    #early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+    # Define callbacks
+    callbacks = [
+        ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=10, min_lr=1e-6),
+        EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+    ]
     
-    deephistory = deepmodel.fit(tables, num_sets, validation_split=0.2, epochs=100, batch_size=512, verbose=2)
+    # Train the model
+    history = model.fit(tables, num_sets, validation_split=0.2, epochs=150, batch_size=512, verbose=2, callbacks=callbacks)
     
-    plt.plot(deephistory.history["val_loss"])
-    plt.plot(deephistory.history["loss"])
+    # Check shapes of tables and num_sets
+    print(f"Shape of tables: {tables.shape}")
+    print(f"Shape of num_sets: {num_sets.shape}")
+    
+    
+    # Modifica questa parte
+    plt.plot(history.history["val_loss"])  # 'history' invece di 'model.history'
+    plt.plot(history.history["loss"])     # 'history' invece di 'model.history'
     plt.legend(["val_loss", "loss"])
     plt.show()
+
     
     random_table = random.randint(0, num_tables - 1)
     test_table = tables[random_table]  # Take a random table as a test
     test_table = np.expand_dims(test_table, axis=0)  # Shape becomes (1, num_cards, num_attributes)
     
     # Get prediction
-    predicted_sets = deepmodel.predict(test_table)
+    predicted_sets = model.predict(test_table)
     real_sets = num_sets[random_table]
     
     logging.info("Estimated number of sets: %f", predicted_sets[0][0])
     logging.info("Real number of sets: %f", real_sets)
+
 
 
 _description = 'Neural Network tests'
@@ -111,8 +148,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)
     parser.add_argument('infile', help='path to the input file')
     args = parser.parse_args()
+    
+    # Process input data
     tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
-    train_nn(tables, num_sets, num_cards, num_attributes, num_tables)
+    print(f"Shape of tables: {tables.shape}")
+
+    # Augment data
+    augmented_tables, augmented_sets = augment_data(tables, num_sets)
+    print(f"Shape of augmented tables: {augmented_tables.shape}")
+    
+    # Train the model
+    model = train_nn(augmented_tables, augmented_sets, num_cards, num_attributes, num_tables)
 
 
 
