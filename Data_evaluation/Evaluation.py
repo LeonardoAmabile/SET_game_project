@@ -175,11 +175,6 @@ def plot_prob_set(num_attributes, num_tables):
     ax_res.set_xlabel("Number of cards")
     ax_res.grid(True, linestyle="--", alpha=0.7)
 
-    chi2 = np.sum((residuals / std_prob) ** 2)
-    dof = len(num_cards) - 1
-    p_value = 1 - chi2.cdf(chi2, dof)
-    print(f"Chi-squared: {chi2:.2f}, p-value: {p_value:.2f}")
-    
     plt.subplots_adjust(hspace=0)
     plt.savefig("prob_set.png")
     plt.show()

@@ -106,7 +106,7 @@ def train_nn(tables, num_sets, num_cards, num_attributes, num_tables):
 
 
 
-_description = 'Neural Network tests'
+_description = 'Neural Network'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)
