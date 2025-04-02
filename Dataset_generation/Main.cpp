@@ -35,7 +35,7 @@ void print_help() {
          << "  --optimized-only, -o Run only the optimized algorithm\n"
          << "  --brute-only, -B   Run only the brute-force algorithm\n"
          << "  --full, -f         Run the full process (default)\n"
-         << "  --info, -i         Show info.txt for more details\n"
+         << "  --info, -i         Show info.txt for more details about every section of the code\n"
          << endl;  // End of the help message
 }
 
@@ -244,7 +244,7 @@ int main(int argc, char* argv[]) {
     int n_cards, n_att, N_tables;
     bool bool_version;
     
-    // Flags for various options
+    // Flags for options
     bool run_full = true;
     bool show_tables = false, show_sets = false, show_brute = false, show_info = false;
     bool run_optimized_only = false, run_brute_only = false;
@@ -258,24 +258,47 @@ int main(int argc, char* argv[]) {
     if (show_brute) print_info("brute");
     if (show_info) print_info("info");
     
-    // If no option is selected to run, exit early
+    // If no option is selected, exit early
     if (!run_full && !run_optimized_only && !run_brute_only) return 0;
 
-    // Get the user input for table generation
+    // Get user input for table generation
     get_input(n_cards, n_att, N_tables, bool_version);
     
-    // Generate tables based on the user's input
+    // Generate tables based on user input
     vector<Table> Matrices = generate_Tables(N_tables, n_cards, n_att);
-    
-    // Run optimized SET search if requested
+
+    // Run the optimized process if requested
     if (run_full || run_optimized_only) {
+        // Start measuring time
+        auto start = std::chrono::high_resolution_clock::now();
+
         run_optimized_process(Matrices, bool_version);
+
+        // Calculate the time taken
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+
+        // Print the time taken
+        std::cout << "Execution time for the optimized process: " 
+                  << duration.count() << " seconds." << std::endl;
     }
     
-    // Run brute-force SET search if requested
+    // Run the brute-force process if requested
     if (run_full || run_brute_only) {
+        // Start measuring time
+        auto start = std::chrono::high_resolution_clock::now();
+
         run_brute_force_process(Matrices, bool_version);
+
+        // Calculate the time taken
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+
+        // Print the time taken
+        std::cout << "Execution time for the brute-force process: " 
+                  << duration.count() << " seconds." << std::endl;
     }
     
     return 0;
 }
+
