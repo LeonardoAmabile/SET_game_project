@@ -63,21 +63,29 @@ The tables are represented as vectors consisting exclusively of -1, 0, and 1. Ea
 
 After that, to use this data in a neural network, you need to switch to the **Neural_network** directory, where two different neural networks are available:  
 
-- **NN.py** is a deep neural network (DNN) with densely connected layers.  
+- **DNN.py** is a deep neural network (DNN) with densely connected layers.  
 - **CNN.py** is a convolutional neural network (CNN) that leverages the invariance of the result under row permutations to optimize the learning process.
 
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 NN.py ../Dataset_generation/Data.txt
+python3 DNN.py ../Dataset_generation/Data.txt
 ```
 
-oppure se si vuole usare la CNN:
+Or if you prefer to use the CNN:
 
 ```bash
 cd SET_game_project
 cd Neural_Network
 python3 CNN.py ../Dataset_generation/Data.txt
+```
+
+There is already a training dataset present in the Neural Networks folder, that is used as a robust example of the capabilities of the NN. If this is used, 10000 tables from a separate dataset dataset will be evaluated by the model to test efficiency. To access simply:
+
+```bash
+cd SET_game_project
+cd Neural_Network
+python3 DNN.py ./Training_dataset.txt
 ```
 
 ## Requirements
