@@ -157,6 +157,6 @@ if __name__ == '__main__':
     
     tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
     tables, num_sets = augment_data(tables, num_sets, num_cards, num_attributes, num_tables)
-    model = train_dnn(tables, num_sets, num_cards, num_attributes, num_tables)
+    model = train_cnn(tables, num_sets, num_cards, num_attributes)
     test_cnn(model, tables, num_sets)
 
