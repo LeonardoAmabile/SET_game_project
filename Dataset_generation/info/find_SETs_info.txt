@@ -1,0 +1,50 @@
+----------------------------------------------------------
+### Find_SETs.cpp file ###
+----------------------------------------------------------
+This code includes several functions that work with a `Table` object, and it is used to find all valid "SETs" from a table of data. It includes methods for counting specific elements, checking the validity of a "SET," sorting, and finding valid "SETs." 
+
+1. **Function `count_elements`**
+   - This function takes a vector of integers as input (e.g., a row or a column of the table) and counts the occurrences of three distinct values: `-1`, `0`, and `1`.
+   - It initializes a vector `counts` with three zeros, where:
+     - `counts[0]` holds the count of `-1`,
+     - `counts[1]` holds the count of `0`, and
+     - `counts[2]` holds the count of `1`.
+   - It then iterates over the input vector, and for each element (`-1`, `0`, or `1`), it increments the appropriate count.
+   - Finally, it returns the `counts` vector with the results.
+
+2. **Function `is_valid_set`**
+   - This function checks if three rows from the table form a valid "SET." A valid "SET" follows specific rules:
+     - For each corresponding element in the three rows, the sum of the elements must be either `-3`, `0`, or `3`.
+   - The function iterates through each element of the rows, sums the values, and returns `false` if any of the sums are not `-3`, `0`, or `3`. If all sums are valid, the function returns `true`, indicating the rows form a valid "SET."
+
+3. **Function `add_valid_set`**
+   - This function adds a valid "SET" combination to a list of valid sets and optionally prints the set.
+   - It first checks if the combination of three rows (referenced by indices) forms a valid "SET" using the `is_valid_set` function.
+   - If the combination is valid, it adds the combination (a vector of row indices) to the `validSets` list.
+   - If the `print` flag is `true`, it prints the rows in the valid set using the `print_row` method of the `Table` class.
+
+4. **Function `counting_sort`**
+   - This function performs counting sort on a vector of pairs (`indexedColumn`), where each pair consists of an integer value (either `-1`, `0`, or `1`) and the corresponding row index.
+   - First, it counts the occurrences of `-1`, `0`, and `1` in the `indexedColumn` using the `count_elements` function.
+   - Then, based on these counts, it sorts the pairs, placing `-1` first, followed by `0`, and then `1`. 
+   - It returns the sorted vector of pairs, which helps in efficiently finding valid "SETs" by ensuring the correct order of values (`-1`, `0`, `1`).
+
+5. **Function `find_SETs`**
+   - This function finds all valid "SETs" in the table by checking all possible combinations of rows.
+   - First, it retrieves the first column of the table and counts the occurrences of `-1`, `0`, and `1` in this column using the `count_elements` function.
+   - Then, it creates a vector of pairs (`indexedColumn`), where each pair consists of a value from the first column and its original index.
+   - The `indexedColumn` is then sorted using the `counting_sort` function to ensure the rows are ordered by values `-1`, `0`, and `1`.
+   - The function iterates through all pairs of rows `(i, j)` and calculates the sum of the values of rows `i` and `j` for each element.
+   - Based on the sum of the pair, it determines the valid range for the third row (`k`) that completes the "SET."
+   - It then checks the remaining rows `k` within this valid range and adds any valid "SETs" to the `validSets` list using the `add_valid_set` function.
+   - If the `bool_version` flag is `true`, the function returns as soon as it finds the first valid "SET."
+   - Finally, the function prints the total number of valid "SETs" found (if the `print` flag is `true`) and returns the list of valid sets.
+
+Summary of Workflow:
+--------------------
+1. **Counting Elements**: The `count_elements` function counts occurrences of `-1`, `0`, and `1` in the input data (such as a row or column).
+2. **Valid SET Check**: The `is_valid_set` function checks if three rows form a valid "SET" based on specific conditions for the sum of their corresponding elements.
+3. **Adding Valid SETs**: The `add_valid_set` function adds a valid "SET" to the list and optionally prints it.
+4. **Sorting**: The `counting_sort` function sorts a vector of pairs to organize rows by values `-1`, `0`, and `1`, which helps optimize the search for valid "SETs."
+5. **Finding Valid SETs**: The `find_SETs` function finds all valid "SETs" by iterating over the rows and checking for valid combinations of three rows using the previously defined functions. It handles the sorting and checking efficiently by considering the sum of pairs of rows.
+

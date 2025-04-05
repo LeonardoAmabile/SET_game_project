@@ -23,24 +23,24 @@
 using namespace std;
 
 
-
+//Print help message
 void print_help() {
-    // This function prints the help/usage message when the user requests it via command-line arguments
     cout << "Usage: program_name [options]\n"
          << "Options:\n"
-         << "  --help, -h         Show this help message\n"
-         << "  --tables, -t       Show information about table generation\n"
-         << "  --sets, -s         Show information about optimized SETs search\n"
-         << "  --brute, -b        Show information about brute-force SETs search\n"
-         << "  --optimized-only, -o Run only the optimized algorithm\n"
-         << "  --brute-only, -B   Run only the brute-force algorithm\n"
-         << "  --full, -f         Run the full process (default)\n"
-         << "  --info, -i         Show info.txt for more details about every section of the code\n"
-         << endl;  // End of the help message
+         << "  --help, -h               Show this help message\n"
+         << "  --tables, -t             Show information about Table section\n"
+         << "  --sets, -s               Show information about find_SETs section\n"
+         << "  --brute, -b              Show information about brute_force_find_SETs section\n"
+         << "  --write, -w              Show information about Write_txt.cpp Section\n"
+         << "  --optimized-only, -o     Run only the optimized algorithm\n"
+         << "  --brute-only, -B         Run only the brute-force algorithm\n"
+         << "  --full, -f               Run the full process (default)\n"
+         << endl;
 }
 
 
-void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, bool& show_sets, bool& show_brute, bool& show_info, bool& run_optimized_only, bool& run_brute_only) {
+//Logic to manage the parsing variales
+void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, bool& show_sets, bool& show_brute, bool& show_write, bool& run_optimized_only, bool& run_brute_only) {
     #ifdef _WIN32  // If compiled on Windows, parse arguments this way
         for (int i = 1; i < argc; ++i) {  // Iterate through the command-line arguments
             string arg = argv[i];  // Store each argument as a string
@@ -56,11 +56,11 @@ void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, 
             } else if (arg == "--brute" || arg == "-b") {  // If user asks for info about brute-force SETs search
                 show_brute = true;
                 run_full = false;
-            } else if (arg == "--full" || arg == "-f") {  // If user asks for the full process to run
-                run_full = true;
-            } else if (arg == "--info" || arg == "-i") {  // If user asks to show the contents of info.txt
-                show_info = true;
-                run_full = false;
+            } else if (arg == "--full" || arg == "-f") {  // Fix the missing closing brace here
+    	        run_full = true;
+	    ] else if (arg == "--write" || arg == "-w") {  
+	    	show_write = true; 
+	    	run_full = false;
             } else if (arg == "--optimized-only" || arg == "-o") {  // If user wants to run only the optimized algorithm
                 run_optimized_only = true;
                 run_full = false;
@@ -80,21 +80,21 @@ void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, 
             {"sets", no_argument, 0, 's'},
             {"brute", no_argument, 0, 'b'},
             {"full", no_argument, 0, 'f'},
-            {"info", no_argument, 0, 'i'},
+            {"write", no_argument, 0, 'w'},
             {"optimized-only", no_argument, 0, 'o'},
             {"brute-only", no_argument, 0, 'B'},
             {0, 0, 0, 0}  // End of the options array
         };
         int option_index = 0;  // Initialize the option index for getopt_long
         int c;
-        while ((c = getopt_long(argc, argv, "htsbfioB", long_options, &option_index)) != -1) {  // Parse the arguments
+        while ((c = getopt_long(argc, argv, "htsbfoBw", long_options, &option_index)) != -1) {  // Parse the arguments
             switch (c) {  // Handle different options
                 case 'h': print_help(); exit(0); break;  // Help option
                 case 't': show_tables = true; run_full = false; break;  // Show table generation info
                 case 's': show_sets = true; run_full = false; break;  // Show optimized SET search info
                 case 'b': show_brute = true; run_full = false; break;  // Show brute-force SET search info
                 case 'f': run_full = true; break;  // Run the full process
-                case 'i': show_info = true; run_full = false; break;  // Show info.txt
+                case 'w': show_write = true; run_full = false; break;  // Show write_txt info
                 case 'o': run_optimized_only = true; run_full = false; break;  // Run only the optimized algorithm
                 case 'B': run_brute_only = true; run_full = false; break;  // Run only the brute-force algorithm
                 default: print_help(); exit(1); break;  // Unknown option
@@ -105,40 +105,16 @@ void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, 
     
 
 // Function to display detailed information about specific sections of the program
-void print_info(const string& section) {
-    if (section == "tables") {
-        // Description about table generation
-        cout << "Table generation:\n"
-             << "  - Generates N tables with n_cards and n_att attributes.\n"
-             << "  - Uses random values for initialization.\n"
-             << "  - Shows a progress bar during generation.\n"
-             << endl;
-    } else if (section == "sets") {
-        // Description about the optimized SET search
-        cout << "Optimized SETs search:\n"
-             << "  - Uses an efficient method to find SETs in each table.\n"
-             << "  - Results are saved in Data.txt.\n"
-             << "  - Displays a progress bar.\n"
-             << endl;
-    } else if (section == "brute") {
-        // Description about brute-force SET search
-        cout << "Brute-force SETs search:\n"
-             << "  - Uses an exhaustive search to find SETs.\n"
-             << "  - Results are saved in Data_brute_force.txt.\n"
-             << "  - Displays a progress bar.\n"
-             << endl;
-    } else if (section == "info") {
-        // If the "info" section is requested, read and display the content of info.txt
-        ifstream file("info.txt");
-        if (file.is_open()) {
-            string line;
-            while (getline(file, line)) {
-                cout << line << "\n";
-            }
-            file.close();
-        } else {
-            cout << "Error: Unable to open Info.txt\n";
+void print_file_info(const string& filename) {
+    ifstream file("info/" + filename);
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            cout << line << "\n";
         }
+        file.close();
+    } else {
+        cout << "Error: Unable to open info/" << filename << "\n";
     }
 }
 
@@ -246,17 +222,17 @@ int main(int argc, char* argv[]) {
     
     // Flags for options
     bool run_full = true;
-    bool show_tables = false, show_sets = false, show_brute = false, show_info = false;
+    bool show_tables = false, show_sets = false, show_brute = false, show_write = false;
     bool run_optimized_only = false, run_brute_only = false;
 
     // Parse the command-line arguments
-    parse_arguments(argc, argv, run_full, show_tables, show_sets, show_brute, show_info, run_optimized_only, run_brute_only);
+    parse_arguments(argc, argv, run_full, show_tables, show_sets, show_brute, show_write, run_optimized_only, run_brute_only);
     
     // Show relevant information if requested by the user
-    if (show_tables) print_info("tables");
-    if (show_sets) print_info("sets");
-    if (show_brute) print_info("brute");
-    if (show_info) print_info("info");
+    if (show_tables) print_file_info("Table_info.txt");
+    if (show_sets) print_file_info("find_SETs_info.txt");
+    if (show_brute) print_file_info("find_SETs_brute_info.txt");
+    if (show_write) print_file_info("Write_txt_info.txt");
     
     // If no option is selected, exit early
     if (!run_full && !run_optimized_only && !run_brute_only) return 0;

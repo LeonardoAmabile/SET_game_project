@@ -88,6 +88,14 @@ cd Neural_Network
 python3 DNN.py ./Training_dataset.txt
 ```
 
+If you want to evaluate the model on a pre-created dataset (different from the training dataset) to check the number of errors youcan type:
+
+```bash
+cd SET_game_project
+cd Neural_Network
+python3 DNN.py ./Test_dataset.txt
+```
+
 ## Requirements
 - compiler g++ 11.4.0
 - cmake version 3.22.1

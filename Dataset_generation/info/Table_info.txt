@@ -1,0 +1,64 @@
+----------------------------------------------------------
+### Table.cpp file ###
+----------------------------------------------------------
+This code defines the `Table` class and associated methods for handling a table of data represented as a 2D vector. It supports both automatic generation of random data and the ability to manually define the data. The class also provides various methods for accessing and manipulating the data.
+
+1. **Custom Hash Function for `vector<int>` (VectorHash)**
+   - The `VectorHash` struct is defined with an overloaded `operator()` that provides a custom hash function for vectors of integers.
+   - The hash function converts the values in the vector into ternary digits:
+     - `-1` is converted to `0`,
+     - `0` is converted to `1`, and
+     - `1` is converted to `2`.
+   - The resulting values are then used to compute the hash using base 3 arithmetic.
+
+2. **Constructor for Random Data Generation (`Table::Table(int numCards, int numAttributes)`)**
+   - This constructor initializes the table with randomly generated data. The number of cards (rows) is specified by `numCards`, and the number of attributes (columns) is specified by `numAttributes`.
+   - A check is performed to ensure that the number of cards does not exceed the maximum possible unique combinations (`3^numAttributes`). If the number of cards exceeds this limit, an exception is thrown.
+   - The constructor uses a random number generator to create rows with values `-1`, `0`, or `1`, ensuring that each row is unique by storing them in an `unordered_set`.
+   - Once the required number of unique rows is generated, they are assigned to the `tableData` member variable.
+
+3. **Constructor for Manual Data Initialization (`Table::Table(const vector<vector<int>>& manualData)`)**
+   - This constructor allows initializing the table with manually provided data (2D vector).
+   - The `tableData` member variable is assigned the provided data, and the constructor verifies that all rows have the same number of columns. If any row has a different number of columns, an exception is thrown.
+
+4. **Method to Get a Value at a Specific Row and Column (`Table::getValue(int row, int column) const`)**
+   - This method retrieves the value from the table at the specified `row` and `column`.
+   - If the provided row and column indices are valid, the method returns the value at the corresponding location in the `tableData` matrix.
+   - If the indices are out of bounds, an `out_of_range` exception is thrown.
+
+5. **Method to Print the Entire Table (`Table::printTable() const`)**
+   - This method prints the entire table, row by row.
+   - It iterates over each row and prints the values in that row, followed by a new line.
+
+6. **Method to Get the Table as a Matrix (`Table::getMatrix() const`)**
+   - This method returns the table's data as a 2D vector (`tableData`), which is useful for manipulating or accessing the raw table data.
+
+7. **Method to Print a Specific Row by Its Index (`Table::print_row(int rowidx) const`)**
+   - This method prints the row at the specified index `rowidx`.
+   - It checks if the index is valid and prints the values in the specified row.
+   - If the row index is out of bounds, an `out_of_range` exception is thrown.
+
+8. **Method to Get a Specific Column by Its Index (`Table::getColumn(int columnIdx) const`)**
+   - This method retrieves the values from the specified column (`columnIdx`).
+   - It iterates over all rows, collecting the values from the specified column, and returns them as a vector of integers.
+   - If the column index is invalid, an `out_of_range` exception is thrown.
+
+9. **Method to Get a Specific Row by Its Index (`Table::getRow(int rowIdx) const`)**
+   - This method retrieves the entire row at the specified index `rowIdx`.
+   - It checks if the index is valid, collects the row's values, and returns them as a vector of integers.
+   - If the row index is invalid, an `out_of_range` exception is thrown.
+
+10. **Method to Set a Specific Row at a Given Index (`Table::setRow(int rowIdx, const vector<int>& newRow)`)**
+    - This method allows manually setting the values of a specific row at the specified index `rowIdx`.
+    - It checks if the row index is valid and if the new row has the correct number of columns.
+    - If the new row has a different number of columns from the table, an `invalid_argument` exception is thrown.
+    - Once the checks pass, the row at the specified index is replaced with the new row.
+
+Summary of Workflow:
+--------------------
+1. **Random Data Generation**: If the constructor with random data is used, rows are generated randomly and stored in an `unordered_set` to ensure uniqueness.
+2. **Manual Data Initialization**: If the constructor with manual data is used, the provided 2D vector is stored as `tableData` after validation.
+3. **Accessing Data**: Various methods like `getValue()`, `getRow()`, `getColumn()` allow access to the table’s data by row or column.
+4. **Printing Data**: Methods like `printTable()` and `print_row()` allow printing specific or all rows of the table.
+5. **Modifying Data**: The `setRow()` method allows setting a new row at a specific index.
+6. **Exception Handling**: The code throws exceptions such as `out_of_range` and `invalid_argument` if invalid indices or data are provided.
