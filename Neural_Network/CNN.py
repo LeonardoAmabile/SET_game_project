@@ -91,6 +91,7 @@ def train_cnn(tables, num_sets, num_cards, num_attributes):
     hidden = Dropout(0.3)(hidden)
     hidden = Dense(64, activation='relu')(hidden)
 
+
     outputs = Dense(1, activation='sigmoid')(hidden)  # Binary classification output
 
     model = Model(inputs=inputs, outputs=outputs)

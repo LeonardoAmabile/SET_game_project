@@ -93,7 +93,7 @@ If you want to evaluate the model on a pre-created dataset (different from the t
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 DNN.py ./Test_dataset.txt
+python3 DNN.py ./Testing_dataset.txt
 ```
 
 ## Requirements

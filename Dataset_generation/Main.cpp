@@ -58,7 +58,7 @@ void parse_arguments(int argc, char* argv[], bool& run_full, bool& show_tables, 
                 run_full = false;
             } else if (arg == "--full" || arg == "-f") {  // Fix the missing closing brace here
     	        run_full = true;
-	    ] else if (arg == "--write" || arg == "-w") {  
+	        } else if (arg == "--write" || arg == "-w") {  
 	    	show_write = true; 
 	    	run_full = false;
             } else if (arg == "--optimized-only" || arg == "-o") {  // If user wants to run only the optimized algorithm
@@ -207,11 +207,6 @@ void run_brute_force_process(vector<Table> Matrices, bool bool_version) {
     cout << "\n";
     // Save the results (SET counts and tables) to a text file
     write_data("Data_brute_force.txt", SETs_count, Matrices);
-}
-
-// Function to print the execution time of each process
-void print_execution_times(chrono::duration<double>& execution_time, const string& process_name) {
-    cout << process_name << " execution time: " << execution_time.count() << " seconds\n";
 }
 
 

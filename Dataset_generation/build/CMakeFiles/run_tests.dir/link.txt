@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/run_tests.dir/tests/test.cpp.o CMakeFiles/run_tests.dir/src/Table.cpp.o CMakeFiles/run_tests.dir/src/Find_SETs.cpp.o CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.o CMakeFiles/run_tests.dir/src/Write_txt.cpp.o -o run_tests 
