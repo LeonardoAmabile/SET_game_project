@@ -29,7 +29,7 @@ def run_cpp_program(num_cards, num_attributes, num_tables, cpp_executable, outpu
     if result.returncode != 0:
         raise RuntimeError(f"Error running C++ program: {result.stderr}")
 
-#     # Wait a bit to ensure the file is written
+# Wait a bit to ensure the file is written
     time.sleep(0.5)
 
     return parse_data_file(output_file)
@@ -68,13 +68,12 @@ for num_cards in range(1, int(num_cards)+1):  # Loop from 1 to the end
         "avg_sets": avg_sets
     }
 
-# Optional: Save results to a JSON file
+# Save results to a JSON file
 with open("set_results.json", "w") as f:
     json.dump(results, f, indent=4)
 
 print("All simulations completed!")
 
-# Load the saved JSON data
 with open("set_results.json", "r") as f:
     results = json.load(f)
 
@@ -179,7 +178,7 @@ def plot_prob_set(num_attributes, num_tables):
     plt.savefig("prob_set.png")
     plt.show()
 
-# Plot the three graphs:
+
 plot_bar(num_cards, num_attributes, num_tables)
 plot_avg_sets(num_attributes, num_tables)
 plot_prob_set(num_attributes, num_tables)
