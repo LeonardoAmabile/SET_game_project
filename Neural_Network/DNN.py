@@ -111,7 +111,7 @@ def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
-    plt.savefig("DNN_loss.png")
+    plt.savefig("./Images/DNN_loss.png")
     plt.show()
     
     return model

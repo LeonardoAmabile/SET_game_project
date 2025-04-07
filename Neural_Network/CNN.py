@@ -116,7 +116,7 @@ def train_cnn(tables, num_sets, num_cards, num_attributes):
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.6)
     plt.tight_layout()
-    plt.savefig("CNN_loss.png")
+    plt.savefig("./Images/CNN_loss.png")
     plt.show()
 
     return model
