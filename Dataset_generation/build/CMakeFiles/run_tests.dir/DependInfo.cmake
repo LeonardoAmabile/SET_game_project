@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/jacop/SET_game_project/Dataset_generation/src/Find_SETs.cpp" "CMakeFiles/run_tests.dir/src/Find_SETs.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Find_SETs.cpp.obj.d"
-  "C:/Users/jacop/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp" "CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.obj.d"
-  "C:/Users/jacop/SET_game_project/Dataset_generation/src/Table.cpp" "CMakeFiles/run_tests.dir/src/Table.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Table.cpp.obj.d"
-  "C:/Users/jacop/SET_game_project/Dataset_generation/src/Write_txt.cpp" "CMakeFiles/run_tests.dir/src/Write_txt.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Write_txt.cpp.obj.d"
-  "C:/Users/jacop/SET_game_project/Dataset_generation/tests/test.cpp" "CMakeFiles/run_tests.dir/tests/test.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/tests/test.cpp.obj.d"
+  "C:/Users/lenni/SET_game_project/Dataset_generation/src/Find_SETs.cpp" "CMakeFiles/run_tests.dir/src/Find_SETs.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Find_SETs.cpp.obj.d"
+  "C:/Users/lenni/SET_game_project/Dataset_generation/src/Find_SETs_brute.cpp" "CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Find_SETs_brute.cpp.obj.d"
+  "C:/Users/lenni/SET_game_project/Dataset_generation/src/Table.cpp" "CMakeFiles/run_tests.dir/src/Table.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Table.cpp.obj.d"
+  "C:/Users/lenni/SET_game_project/Dataset_generation/src/Write_txt.cpp" "CMakeFiles/run_tests.dir/src/Write_txt.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/src/Write_txt.cpp.obj.d"
+  "C:/Users/lenni/SET_game_project/Dataset_generation/tests/test.cpp" "CMakeFiles/run_tests.dir/tests/test.cpp.obj" "gcc" "CMakeFiles/run_tests.dir/tests/test.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

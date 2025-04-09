@@ -8,7 +8,6 @@
 #include <unordered_set>
 #include <random>
 #include <chrono>
-#include <thread>
 #include <fstream>
 
 #ifdef _WIN32  // If compiled on Windows platform

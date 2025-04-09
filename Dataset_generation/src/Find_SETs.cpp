@@ -1,4 +1,4 @@
-#include "Table.h"  
+#include "Table.h"  //Includes the Table class
 #include <vector>    
 #include <algorithm> 
 #include <iostream> 
@@ -48,8 +48,9 @@ void add_valid_set(Table& table, const vector<int>& combination, vector<vector<i
     }
 }
 
+//Sorting function for a vector of pairs of values. The sorting is based on the first column that contains only -1, 0 and 1s.
 vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn) {
-    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Vettore per il risultato
+    vector<pair<int, int>> sortedColumn(indexedColumn.size()); // Result vector
 
     // definition of the vector of -1, 0 and 1s in indexed column
     vector<int> values;
@@ -85,7 +86,7 @@ vector<vector<int>> find_SETs(Table& table, bool print, bool bool_version) {
     vector<int> numCounts = count_elements(firstColumn); // Count occurrences of -1, 0, and 1 in the first column
     int numRows = firstColumn.size(); // Get the number of rows in the table
 
-    // Create a vector of pairs, where each pair holds an element of the first column and its index
+    // Create a vector of pairs, where each pair holds an element of the first column (-1, 0 or 1) and its index
     vector<pair<int, int>> indexedColumn;
     for (int i = 0; i < numRows; ++i) {
         indexedColumn.emplace_back(firstColumn[i], i); // Store the value and its original index

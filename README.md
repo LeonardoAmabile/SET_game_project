@@ -44,7 +44,7 @@ rmdir /s /q build
 mkdir build
 cmake -G "MinGW Makefiles" -B build
 cmake --build build
-./my_program -o
+my_program -o
 ```
 
 You will be asked for 3 inputs:  
@@ -53,7 +53,7 @@ You will be asked for 3 inputs:
 - The number of tables to generate  
 - Boolean version (Y/n)  
 
-For applying the dataset to the NNs in the *Neural_network* directory, it is recommended to use **3 cards**, a **small number of attributes (3 or 4)**, a **large number of tables (more than 10,000)**, and set **Boolean version = Y**.  
+For applying the dataset to the NNs in the *Neural_network* directory, it is recommended to use **3 cards**, a **small number of attributes (usually 4)**, a **large number of tables (more than 10,000)**, and set **Boolean version = Y**.  
 
 The "Boolean version" refers to the type of output you want to obtain: either a series of 0s and 1s indicating whether at least one SET is present, or the raw number of SETs present in each table.  
 
@@ -69,7 +69,7 @@ After that, to use this data in a neural network, you need to switch to the **Ne
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 DNN.py ../Dataset_generation/Data.txt
+python3 dnn.py ../Dataset_generation/Data.txt
 ```
 
 Or if you prefer to use the CNN:
@@ -77,15 +77,15 @@ Or if you prefer to use the CNN:
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 CNN.py ../Dataset_generation/Data.txt
+python3 cnn.py ../Dataset_generation/Data.txt
 ```
 
-There is already a training dataset present in the Neural Networks folder, that is used as a robust example of the capabilities of the NN. If this is used, 10000 tables from a separate dataset dataset will be evaluated by the model to test efficiency. To access simply:
+There is already a training dataset present in the Neural Networks folder, that is used as a robust example of the capabilities of the NN. If this is used, 10000 tables from a separate dataset will be evaluated by the model to test efficiency. To access simply:
 
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 DNN.py ./Training_dataset.txt
+python3 dnn.py ./Training_dataset.txt
 ```
 
 If you want to evaluate the model on a pre-created dataset (different from the training dataset) to check the number of errors youcan type:
@@ -93,9 +93,16 @@ If you want to evaluate the model on a pre-created dataset (different from the t
 ```bash
 cd SET_game_project
 cd Neural_Network
-python3 DNN.py ./Testing_dataset.txt
+python3 dnn.py ./Testing_dataset.txt
 ```
 
 ## Requirements
+# Dataset_generation in C++:
 - compiler g++ 11.4.0
 - cmake version 3.22.1
+- gcc (Rev3, Built by MSYS2 project) 13.2.0 (On Windows)
+# Neural_network in Python
+-Python 3.8.10
+-Numpy 1.24.3
+-Matplotlib 3.5.1
+-Keras 2.13.1

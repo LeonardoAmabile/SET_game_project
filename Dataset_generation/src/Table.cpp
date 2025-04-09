@@ -42,7 +42,7 @@ Table::Table(int numCards, int numAttributes) {
     // Logic to generate unique rows for the table
     random_device randomDevice;
     mt19937 generator(randomDevice());
-    uniform_int_distribution<int> distribution(-1, 1); // Random values between -1 and 1
+    uniform_int_distribution<int> distribution(-1, 1); // Random integer values between -1 and 1
 
     // Keep generating rows until the set has the required number of rows
     while (uniqueRows.size() < numRows) {

@@ -6,7 +6,6 @@ reads and augments the data by permuting rows for tables that contain a SET,
 trains a deep neural network to predict if three cards form a SET, 
 and tests the neural network on a seperate dataset
 """
-
 import argparse
 import logging
 import os
@@ -14,11 +13,11 @@ import random
 import time
 import numpy as np
 import matplotlib.pyplot as plt
+from itertools import permutations
 from tensorflow.keras.layers import Input, Dense, Dropout, Flatten
 from tensorflow.keras.models import Model
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.optimizers import Adam
-from itertools import permutations
 
 
 def process(file_path):
@@ -45,33 +44,34 @@ def process(file_path):
         data = file.readlines()
     logging.info('Done opening file.')
 
-    num_cards = int(data[1].split(":")[1].strip())
-    num_attributes = int(data[2].split(":")[1].strip())
-    num_tables = int(data[3].split(":")[1].strip())
+    tmp_num_cards = int(data[1].split(":")[1].strip())
+    tmp_num_attributes = int(data[2].split(":")[1].strip())
+    tmp_num_tables = int(data[3].split(":")[1].strip())
 
     num_sets_start = data.index("# Number of SETs in each Table\n") + 2
-    num_sets = np.array(list(map(int, data[num_sets_start].split())))
+    tmp_num_sets = np.array(list(map(int, data[num_sets_start].split())))
 
     tables_start = data.index("# Tables considered\n") + 2
     table_lines = [line.strip() for line in data[tables_start:] if line.strip()]
 
-    tables = np.array([
+    tmp_tables = np.array([
         [list(map(int, row.split()))
-        for row in table_lines[i:i + num_cards]]
-        for i in range(0, len(table_lines), num_cards)
+        for row in table_lines[i:i + tmp_num_cards]]
+        for i in range(0, len(table_lines), tmp_num_cards)
     ])
 
-    if tables.shape != (num_tables, num_cards, num_attributes):
+    if tmp_tables.shape != (tmp_num_tables, tmp_num_cards, tmp_num_attributes):
         raise ValueError(
-            f"Shape mismatch: expected {(num_tables, num_cards, num_attributes)}, got {tables.shape}"
+            f"Shape mismatch: expected {(tmp_num_tables, tmp_num_cards, tmp_num_attributes)}, \
+                got {tables.shape}"
         )
 
-    return tables, num_sets, num_cards, num_attributes, num_tables
+    return tmp_tables, tmp_num_sets, tmp_num_cards, tmp_num_attributes, tmp_num_tables
 
 def augment_data(tables, num_sets, num_cards, num_attributes, num_tables):
     """
-    Augments the data by generating all permutations of tables with 1 SET and discarding a fraction of
-    all tables with no SETs.
+    Augments the data by generating all permutations of tables with 1 SET and discarding a 
+    fraction of all tables with no SETs.
 
     Parameters:
         tables (np.ndarray): Array of tables.
@@ -127,8 +127,8 @@ def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
     Returns:
         model (tensorflow.keras.models.Model): The trained model.
     """
-    inputs = Input(shape=(num_cards, num_attributes, 1)) 
-    hidden = Flatten()(inputs)  
+    inputs = Input(shape=(num_cards, num_attributes, 1))
+    hidden = Flatten()(inputs)
     hidden = Dense(256, activation='relu')(hidden)
     hidden = Dropout(0.3)(hidden)
     hidden = Dense(128, activation='relu')(hidden)
@@ -137,11 +137,10 @@ def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
     hidden = Dense(64, activation='relu')(hidden)
     outputs = Dense(1, activation='sigmoid')(hidden)
 
-    
     model = Model(inputs=inputs, outputs=outputs)
     model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=1e-3))
     model.summary()
-    
+
     callbacks = [
         ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-6),
         EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
@@ -165,7 +164,7 @@ def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
     plt.tight_layout()
     plt.savefig("./Images/DNN_loss.png")
     plt.show()
-    
+
     return model
 
 def test_dnn(model, test_file_path, num_random=500):
@@ -185,13 +184,26 @@ def test_dnn(model, test_file_path, num_random=500):
     Returns:
         None
     """
-    test_tables, test_num_sets, test_num_cards, test_num_attributes, test_num_tables = process(test_file_path)
-    test_tables, test_num_sets = augment_data(test_tables, test_num_sets, test_num_cards, test_num_attributes, test_num_tables)
-    logging.info(f"\nTesting on {num_random} random tables:")
+    (
+    test_tables,
+    test_num_sets,
+    test_num_cards,
+    test_num_attributes,
+    test_num_tables
+    ) = process(test_file_path)
+
+    test_tables, test_num_sets= augment_data(
+                                            test_tables, test_num_sets,
+                                            test_num_cards, test_num_attributes,
+                                            test_num_tables
+                                            )
+
+    logging.info('\nTesting on "%i" random tables:', num_random)
+
     indices = random.sample(range(len(test_tables)), num_random)
     tables_sample = test_tables[indices]
     num_sets_true = test_num_sets[indices]
-    
+
     start_time = time.time()
     num_sets_pred = model.predict(tables_sample)
     elapsed_time = time.time() - start_time
@@ -213,7 +225,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Deep Neural Network for SET evaluation')
     parser.add_argument('infile', help='path to the input file')
     args = parser.parse_args()
-    
+
     # Process and augment training data
     tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
     tables, num_sets = augment_data(tables, num_sets, num_cards, num_attributes, num_tables)

@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//Brute-force algorithm to find all the possible SETs combinations in a Table
 vector<vector<int>> brute_force_find_SETs(Table table, bool print = false, bool bool_version = false);
 
 
