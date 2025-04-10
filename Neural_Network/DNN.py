@@ -11,9 +11,9 @@ import logging
 import os
 import random
 import time
+from itertools import permutations
 import numpy as np
 import matplotlib.pyplot as plt
-from itertools import permutations
 from tensorflow.keras.layers import Input, Dense, Dropout, Flatten
 from tensorflow.keras.models import Model
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
@@ -63,7 +63,7 @@ def process(file_path):
     if tmp_tables.shape != (tmp_num_tables, tmp_num_cards, tmp_num_attributes):
         raise ValueError(
             f"Shape mismatch: expected {(tmp_num_tables, tmp_num_cards, tmp_num_attributes)}, \
-                got {tables.shape}"
+                got {tmp_tables.shape}"
         )
 
     return tmp_tables, tmp_num_sets, tmp_num_cards, tmp_num_attributes, tmp_num_tables
@@ -110,7 +110,7 @@ def augment_data(tables, num_sets, num_cards, num_attributes, num_tables):
     )
     return filtered_tables, filtered_num_sets
 
-def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
+def train_dnn(tables, num_sets, num_cards, num_attributes):
     """
     Trains a deep neural network (DNN) to predict the number of SETs in a table.
 
@@ -122,7 +122,6 @@ def train_dnn(tables, num_sets, num_cards, num_attributes, num_tables):
         num_sets (np.ndarray): Array of SET counts (binary labels expected).
         num_cards (int): Number of cards per table.
         num_attributes (int): Number of attributes per card.
-        num_tables (int): Total number of tables (used for logging).
 
     Returns:
         model (tensorflow.keras.models.Model): The trained model.
@@ -227,10 +226,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Process and augment training data
-    tables, num_sets, num_cards, num_attributes, num_tables = process(args.infile)
-    tables, num_sets = augment_data(tables, num_sets, num_cards, num_attributes, num_tables)
+    tables_, num_sets_, num_cards_, num_attributes_, num_tables_ = process(args.infile)
+    agu_tables_, agu_num_sets_ = augment_data(
+                                            tables_, num_sets_,
+                                            num_cards_, num_attributes_,
+                                            num_tables_
+                                            )
 
-    model = train_dnn(tables, num_sets, num_cards, num_attributes, num_tables)
+    model = train_dnn(agu_tables_, agu_num_sets_, num_cards_, num_attributes_)
 
     # Optionally, if the training file is the training dataset,
     # run tests on the testing dataset.
