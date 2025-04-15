@@ -79,17 +79,22 @@ def train_cnn(tables, num_sets, num_cards, num_attributes):
     """
 
     inputs = Input(shape=(num_cards, num_attributes, 1))
-    hidden = Conv2D(32, (1, 2), activation='relu', padding='same')(inputs)
+    """
+    hidden = Conv2D(128, (1, 2), activation='relu', padding='same')(inputs)
     hidden = Conv2D(64, (1, 2), activation='relu', padding='same')(hidden)
-    hidden = Conv2D(128, (1, 2), activation='relu', padding='same')(hidden)
+    hidden = Conv2D(32, (1, 2), activation='relu', padding='same')(hidden)
     hidden = MaxPooling2D(pool_size=(1, 2), padding='same')(hidden)
 
     hidden = Flatten()(hidden)
-    hidden = Dense(256, activation='relu')(hidden)
-    hidden = Dropout(0.3)(hidden)
-    hidden = Dense(128, activation='relu')(hidden)
-    hidden = Dropout(0.3)(hidden)
     hidden = Dense(64, activation='relu')(hidden)
+    """
+    hidden = Conv2D(256, (1, 2), activation='relu', padding='same')(inputs)
+    hidden = Conv2D(100, (1, 2), activation='relu', padding='same')(hidden)
+    hidden = Conv2D(32, (1, 2), activation='relu', padding='same')(hidden)
+    hidden = MaxPooling2D(pool_size=(1, 2), padding='same')(hidden)
+
+    hidden = Flatten()(hidden)
+    hidden = Dense(32, activation='relu')(hidden)
 
 
     outputs = Dense(1, activation='sigmoid')(hidden)  # Binary classification output
