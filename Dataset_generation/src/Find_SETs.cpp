@@ -61,7 +61,7 @@ vector<pair<int, int>> counting_sort(const vector<pair<int, int>>& indexedColumn
 
     // Start indices
     int countMinusOnes = 0;             // -1 from position 0
-    int countZeros = counts[0];         // 0 after the 1s
+    int countZeros = counts[0];         // 0 after the -1s
     int countOnes = counts[0] + counts[1]; // 1 after the 0s
 
     // Sort elements in the correct order

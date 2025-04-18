@@ -3,43 +3,79 @@
 ----------------------------------------------------------
 This code includes several functions that work with a `Table` object, and it is used to find all valid "SETs" from a table of data. It includes methods for counting specific elements, checking the validity of a "SET," sorting, and finding valid "SETs." 
 
-1. **Function `count_elements`**
-   - This function takes a vector of integers as input (e.g., a row or a column of the table) and counts the occurrences of three distinct values: `-1`, `0`, and `1`.
-   - It initializes a vector `counts` with three zeros, where:
-     - `counts[0]` holds the count of `-1`,
-     - `counts[1]` holds the count of `0`, and
-     - `counts[2]` holds the count of `1`.
-   - It then iterates over the input vector, and for each element (`-1`, `0`, or `1`), it increments the appropriate count.
-   - Finally, it returns the `counts` vector with the results.
+Function: count_elements
+-------------------------
+Description:
+  Counts the number of occurrences of the values -1, 0, and 1 in an integer vector.
 
-2. **Function `is_valid_set`**
-   - This function checks if three rows from the table form a valid "SET." A valid "SET" follows specific rules:
-     - For each corresponding element in the three rows, the sum of the elements must be either `-3`, `0`, or `3`.
-   - The function iterates through each element of the rows, sums the values, and returns `false` if any of the sums are not `-3`, `0`, or `3`. If all sums are valid, the function returns `true`, indicating the rows form a valid "SET."
+Input:
+  - const vector<int>& input: a vector of integers containing only -1, 0, and 1.
 
-3. **Function `add_valid_set`**
-   - This function adds a valid "SET" combination to a list of valid sets and optionally prints the set.
-   - It first checks if the combination of three rows (referenced by indices) forms a valid "SET" using the `is_valid_set` function.
-   - If the combination is valid, it adds the combination (a vector of row indices) to the `validSets` list.
-   - If the `print` flag is `true`, it prints the rows in the valid set using the `print_row` method of the `Table` class.
+Output:
+  - vector<int>: a vector of three elements [count of -1s, count of 0s, count of 1s].
 
-4. **Function `counting_sort`**
-   - This function performs counting sort on a vector of pairs (`indexedColumn`), where each pair consists of an integer value (either `-1`, `0`, or `1`) and the corresponding row index.
-   - First, it counts the occurrences of `-1`, `0`, and `1` in the `indexedColumn` using the `count_elements` function.
-   - Then, based on these counts, it sorts the pairs, placing `-1` first, followed by `0`, and then `1`. 
-   - It returns the sorted vector of pairs, which helps in efficiently finding valid "SETs" by ensuring the correct order of values (`-1`, `0`, `1`).
+-----------------------
+Function: is_valid_set
+-----------------------
+Description:
+  Checks whether three rows form a valid SET.
+  A SET is valid if, for each column, the sum of the three corresponding values is either 0, 3, or -3 
+  (i.e., all values are either the same or all different).
 
-5. **Function `find_SETs`**
-   - This function finds all valid "SETs" in the table by checking all possible combinations of rows.
-   - First, it retrieves the first column of the table and counts the occurrences of `-1`, `0`, and `1` in this column using the `count_elements` function.
-   - Then, it creates a vector of pairs (`indexedColumn`), where each pair consists of a value from the first column and its original index.
-   - The `indexedColumn` is then sorted using the `counting_sort` function to ensure the rows are ordered by values `-1`, `0`, and `1`.
-   - The function iterates through all pairs of rows `(i, j)` and calculates the sum of the values of rows `i` and `j` for each element.
-   - Based on the sum of the pair, it determines the valid range for the third row (`k`) that completes the "SET."
-   - It then checks the remaining rows `k` within this valid range and adds any valid "SETs" to the `validSets` list using the `add_valid_set` function.
-   - If the `bool_version` flag is `true`, the function returns as soon as it finds the first valid "SET."
-   - Finally, the function prints the total number of valid "SETs" found (if the `print` flag is `true`) and returns the list of valid sets.
+Input:
+  - const vector<int>& row1: first row.
+  - const vector<int>& row2: second row.
+  - const vector<int>& row3: third row.
 
+Output:
+  - bool: true if the three rows form a valid SET, false otherwise.
+
+-------------------------
+Function: add_valid_set
+-------------------------
+Description:
+  Checks if a combination of three rows forms a valid SET.
+  If valid, adds the combination to the list of valid SETs and optionally prints it.
+
+Input:
+  - Table& table: Table object containing the data.
+  - const vector<int>& combination: indices of the three rows to check.
+  - vector<vector<int>>& validSets: reference to the list of valid SETs.
+  - bool print: if true, prints the valid combination found.
+
+Output:
+  - None (modifies validSets and optionally prints).
+
+-------------------------
+Function: counting_sort
+-------------------------
+Description:
+  Performs a stable counting sort on a vector of pairs where the first value is either -1, 0, or 1.
+  Sorts based on the first element of each pair.
+
+Input:
+  - const vector<pair<int, int>>& indexedColumn: vector of (value, index) pairs.
+
+Output:
+  - vector<pair<int, int>>: sorted vector based on values -1, 0, 1.
+
+---------------------
+Function: find_SETs
+---------------------
+Description:
+  Finds all valid combinations of three rows in the table that form a SET.
+  Uses the first column to reduce the number of combinations to check.
+  Optionally prints the results or returns early if a valid SET is found.
+
+Input:
+  - Table& table: Table object to analyze.
+  - bool print: if true, prints the total number of valid SETs found.
+  - bool bool_version: if true, returns as soon as a valid SET is found.
+
+Output:
+  - vector<vector<int>>: list of valid SETs, each represented by a triplet of row indices.
+
+--------------------
 Summary of Workflow:
 --------------------
 1. **Counting Elements**: The `count_elements` function counts occurrences of `-1`, `0`, and `1` in the input data (such as a row or column).

@@ -102,7 +102,7 @@ python3 dnn.py ./Testing_dataset.txt
 - cmake version 3.22.1
 - gcc (Rev3, Built by MSYS2 project) 13.2.0 (On Windows)
 # Neural_network in Python
--Python 3.8.10
--Numpy 1.24.3
--Matplotlib 3.5.1
--Keras 2.13.1
+- Python 3.8.10
+- Numpy 1.24.3
+- Matplotlib 3.5.1
+- Keras 2.13.1
