@@ -201,10 +201,6 @@ CMakeFiles/my_program.dir/Main.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/ratio \
  C:/msys64/ucrt64/include/c++/13.2.0/ctime \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/parse_numbers.h \
- C:/msys64/ucrt64/include/c++/13.2.0/thread \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/std_thread.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/unique_ptr.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/this_thread_sleep.h \
  C:/msys64/ucrt64/include/c++/13.2.0/fstream \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/codecvt.h \
  C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/basic_file.h \
