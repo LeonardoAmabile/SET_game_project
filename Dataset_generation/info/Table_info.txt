@@ -1,0 +1,150 @@
+----------------------------------------------------------
+### Table.cpp file ###
+----------------------------------------------------------
+This code defines the `Table` class and associated methods for handling a table of data represented as a 2D vector. It supports both automatic generation of random data and the ability to manually define the data. The class also provides various methods for accessing and manipulating the data.
+
+---------------------------------
+Function: VectorHash::operator()
+---------------------------------
+Description:
+  Computes a custom hash value for a vector of integers. Converts values into a ternary-like format:
+  -1 → 0, 0 → 1, 1 → 2, then uses base-3 accumulation to compute the hash.
+
+Input:
+  - const vector<int>& vec: vector of integers (containing only -1, 0, 1).
+
+Output:
+  - size_t: unique hash value for the input vector.
+
+----------------------------------------------------
+Constructor: Table(int numCards, int numAttributes)
+----------------------------------------------------
+Description:
+  Initializes the table with randomly generated unique rows. Each row consists of values -1, 0, or 1.
+  Ensures all rows are unique using hashing.
+
+Input:
+  - int numCards: number of rows (cards) to generate.
+  - int numAttributes: number of attributes (columns) per card.
+
+Output:
+  - Constructs and stores a valid table with unique rows.
+  - Throws invalid_argument if numCards exceeds 3^numAttributes.
+
+------------------------------------------------------------
+
+Constructor: Table(const vector<vector<int>>& manualData)
+-----------------------------------------------------------
+Description:
+  Initializes the table using manually provided 2D data.
+  Validates that all rows have the same number of columns.
+
+Input:
+  - const vector<vector<int>>& manualData: 2D vector representing the table.
+
+Output:
+  - Initializes internal table structure.
+  - Throws invalid_argument if rows have inconsistent lengths.
+
+------------------------------------------------
+Method: int getValue(int row, int column) const
+------------------------------------------------
+Description:
+  Returns the value at a specific row and column.
+
+Input:
+  - int row: row index.
+  - int column: column index.
+
+Output:
+  - int: value at [row][column].
+  - Throws out_of_range if indices are invalid.
+
+-------------------------------
+Method: void printTable() const
+-------------------------------
+Description:
+  Prints the entire table to standard output, row by row.
+
+Input:
+  - None
+
+Output:
+  - Prints formatted table to console.
+
+---------------------------------------------
+Method: vector<vector<int>> getMatrix() const
+---------------------------------------------
+Description:
+  Returns the entire table as a 2D vector.
+
+Input:
+  - None
+
+Output:
+  - vector<vector<int>>: copy of the table data.
+
+-----------------------------------------
+Method: void print_row(int rowidx) const
+-----------------------------------------
+Description:
+  Prints the values of a specific row to the console.
+
+Input:
+  - int rowidx: index of the row to print.
+
+Output:
+  - Prints the row values to console.
+  - Throws out_of_range if the index is invalid.
+
+---------------------------------------------------
+Method: vector<int> getColumn(int columnIdx) const
+---------------------------------------------------
+Description:
+  Extracts a specific column from the table.
+
+Input:
+  - int columnIdx: column index to extract.
+
+Output:
+  - vector<int>: values of the specified column.
+  - Throws out_of_range if the index is invalid.
+
+---------------------------------------------
+Method: vector<int> getRow(int rowIdx) const
+---------------------------------------------
+Description:
+  Extracts a specific row from the table.
+
+Input:
+  - int rowIdx: index of the row to extract.
+
+Output:
+  - vector<int>: values of the specified row.
+  - Throws out_of_range if the index is invalid.
+
+------------------------------------------------------------
+
+Method: void setRow(int rowIdx, const vector<int>& newRow)
+-----------------------------------------------------------
+Description:
+  Replaces the contents of a specific row with new values.
+
+Input:
+  - int rowIdx: index of the row to modify.
+  - const vector<int>& newRow: new values for the row.
+
+Output:
+  - Updates the specified row in-place.
+  - Throws out_of_range for invalid index.
+  - Throws invalid_argument if newRow has incorrect number of columns.
+
+--------------------
+Summary of Workflow:
+--------------------
+1. **Random Data Generation**: If the constructor with random data is used, rows are generated randomly and stored in an `unordered_set` to ensure uniqueness.
+2. **Manual Data Initialization**: If the constructor with manual data is used, the provided 2D vector is stored as `tableData` after validation.
+3. **Accessing Data**: Various methods like `getValue()`, `getRow()`, `getColumn()` allow access to the table’s data by row or column.
+4. **Printing Data**: Methods like `printTable()` and `print_row()` allow printing specific or all rows of the table.
+5. **Modifying Data**: The `setRow()` method allows setting a new row at a specific index.
+6. **Exception Handling**: The code throws exceptions such as `out_of_range` and `invalid_argument` if invalid indices or data are provided.

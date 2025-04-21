@@ -1,0 +1,86 @@
+----------------------------------------------------------
+### Find_SETs.cpp file ###
+----------------------------------------------------------
+This code includes several functions that work with a `Table` object, and it is used to find all valid "SETs" from a table of data. It includes methods for counting specific elements, checking the validity of a "SET," sorting, and finding valid "SETs." 
+
+Function: count_elements
+-------------------------
+Description:
+  Counts the number of occurrences of the values -1, 0, and 1 in an integer vector.
+
+Input:
+  - const vector<int>& input: a vector of integers containing only -1, 0, and 1.
+
+Output:
+  - vector<int>: a vector of three elements [count of -1s, count of 0s, count of 1s].
+
+-----------------------
+Function: is_valid_set
+-----------------------
+Description:
+  Checks whether three rows form a valid SET.
+  A SET is valid if, for each column, the sum of the three corresponding values is either 0, 3, or -3 
+  (i.e., all values are either the same or all different).
+
+Input:
+  - const vector<int>& row1: first row.
+  - const vector<int>& row2: second row.
+  - const vector<int>& row3: third row.
+
+Output:
+  - bool: true if the three rows form a valid SET, false otherwise.
+
+-------------------------
+Function: add_valid_set
+-------------------------
+Description:
+  Checks if a combination of three rows forms a valid SET.
+  If valid, adds the combination to the list of valid SETs and optionally prints it.
+
+Input:
+  - Table& table: Table object containing the data.
+  - const vector<int>& combination: indices of the three rows to check.
+  - vector<vector<int>>& validSets: reference to the list of valid SETs.
+  - bool print: if true, prints the valid combination found.
+
+Output:
+  - None (modifies validSets and optionally prints).
+
+-------------------------
+Function: counting_sort
+-------------------------
+Description:
+  Performs a stable counting sort on a vector of pairs where the first value is either -1, 0, or 1.
+  Sorts based on the first element of each pair.
+
+Input:
+  - const vector<pair<int, int>>& indexedColumn: vector of (value, index) pairs.
+
+Output:
+  - vector<pair<int, int>>: sorted vector based on values -1, 0, 1.
+
+---------------------
+Function: find_SETs
+---------------------
+Description:
+  Finds all valid combinations of three rows in the table that form a SET.
+  Uses the first column to reduce the number of combinations to check.
+  Optionally prints the results or returns early if a valid SET is found.
+
+Input:
+  - Table& table: Table object to analyze.
+  - bool print: if true, prints the total number of valid SETs found.
+  - bool bool_version: if true, returns as soon as a valid SET is found.
+
+Output:
+  - vector<vector<int>>: list of valid SETs, each represented by a triplet of row indices.
+
+--------------------
+Summary of Workflow:
+--------------------
+1. **Counting Elements**: The `count_elements` function counts occurrences of `-1`, `0`, and `1` in the input data (such as a row or column).
+2. **Valid SET Check**: The `is_valid_set` function checks if three rows form a valid "SET" based on specific conditions for the sum of their corresponding elements.
+3. **Adding Valid SETs**: The `add_valid_set` function adds a valid "SET" to the list and optionally prints it.
+4. **Sorting**: The `counting_sort` function sorts a vector of pairs to organize rows by values `-1`, `0`, and `1`, which helps optimize the search for valid "SETs."
+5. **Finding Valid SETs**: The `find_SETs` function finds all valid "SETs" by iterating over the rows and checking for valid combinations of three rows using the previously defined functions. It handles the sorting and checking efficiently by considering the sum of pairs of rows.
+

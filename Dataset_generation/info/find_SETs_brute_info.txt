@@ -1,0 +1,59 @@
+----------------------------------------------------------
+### Find_SETs_brute ###
+----------------------------------------------------------
+
+This code defines the function `brute_force_find_SETs` which is used to find all valid combinations of 3 rows in a given table that satisfy a certain "SET" condition. A "SET" is a special condition, and for this function, it is assumed that `is_valid_set()` checks whether three given rows form a valid SET.
+
+Definition:
+-----------
+vector<vector<int>> brute_force_find_SETs(
+    Table table,
+    bool print,
+    bool bool_version
+)
+
+Purpose:
+--------
+Searches for all valid SETs in a given table using a brute-force algorithm. A SET is defined as a triplet of cards (rows) that satisfy the "SET condition" (checked using `is_valid_set`). The function can either return all sets or stop early if a single one is found, depending on `bool_version`.
+
+Parameters:
+-----------
+- Table table  
+  → A `Table` object representing the deck of cards to be analyzed.
+
+- bool print  
+  → If `true`, the function prints out each valid SET found and their respective rows from the table.
+
+- bool bool_version  
+  → If `true`, the function will return immediately after finding the first valid SET (useful for checking existence only).
+
+Returns:
+--------
+- vector<vector<int>>  
+  A list of valid SETs found in the table. Each SET is represented as a vector of 3 integers, which are the row indices of the cards forming that SET.
+
+Algorithm:
+----------
+1. Extracts the number of rows from the table.
+2. Iterates through all unique combinations of 3 different row indices `(i, j, k)` such that `i < j < k`.
+3. For each triplet:
+   - Retrieves the corresponding rows.
+   - Uses `is_valid_set()` to check if they form a valid SET.
+4. If valid:
+   - Adds the triplet `[i, j, k]` to the result list.
+   - Prints the details if `print` is true.
+   - Returns immediately if `bool_version` is true.
+5. After all combinations:
+   - If `print` is true, prints the total number of valid sets found.
+6. Returns all collected valid SETs.
+
+--------------------
+Summary of Workflow:
+--------------------
+1. The function starts by looping through all possible combinations of 3 rows in the table.
+2. For each combination of rows, it checks whether they satisfy the SET condition using `is_valid_set()`.
+3. If a valid set is found, the indices of the rows are stored in `validSets`.
+4. If `print` is true, the function prints the details of each valid set.
+5. If `bool_version` is true, the function exits after finding the first valid set.
+6. Finally, the function returns the vector `validSets`, containing all the valid sets that were found.
+

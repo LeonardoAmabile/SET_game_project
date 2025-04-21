@@ -1,0 +1,72 @@
+----------------------------------------------------------
+### Write_txt.cpp ###
+----------------------------------------------------------
+
+This code defines a function `write_data` that saves information about the results of processing a set of matrices (tables) into a text file. It takes the number of "SETs" found in each table and the matrices themselves as inputs, and writes the following information into a file:
+
+Definition:
+-----------
+void write_data(
+    const string& filename,
+    const vector<int>& SETs_count,
+    const vector<Table>& matrices
+)
+
+Purpose:
+--------
+Writes analysis results and the content of multiple `Table` objects to a `.txt` file. The report includes:
+- General parameters (card/attribute/table count)
+- SETs statistics
+- The contents of each table
+
+Parameters:
+-----------
+- const string& filename  
+  → The name of the output file to be created (e.g., "output.txt").
+
+- const vector<int>& SETs_count  
+  → A list of integers, where each value represents the number of SETs found in a corresponding table.
+
+- const vector<Table>& matrices  
+  → A list of Table objects to be printed to the output file.
+
+Process:
+--------
+1. Opens a file stream to the given filename.
+   - If the file cannot be opened, prints an error and exits the function.
+
+2. Extracts parameters:
+   - Number of tables (N_tables)
+   - Number of cards per table (n_cards)
+   - Number of attributes per card (n_att)
+
+3. Writes metadata to the file:
+   - Number of cards
+   - Number of attributes
+   - Number of tables
+
+4. Writes the number of SETs found in each table as a space-separated list.
+
+5. Calculates:
+   - How many tables had zero SETs.
+   - The probability (percentage) of generating a table with no SETs.
+   - The average number of SETs across all tables.
+
+6. Writes the raw table data:
+   - Each table is printed row by row.
+   - A blank line separates each table.
+
+Output:
+-------
+- A `.txt` file containing all information and matrices.
+- A message printed to the console confirming the file was saved.
+
+-------------
+### Workflow:
+-------------
+1. **Open the File**: The file is opened for writing. If it fails to open, an error message is shown.
+2. **Extract Parameters**: The number of cards (rows), attributes (columns), and tables is written to the file under `# Parameters`.
+3. **Write Number of SETs**: The function writes how many SETs were found in each table.
+4. **Write Statistics**: It calculates and writes the number of tables with 0 SETs, the probability of no SETs, and the average number of SETs.
+5. **Write Matrices**: The matrices are written to the file with rows separated by spaces.
+6. **Close the File**: After writing all data, the file is closed, and a confirmation message is shown on the console.
