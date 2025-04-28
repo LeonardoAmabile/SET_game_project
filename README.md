@@ -15,10 +15,7 @@ First we will generate a table using the vector library in C++, we will create a
 a SET (a winning combination) is present analytically. Applying the algorithm on several randomly generated tables we will create a dataset with which to
 train a NN that can take as input n cards and return an estimate of the probability that this table of n cards contains a SET.
 
-Here’s the translated text in English:  
-
 ---
-
 The algorithm can find all possible SETs within the given *n* cards in a more optimized way than simple brute-force. However, given the computational power available to us, we can only apply the neural network (NN) to 3 cards at a time and check whether they form a SET or not. Future implementations could involve applying the NN to a larger number of cards and detecting the presence of SETs.  
 
 ## **How to Use**  
